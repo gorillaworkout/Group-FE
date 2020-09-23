@@ -12,6 +12,7 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "material-ui-popup-state": "^1.6.1",
+    "@redisrupt/react-responsive-carousel": "^3.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.11.0",
@@ -24,14 +25,19 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "sweetalert2": "^9.17.2",
-    "sweetalert2-react-content": "^3.1.0"
+    "sweetalert2-react-content": "^3.1.0",
+    "react-read-more-less": "^0.1.6",
+    "react-responsive-carousel": "^3.2.9",
+    "react-validation": "^3.0.7",
+    "read-more-react": "^1.0.10",
+    "validator": "^13.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server -p 4000 db.json"
+    "server": "cd server && json-server -p 4000 data.json"
   },
   "eslintConfig": {
     "extends": "react-app"
