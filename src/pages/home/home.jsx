@@ -4,8 +4,14 @@ import './home.css'
 import backgroundHP from '../../assets/hp5.jpg'
 import PopulerHP from '../../assets/populer.jpg'
 import newBrandHP from '../../assets/newbrand.jpg'
+import BG1 from '../../assets/bg1.jpg'
+import BG2 from '../../assets/bg2.jpg'
+import BG3 from '../../assets/bg3.jpg'
+import BG4 from '../../assets/bg-4.jpg'
 import Button from '../../components/button'
 import {SiAdobephonegap} from 'react-icons/si'
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 class Home extends Component {
     state = {  }
     render() { 
@@ -14,20 +20,38 @@ class Home extends Component {
                 <Header/>
                 {/* BACKGROUND HEADER */}
               <div className="home-div">
-                        <div className="img-1">
-                            <img src={backgroundHP} alt="error" width="100%"/>
-                        </div>  
+              <div style={{width: "60%",height: '90vh',marginLeft:'280px',backgroundColor:'red',height:'350px'}}>
+                    {/* <img src={Homescreen} width='100%' height='100%'></img> */}
+                    <Carousel autoPlay showStatus={false} showIndicators={false} showThumbs={false} infiniteLoop={true}>
+                    <div className="background">
+                        <img src={backgroundHP} width="100%" height="355px"/>
+                        <p>PURWA STORE</p>
+                        {/* <p className="legend">Legend 1</p> */}
+                    </div>
+                    <div className="background">
+                        <img src={BG2} width="100%" height="355px"/>
+                        {/* <p className="legend">Legend 2</p> */}
+                    </div>
+                    <div className="background" >
+                        <img src={BG3} width="100%" height="355px"/>
+                        {/* <p className="legend">Legend 3</p> */}
+                    </div>
+                    </Carousel>
+                </div>
 
+
+
+ 
                  {/* BUTTON TRADE */}
               <div className="trade-div">
                 <div className="trade-1">
-                    <Button>Trade Center</Button>
+                    <Button className="btn-trade">Trade Center</Button>
                 </div>
                 <div className="trade-1">
-                    <Button>Trade HP Bekas</Button>
+                    <Button className="btn-trade">Trade HP Bekas</Button>
                 </div>
                 <div className="trade-1">
-                    <Button>Service Center</Button>
+                    <Button className="btn-trade">Service Center</Button>
                 </div>
               </div>
 
@@ -45,7 +69,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                   <div className=" ins-populer">
@@ -54,7 +78,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop"> LIHAT</button>
                     </div>
                   </div >
                   <div className=" ins-populer">
@@ -63,7 +87,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                   <div className=" ins-populer">
@@ -72,7 +96,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                   <div className=" ins-populer">
@@ -81,7 +105,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                 </div>  
@@ -129,7 +153,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                   <div className=" ins-populer">
@@ -147,7 +171,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                   <div className=" ins-populer">
@@ -156,7 +180,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                 </div>  
@@ -184,7 +208,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                   <div className=" ins-populer">
@@ -193,7 +217,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div >
                   <div className=" ins-populer">
@@ -202,7 +226,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                   <div className=" ins-populer">
@@ -211,7 +235,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div>
                 </div>  
