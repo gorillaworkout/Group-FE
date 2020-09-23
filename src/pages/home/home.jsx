@@ -138,7 +138,7 @@ class Home extends Component {
                         <p>SAMSUNG</p>
                         <p style={{fontSize:'15px'}}>Harga:</p>
                         <p>RP.1.000.000</p>
-                        <button>LIHAT</button>
+                        <button className="btn-pop">LIHAT</button>
                     </div>
                   </div >
                   <div className=" ins-populer">

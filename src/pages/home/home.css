@@ -97,6 +97,7 @@
 }
 .pop-word-button:hover{
     color:white;
+    background-color: white;
 }
 
 
@@ -107,6 +108,9 @@
 .div-btn button{
     margin-left:50px;
     
+}
+.btn-pop:hover{
+    color:white;
 }
 
 .ins-btn{
