@@ -131,3 +131,23 @@
 }
 
 
+.box-5-biggest{
+    display:flex;
+    justify-content: center;
+    /* align-items: center; */
+    margin-top:100px;    
+}
+.box-5-kecil {
+    margin-left:50px;
+    color:#2d3b55;
+}
+
+.footerbottom {
+    background-color:#2d3b55;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:30px;
+    color:white;
+}
