@@ -1,16 +1,16 @@
-"bayu"{
+{
     "products" : [
         {
             "id": 1,
             "merk": "apple",
             "type": "iphoneX",
-            "harga" : "ceban"
+            "harga" : "500000"
         },
         {
             "id": 2,
             "merk": "samsung",
             "type": "S20-ultra",
-            "harga" : "pego"
+            "harga" : "10000000"
         }
     ]
 }
