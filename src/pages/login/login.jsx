@@ -49,6 +49,18 @@ class Login extends Component {
         var username = username.current.value
         var password = password.current.value
         console.log(username, password)
+        Axios.get((`${API_URL}/users?username=${username}&password=${password}`))
+        .then((res)=>{
+            console.log(res.data)
+            if(res.data.length){
+                this.props.LoginFunc(res.data[0])
+            }else{
+                alert('username/password salah')
+            }
+        }).catch((err)=>{
+            console.log(err)
+        })
+
     }
 
     render() { 
@@ -59,7 +71,7 @@ class Login extends Component {
         // }
         return(
             <div className='m-0 p-0'>
-                <div className='container m-0 p-0' style={{height:'100vh', width:'100%'}}>
+                <div className='gambar m-0 p-0' style={{height:'100vh', width:'100%'}}>
                     <img width='100%' height='100%' style={{objectFit:'cover', objectPosition:'center'}} src={Foto} alt="foto"/>
                     <div className='login-kotak d-flex px-4' style={{width:'40%', height:'55%', backgroundColor:'white'}}>
                         <div className='d-flex justify-content-center'>
@@ -95,10 +107,10 @@ class Login extends Component {
     }
 }
  
-// const Mapstatetoprops=(state)=>{
-//     return {
-//         Auth: state.Auth
-//     }
-// }
-export default withStyles(Styles) (Login)
-// export default withStyles(Styles) (connect(Mapstatetoprops,{LoginFunc}) (Login))
+const Mapstatetoprops=(state)=>{
+    return {
+        Auth: state.Auth
+    }
+}
+export default withStyles(Styles) (connect(Mapstatetoprops,{LoginFunc}) (Login))
+// export default withStyles(Styles) (Login)
