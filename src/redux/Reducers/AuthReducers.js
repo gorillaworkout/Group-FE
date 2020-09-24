@@ -13,6 +13,6 @@ export default (state = INITIAL_STATE, action)=>{
         case 'LOGIN':
             return {...state, ...action.payload}
         default:
-            break;
+            return state
     }
 }
