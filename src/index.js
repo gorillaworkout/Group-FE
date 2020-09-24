@@ -11,11 +11,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store = {createStore(Reducers, {})}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    {/* <Provider store = {createStore(Reducers, {})}>
-    </Provider> */}
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
