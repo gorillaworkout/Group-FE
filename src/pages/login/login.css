@@ -1,0 +1,23 @@
+.login-kotak{
+    border: 5px whitesmoke solid;
+    width: 50%;
+    height: 40%;
+    border-radius: 20px;
+    color: whitesmoke;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+/* div{
+    border: 1px solid red;
+} */
