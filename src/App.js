@@ -1,25 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header'
+import {Switch,Route} from 'react-router-dom'
+import Home from './pages/home/home'
+import Login from './pages/login/login'
+import Register from './pages/register/register'
+import Particles from 'react-particles-js'
+const particleOptions = {
+  particles:{
+    number:{
+      value:90,
+      density:{
+        enable:true,
+        value_area:700
+      }
+    }
+  }
+}
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Switch>
+      {/* <Header/> */}
+      <Route exact path='/' component={Home}>
+        {/* <Particles className='particles' params={particleOptions}/> */}
+      </Route>
+        <Route exact path='/login' component={Login}>
+      {/* <Particles className='particles' params={particleOptions}/> */}
+      </Route>
+      <Route exact path='/register' component={Register}>
+        {/* <Particles className='particles' params={particleOptions}/> */}
+      </Route>
+      
+    </Switch>
+     
+    
+    </>
   );
 }
 
