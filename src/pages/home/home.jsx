@@ -12,6 +12,8 @@ import Button from '../../components/button'
 import {SiAdobephonegap} from 'react-icons/si'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {Link} from 'react-router-dom'
+
 import { API_URL } from '../../helpers/apiUrl';
 import Axios from 'axios'
 
@@ -38,6 +40,7 @@ class Home extends Component {
        return this.state.product.map((val,index)=>{
          return (
           <div key ={val.id}className=" ins-populer">
+            <Link to={'/detailproduct/'+val.id}>
             <img src={val.gambar} alt="error" width="100%" height="200px"/>
             <div className="pop-word">
                 <p>{val.namaHp}</p>
@@ -45,6 +48,7 @@ class Home extends Component {
                 <p>RP.{val.harga}</p>
                 <button className="btn-pop">LIHAT</button>
             </div>
+            </Link>
         </div>
          )
        })
