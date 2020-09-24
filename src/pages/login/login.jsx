@@ -53,7 +53,9 @@ class Login extends Component {
         .then((res)=>{
             console.log(res.data)
             if(res.data.length){
-                this.props.LoginFunc(res.data[0])
+                alert('sukses login')
+                localStorage.setItem('id', res.data[0].id)
+                this.props.LoginFunc(res.data)
             }else{
                 alert('username/password salah')
             }
@@ -66,9 +68,9 @@ class Login extends Component {
     render() { 
         const {classes} = this.props;
         console.log(this.props.Auth)
-        // if(this.props.Auth.isLogin){
-        //     return <Redirect to='/'/>
-        // }
+        if(this.props.Auth.isLogin){
+            return <Redirect to='/'/>
+        }
         return(
             <div className='m-0 p-0'>
                 <div className='gambar m-0 p-0' style={{height:'100vh', width:'100%'}}>

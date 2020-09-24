@@ -2,7 +2,7 @@ const INITIAL_STATE = {
     id: 0,
     username: '',
     password: '',
-    emailL: '',
+    email: '',
     isLogin: '',
     isLoading: '',
     error: ''
@@ -11,8 +11,8 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action)=>{
     switch (action.type) {
         case 'LOGIN':
-            return {...state, ...action.payload}
+            return {...state, ...action.payload, isLogin: true, isLoading: false}
         default:
-            break;
+            return state
     }
 }
