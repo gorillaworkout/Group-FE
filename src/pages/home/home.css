@@ -78,13 +78,13 @@
 
 .div-1-populer p{
     font-size:30px;
-    margin-left:50px;
+    margin-left:30px;
 }
 .ins-populer{
     /* background-color:red; */
     border:2px solid gray;
     width:200px;
-    margin-left:50px;
+    margin-left:30px;
     margin-right:50px;
     height:320px;
     display:flex;
@@ -166,6 +166,10 @@
 .box-5-kecil {
     margin-left:50px;
     color:#2d3b55;
+}
+.box-5-kecil p:hover{
+    color:#74b9ff;
+    cursor: pointer;
 }
 
 .footerbottom {

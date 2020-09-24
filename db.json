@@ -28,7 +28,8 @@
   "Products":[
     {
       "id":1,
-      "namaHp":"OPPO A37 16gb Gold",
+      "merk":"oppo",
+      "namaHp":"OPPO A37 ",
       "harga":930000,
       "unit":2,
       "viewer":0,
@@ -48,7 +49,8 @@
     },
     {
       "id":2,
-      "namaHp":"Samsung Galaxy S9 plus 64GB",
+      "merk":"Samsung",
+      "namaHp":"Samsung Galaxy S9",
       "harga":3440000,
       "unit":2,
       "viewer":0,
@@ -68,7 +70,8 @@
     },
     {
       "id":3,
-      "namaHp":"Apple Iphone 6 64gb",
+      "merk":"Apple",
+      "namaHp":"Iphone 6 64gb",
       "harga":190000,
       "unit":5,
       "viewer":0,
@@ -86,7 +89,8 @@
     },
     {
       "id":4,
-      "namaHp":"Apple Iphone XS 64gb",
+      "merk":"Apple",
+      "namaHp":" Iphone XS 64gb",
       "harga":850000,
       "unit":5,
       "viewer":0,
@@ -104,7 +108,8 @@
     },
     {
       "id":5,
-      "namaHp":"Apple Iphone XR 128gb",
+      "merk":"Apple",
+      "namaHp":" Iphone XR 128gb",
       "harga":190000,
       "unit":2,
       "viewer":0,

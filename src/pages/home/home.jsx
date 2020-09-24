@@ -12,9 +12,47 @@ import Button from '../../components/button'
 import {SiAdobephonegap} from 'react-icons/si'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { API_URL } from '../../helpers/apiUrl';
+import Axios from 'axios'
+
+
+
+
 class Home extends Component {
-    state = {  }
+
+    state = { 
+      product:[]
+     }
+
+     componentDidMount(){
+       Axios.get(`${API_URL}/products`)
+       .then((res)=>{
+          console.log(res.data)
+          this.setState({product:res.data})
+       }).catch((err)=>{
+         console.log(err)
+       })
+     }
+
+     renderTable=()=>{
+       return this.state.product.map((val,index)=>{
+         return (
+          <div key ={val.id}className=" ins-populer">
+            <img src={val.gambar} alt="error" width="100%" height="200px"/>
+            <div className="pop-word">
+                <p>{val.namaHp}</p>
+                <p style={{fontSize:'15px'}}>Harga:</p>
+                <p>RP.{val.harga}</p>
+                <button className="btn-pop">LIHAT</button>
+            </div>
+        </div>
+         )
+       })
+     }
+
     render() { 
+
+      console.log(this.state.product)
         return ( 
             <div>
                 <Header/>
@@ -37,7 +75,7 @@ class Home extends Component {
                         {/* <p className="legend">Legend 3</p> */}
                     </div>
                     </Carousel>
-                </div>
+              </div>
 
 
 
@@ -63,51 +101,7 @@ class Home extends Component {
                       <p style={{fontSize:'12px',marginTop:'-13px'}}>No Need Confused! Just Choost Which One You Want!</p>
                 </div>
                 <div className="d-flex">
-                  <div className=" ins-populer">
-                    <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                    <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
-                  <div className=" ins-populer">
-                  <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop"> LIHAT</button>
-                    </div>
-                  </div >
-                  <div className=" ins-populer">
-                  <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
-                  <div className=" ins-populer">
-                  <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
-                  <div className=" ins-populer">
-                  <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
+                  {this.renderTable()}
                 </div>  
               </div>
 
@@ -147,42 +141,7 @@ class Home extends Component {
                         </div>
                        
                     </div>
-                  <div className=" ins-populer">
-                    <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                    <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
-                  <div className=" ins-populer">
-                  <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div >
-                  <div className=" ins-populer">
-                  <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
-                  <div className=" ins-populer">
-                  <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
+                  {this.renderTable()}
                 </div>  
               </div>
               {/* prodiuct terbaru */}
@@ -197,47 +156,11 @@ class Home extends Component {
                         <div className="ins-btn2">
                             {/* <button>All Handphone</button> */}
                             
-                           <img src={newBrandHP} alt=""width="170px" height="300px"/>
+                           <img src={newBrandHP} alt=""width="150px" height="300px"/>
                         </div>
-                    
-                       
                     </div>
-                  <div className=" ins-populer">
-                    <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                    <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
-                  <div className=" ins-populer">
-                    <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div >
-                  <div className=" ins-populer">
-                  <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
-                  <div className=" ins-populer">
-                  <img src={PopulerHP} alt="error" width="100%" height="200px"/>
-                  <div className="pop-word">
-                        <p>SAMSUNG</p>
-                        <p style={{fontSize:'15px'}}>Harga:</p>
-                        <p>RP.1.000.000</p>
-                        <button className="btn-pop">LIHAT</button>
-                    </div>
-                  </div>
+                    {this.renderTable()}
+                  
                 </div>  
               </div>
 
