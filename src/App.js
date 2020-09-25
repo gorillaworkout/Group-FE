@@ -32,12 +32,14 @@ function App(props) {
     if (id){
       Axios.get(`${API_URL}/users/${id}`)
       .then((res)=>{
-        props.LoginFunc(res.data)
+        props.LoginFunc(res.data) // untuk keep login
       }).catch((err)=>{
         console.log(err)
       }).finally(()=>{
         setLoading(false)
       })
+    }else{
+      setLoading(false)
     }
   },[])
 
