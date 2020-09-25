@@ -71,7 +71,7 @@ function App(props) {
 
 const Mapstatetoprops=({Auth})=>{
   return {
-      ...Auth, role: Auth.role
+      ...Auth
   }
 }
 
