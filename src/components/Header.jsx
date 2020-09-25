@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import {HOME_URL} from './../helpers/apiUrl'
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff'
 import {Link,NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -54,8 +55,9 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const logoutbtn = () => {  
     console.log('logout')
     localStorage.removeItem('id')
+    window.location.assign(`${HOME_URL}`)
 
-    LogoutFunc()
+    // LogoutFunc()
     toast('Logout Berhasil', {
       position: "top-left",
       autoClose: 2000,
@@ -127,7 +129,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
             isLogin?
             <>
               <Button color="inherit" onClick={(e)=>setopen2(e.currentTarget)}>
-              <StyledBadge badgeContent={cart.length} color='secondary' >
+              <StyledBadge badgeContent={2} color='secondary' >
                   <span style={{fontSize:20}}>
                     <FaCartArrowDown />
                   </span>
@@ -141,7 +143,8 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                 onClose={()=>setopen2(null)}> 
   
                 <Link to='/cart'>
-                  <MenuItem >
+                  <MenuItem>Lihat Cart</MenuItem>
+                  {/* <MenuItem >
                   {
                     cart.length?
                      <div className="d-flex">
@@ -157,8 +160,8 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                     <MenuItem>Lihat Cart</MenuItem>
 
                   }
-                 {/* {renderCart()} */}
-                  </MenuItem>
+                 {renderCart()}
+                  </MenuItem> */}
                   
                 </Link>
               
@@ -215,11 +218,11 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   );
 }
 
-// const MapstatetoProps=({Auth})=>{
-//   return {
-//     ...Auth
-//   }
-// }
-// export default connect(MapstatetoProps,{LogoutFunc})(ButtonAppBar);
-export default ButtonAppBar
+const MapstatetoProps=({Auth})=>{
+  return {
+    ...Auth
+  }
+}
+export default connect(MapstatetoProps)(ButtonAppBar);
+// export default ButtonAppBar
 
