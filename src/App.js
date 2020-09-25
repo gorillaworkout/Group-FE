@@ -13,6 +13,10 @@ import Particles from 'react-particles-js'
 import {connect} from 'react-redux'
 import Axios from 'axios';
 import { API_URL } from './helpers/apiUrl';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css' 
+
+toast.configure()
 const particleOptions = {
   particles:{
     number:{

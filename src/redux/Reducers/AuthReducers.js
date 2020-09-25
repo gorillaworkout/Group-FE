@@ -3,15 +3,32 @@ const INITIAL_STATE = {
     username: '',
     password: '',
     email: '',
-    isLogin: '',
-    isLoading: '',
-    error: ''
+    isLogin: false,
+    isLoading: false,
+    error: '',
+    cart:[]
 }
 
 export default (state = INITIAL_STATE, action)=>{
     switch (action.type) {
         case 'LOGIN':
-            return {...state, ...action.payload, isLogin: true, isLoading: false}
+            return {...state, ...action.payload, isLogin: true, isLoading: false,cart:action.cart}
+        
+        case 'LOGOUT':
+            return {INITIAL_STATE} 
+
+        case 'LOADING':
+            return {...state, isLoading:true}
+        
+        case 'Error':
+            return {...state,error:action.payload,isLoading:false}
+        
+        case 'CLEAR':
+            return {...state,cart:action.cart}
+        
+        case 'CART':
+            return {...state,cart2:action.payload}
+
         default:
             return state
     }
