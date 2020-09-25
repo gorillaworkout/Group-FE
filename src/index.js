@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import Reducers from './redux/Reducers'
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom'
+import Thunk from 'redux-thunk'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store = {createStore(Reducers, {})}>
+    <Provider store = {createStore(Reducers, {}, applyMiddleware(Thunk))}>
       <BrowserRouter>
         <App />
       </BrowserRouter>

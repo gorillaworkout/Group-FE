@@ -10,7 +10,7 @@ import Axios from 'axios'
 import { Alert } from 'reactstrap';
 import {connect} from 'react-redux';
 import {Redirect, Link} from 'react-router-dom'
-import {LoginFunc} from './../../redux/Actions/'
+import {LoginFunc, LoginThunk} from './../../redux/Actions/'
 
 const Styles={
     root:{
@@ -49,26 +49,29 @@ class Login extends Component {
         var username = username.current.value
         var password = password.current.value
         console.log(username, password)
-        Axios.get((`${API_URL}/users?username=${username}&password=${password}`))
-        .then((res)=>{
-            console.log(res.data)
-            if(res.data.length){
-                this.props.LoginFunc(res.data[0])
-            }else{
-                alert('username/password salah')
-            }
-        }).catch((err)=>{
-            console.log(err)
-        })
+        this.props.LoginThunk(username, password)
+        // Axios.get((`${API_URL}/users?username=${username}&password=${password}`))
+        // .then((res)=>{
+        //     console.log(res.data)
+        //     if(res.data.length){
+        //         alert('sukses login')
+        //         localStorage.setItem('id', res.data[0].id)
+        //         this.props.LoginFunc(res.data)
+        //     }else{
+        //         alert('username/password salah')
+        //     }
+        // }).catch((err)=>{
+        //     console.log(err)
+        // })
 
     }
 
     render() { 
         const {classes} = this.props;
         console.log(this.props.Auth)
-        // if(this.props.Auth.isLogin){
-        //     return <Redirect to='/'/>
-        // }
+        if(this.props.Auth.isLogin){
+            return <Redirect to='/'/>
+        }
         return(
             <div className='m-0 p-0'>
                 <div className='gambar m-0 p-0' style={{height:'100vh', width:'100%'}}>
@@ -112,5 +115,5 @@ const Mapstatetoprops=(state)=>{
         Auth: state.Auth
     }
 }
-export default withStyles(Styles) (connect(Mapstatetoprops,{LoginFunc}) (Login))
+export default withStyles(Styles) (connect(Mapstatetoprops,{LoginFunc, LoginThunk}) (Login))
 // export default withStyles(Styles) (Login)
