@@ -5,6 +5,7 @@ import Header from '../../components/Header'
 import backgroundHP from '../../assets/hp5.jpg'
 import './detailProd.css'
 import {FcCheckmark} from 'react-icons/fc'
+import {FaEye} from 'react-icons/fa'
 import newBrandHP from '../../assets/newbrand.jpg'
 import {Link} from 'react-router-dom'
 class DetailProduct extends Component {
@@ -59,7 +60,11 @@ class DetailProduct extends Component {
                                     <p>RP.1.0000.000</p>
                                 </div>
                                 <div className="sisa-unit">
-                                    <p> Sisa 1 Unit</p>
+                                    <div style={{backgroundColor:'red'}}>
+                                        <p> Sisa 1 Unit</p>
+                                    </div>
+                                    <p><FaEye/> 1 Viewer</p>
+
                                 </div>
                                 <div className="gradeType">
                                     <p>Grade Type</p>
