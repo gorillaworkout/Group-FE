@@ -61,7 +61,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const [anchorEl,setopen]=useState(null)
   const [anchorEl2,setopen2]=useState(null)
 
-  console.log(cart)
+  // console.log(cart)
   // console.log(cart[0].product)
 
   

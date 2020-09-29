@@ -8,9 +8,12 @@ import {FcCheckmark} from 'react-icons/fc'
 import {FaEye} from 'react-icons/fa'
 import newBrandHP from '../../assets/newbrand.jpg'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux';
 class DetailProduct extends Component {
     state = { 
-        product:[]
+        product:[],
+        JSON:[],
+        productThunk:[]
      }
      
     componentDidMount(){
@@ -20,6 +23,21 @@ class DetailProduct extends Component {
         }).catch((err)=>{
             console.log(err)
         })
+
+        if(this.props.dataJSON===null){
+           console.log('LOADING')
+
+        }else {
+            console.log('masuk ke if')
+            console.log(this.props.dataJSON.jenis)
+            var parseJson = JSON.parse(localStorage.getItem(`${this.props.dataJSON.jenis}`))
+            var test = window.localStorage.getItem('id')
+            console.log(this.test)
+            console.log(this.parseJson)
+            this.setState({productThunk:parseJson})
+        }
+        console.log('testing')
+       
     }
 
 
@@ -42,6 +60,12 @@ class DetailProduct extends Component {
       }
     
     render() { 
+        console.log(this.props.dataJSON.index)
+        console.log(this.props.dataJSON.jenis)
+        console.log(this.state.productThunk)
+        console.log(this.test)
+        console.log(this.parseJson)
+        
         return ( 
             <div>
                 <Header/>
@@ -318,5 +342,12 @@ class DetailProduct extends Component {
          );
     }
 }
+
+const Mapstatetoprops=({Auth})=>{
+    return {
+        ...Auth
+    }
+}
  
-export default DetailProduct;
+// export default DetailProduct;
+export default (connect(Mapstatetoprops,{})(DetailProduct))

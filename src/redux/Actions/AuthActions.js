@@ -9,6 +9,22 @@ export const LoginFunc = (obj) => {
     }
 }
 
+export const toDetail = (jenis, index)=>{
+    return (dispatch) =>{
+       console.log(jenis,index)
+       dispatch({type:'LOADING'})
+       Axios.get(`${API_URL}/${jenis}?id=${index}`)
+       .then((res)=>{
+           dispatch({type:'ADDPRODUCT',payload:res.data,json:{jenis,index}})
+        console.log(res.data)
+       }).catch((err)=>{
+           console.log(err)
+       })
+
+    }
+}
+
+
 export const LoginThunk = (username, password)=>{
     return (dispatch) =>{
         dispatch({type:'LOADING'})
