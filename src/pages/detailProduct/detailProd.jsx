@@ -220,7 +220,46 @@ class DetailProduct extends Component {
                         </div>
                     </div>
                     
-                </div>        
+                </div>     
+                
+                <div className="box-5-biggest">
+                        <div className="box-5-kecil">
+                            <h2>PurwaStore</h2>
+                            <p>We Provide Anything You WANT!&nbsp;</p>
+                        </div> 
+                        <div className="box-5-kecil">
+                            <h2>For Beginners</h2>
+                            <p>New Account</p>
+                            <p>Find a Phone</p>
+                            <p>Payments</p>
+                        </div>
+                        <div className="box-5-kecil">
+                            <h2>Explore Us</h2>
+                            <p>About</p>
+                            <p>Privacy Policy</p>
+                            <p>Terms & Condition</p>
+                        </div>
+                        <div className="box-5-kecil">
+                            <h2>Getting Touch</h2>
+                            <p>Support@PurwaStore.id</p>
+                            <p>021-96080200</p>
+                            <p>Explore US</p>
+                        </div>
+                    
+                    </div>   
+
+                    <div class="d-flex flex-column footerbottom">
+                            <footer class="footer">
+                                <div>
+                                <a href="/">Purwa-UI</a>
+                                <span>&copy; 2020 creativeLabs.</span>
+                                </div>
+                                <div class="ml-auto">
+                                <span>Powered by</span>
+                                <a href="/">Purwa-UI</a>
+                                </div>
+                            </footer>
+                        </div>
 
             </div>
          );
