@@ -23,7 +23,9 @@ import Axios from 'axios'
 class Home extends Component {
 
     state = { 
-      product:[]
+      product:[],
+      brandterlaris:[],
+      newproduct:[]
      }
 
      componentDidMount(){
@@ -31,6 +33,22 @@ class Home extends Component {
        .then((res)=>{
           console.log(res.data)
           this.setState({product:res.data})
+       }).catch((err)=>{
+         console.log(err)
+       })
+
+       Axios.get(`${API_URL}/brandterlaris`)
+       .then((res)=>{
+         console.log(res.data)
+          this.setState({brandterlaris:res.data})
+       }).catch((err)=>{
+         console.log(err)
+       })
+
+       Axios.get(`${API_URL}/newproduct`)
+       .then((res)=>{
+         console.log(res.data)
+          this.setState({newproduct:res.data})
        }).catch((err)=>{
          console.log(err)
        })
@@ -50,6 +68,43 @@ class Home extends Component {
             </div>
             </Link>
         </div>
+         )
+       })
+     }
+
+     renderBrandTerlaris=()=>{
+       return this.state.brandterlaris.map((val,index)=>{
+         return (
+          <div key ={val.id}className=" ins-populer">
+          <Link to={'/detailproduct/'+val.id}>
+          <img src={val.gambar} alt="error" width="100%" height="200px"/>
+          <div className="pop-word">
+              <p>{val.namaHp}</p>
+              <p style={{fontSize:'15px'}}>Harga:</p>
+              <p>RP.{val.harga}</p>
+              <button className="btn-pop">LIHAT</button>
+          </div>
+          </Link>
+      </div>
+
+         )
+       })
+     }
+
+     renderNewProduct=()=>{
+       return this.state.newproduct.map((val,index)=>{
+         return (
+          <div key ={val.id}className=" ins-populer">
+          <Link to={'/detailproduct/'+val.id}>
+          <img src={val.gambar} alt="error" width="100%" height="200px"/>
+          <div className="pop-word">
+              <p>{val.namaHp}</p>
+              <p style={{fontSize:'15px'}}>Harga:</p>
+              <p>RP.{val.harga}</p>
+              <button className="btn-pop">LIHAT</button>
+          </div>
+          </Link>
+      </div>
          )
        })
      }
@@ -145,7 +200,7 @@ class Home extends Component {
                         </div>
                        
                     </div>
-                  {this.renderTable()}
+                  {this.renderBrandTerlaris()}
                 </div>  
               </div>
               {/* prodiuct terbaru */}
@@ -163,7 +218,7 @@ class Home extends Component {
                            <img src={newBrandHP} alt=""width="150px" height="300px"/>
                         </div>
                     </div>
-                    {this.renderTable()}
+                    {this.renderNewProduct()}
                   
                 </div>  
               </div>
