@@ -5,11 +5,40 @@ import Header from '../../components/Header'
 import backgroundHP from '../../assets/hp5.jpg'
 import './detailProd.css'
 import {FcCheckmark} from 'react-icons/fc'
+import newBrandHP from '../../assets/newbrand.jpg'
+import {Link} from 'react-router-dom'
 class DetailProduct extends Component {
-    state = {  }
+    state = { 
+        product:[]
+     }
+     
     componentDidMount(){
         Axios.get(`${API_URL}/products/`)
+        .then((res)=>{
+            this.setState({product:res.data})
+        }).catch((err)=>{
+            console.log(err)
+        })
     }
+
+
+    renderTable=()=>{
+        return this.state.product.map((val,index)=>{
+          return (
+           <div key ={val.id}className=" ins-populer">
+             <Link to={'/detailproduct/'+val.id}>
+             <img src={val.gambar} alt="error" width="100%" height="200px"/>
+             <div className="pop-word">
+                 <p>{val.namaHp}</p>
+                 <p style={{fontSize:'15px'}}>Harga:</p>
+                 <p>RP.{val.harga}</p>
+                 <button className="btn-pop">LIHAT</button>
+             </div>
+             </Link>
+         </div>
+          )
+        })
+      }
     
     render() { 
         return ( 
@@ -42,7 +71,7 @@ class DetailProduct extends Component {
                                         <p>Baru</p>
                                         </div>
                                         <div className="box-ins">
-                                        <p>Standar</p>
+                                        <p >Standar</p>
                                         </div>
                                         <div className="pilihan-type">
                                         <p className="icns-gt"><FcCheckmark/></p>
@@ -221,6 +250,25 @@ class DetailProduct extends Component {
                     </div>
                     
                 </div>     
+
+
+                <div className=" populer">
+                <div className="div-1-populer">
+                      <p>Related Items</p>
+                      <p style={{fontSize:'12px',marginTop:'-13px'}}>Best New Product Ever</p>
+                </div>
+                <div className="d-flex">
+                    <div className="div-btn">
+                        <div className="ins-btn2">
+                            {/* <button>All Handphone</button> */}
+                            
+                           <img src={newBrandHP} alt=""width="150px" height="300px"/>
+                        </div>
+                    </div>
+                    {this.renderTable()}
+                  
+                </div>  
+              </div>
                 
                 <div className="box-5-biggest">
                         <div className="box-5-kecil">
