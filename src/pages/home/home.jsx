@@ -12,6 +12,9 @@ import Button from '../../components/button'
 import {SiAdobephonegap} from 'react-icons/si'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {Link} from 'react-router-dom'
+import {toDetail} from './../../redux/Actions'
+import {connect} from 'react-redux';
 import { API_URL } from '../../helpers/apiUrl';
 import Axios from 'axios'
 
@@ -21,7 +24,9 @@ import Axios from 'axios'
 class Home extends Component {
 
     state = { 
-      product:[]
+      product:[],
+      brandterlaris:[],
+      newproduct:[]
      }
 
      componentDidMount(){
@@ -29,6 +34,22 @@ class Home extends Component {
        .then((res)=>{
           console.log(res.data)
           this.setState({product:res.data})
+       }).catch((err)=>{
+         console.log(err)
+       })
+
+       Axios.get(`${API_URL}/brandterlaris`)
+       .then((res)=>{
+         console.log(res.data)
+          this.setState({brandterlaris:res.data})
+       }).catch((err)=>{
+         console.log(err)
+       })
+
+       Axios.get(`${API_URL}/newproduct`)
+       .then((res)=>{
+         console.log(res.data)
+          this.setState({newproduct:res.data})
        }).catch((err)=>{
          console.log(err)
        })
@@ -43,11 +64,74 @@ class Home extends Component {
                 <p>{val.namaHp}</p>
                 <p style={{fontSize:'15px'}}>Harga:</p>
                 <p>RP.{val.harga}</p>
-                <button className="btn-pop">LIHAT</button>
+            <Link to={'/detailproduct/'+val.id}>
+                <button className="btn-pop" onClick={()=>this.onClick(this.jenis='Products',val.id)}>LIHAT</button>
+            </Link>
             </div>
         </div>
          )
        })
+     }
+
+     renderBrandTerlaris=()=>{
+       return this.state.brandterlaris.map((val,index)=>{
+         return (
+          <div key ={val.id}className=" ins-populer">
+          <img src={val.gambar} alt="error" width="100%" height="200px"/>
+          <div className="pop-word">
+              <p>{val.namaHp}</p>
+              <p style={{fontSize:'15px'}}>Harga:</p>
+              <p>RP.{val.harga}</p>
+          <Link to={'/detailproduct/'+val.id}>
+              <button className="btn-pop" onClick={()=>this.onClick(this.jenis='brandterlaris',val.id)}>LIHAT</button>
+          </Link>
+          </div>
+      </div>
+
+         )
+       })
+     }
+
+     renderNewProduct=()=>{
+       return this.state.newproduct.map((val,index)=>{
+         
+         return (
+          <div key ={val.id}className=" ins-populer">
+          <img src={val.gambar} alt="error" width="100%" height="200px"/>
+          <div className="pop-word">
+              <p>{val.namaHp}</p>
+              <p style={{fontSize:'15px'}}>Harga:</p>
+              <p>RP.{val.harga}</p>
+          <Link to={'/detailproduct/'+val.id}>
+              <button className="btn-pop" onClick={()=>this.onClick(this.jenis='newproduct',val.id)}>LIHAT</button>
+          </Link>
+          </div>
+      </div>
+         )
+       })
+     }
+
+     onClick=(jenis,index)=>{
+       console.log(index)
+       console.log(jenis)
+       if(jenis === 'newproduct'){
+         console.log(' masuk ke if newPRODUCT')
+         console.log(this.state.newproduct[index])
+         localStorage.setItem('newProduct',JSON.stringify(this.state.newproduct[(index-1)]))
+         this.props.toDetail(jenis,index)
+
+       }else if  ( jenis === 'brandterlaris'){
+         console.log('masuk ke if BRANDTERLARIS')
+         console.log(this.state.brandterlaris[index])
+         localStorage.setItem('brandTerlaris',JSON.stringify(this.state.brandterlaris[(index-1)]))
+         this.props.toDetail(jenis,index)
+       }else {
+         console.log(' masuk ke elsePRODUCT')
+         console.log(this.state.product[index])
+         localStorage.setItem('Products',JSON.stringify(this.state.product[(index-1)]))
+         this.props.toDetail(jenis,index)
+
+       }
      }
 
     render() { 
@@ -141,7 +225,7 @@ class Home extends Component {
                         </div>
                        
                     </div>
-                  {this.renderTable()}
+                  {this.renderBrandTerlaris()}
                 </div>  
               </div>
               {/* prodiuct terbaru */}
@@ -159,7 +243,7 @@ class Home extends Component {
                            <img src={newBrandHP} alt=""width="150px" height="300px"/>
                         </div>
                     </div>
-                    {this.renderTable()}
+                    {this.renderNewProduct()}
                   
                 </div>  
               </div>
@@ -214,5 +298,12 @@ class Home extends Component {
          );
     }
 }
+
+const Mapstatetoprops=({Auth})=>{
+  return{
+    ...Auth
+  }
+}
  
-export default Home;
+// export default Home;
+export default (connect(Mapstatetoprops,{toDetail})(Home))

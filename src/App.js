@@ -8,10 +8,15 @@ import Login from './pages/login/login'
 import Loading from './components/Loading'
 import {LoginFunc} from './redux/Actions'
 import Register from './pages/register/register'
+import DetailProd from './pages/detailProduct/detailProd'
 import Particles from 'react-particles-js'
 import {connect} from 'react-redux'
 import Axios from 'axios';
 import { API_URL } from './helpers/apiUrl';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css' 
+
+toast.configure()
 const particleOptions = {
   particles:{
     number:{
@@ -52,15 +57,11 @@ function App(props) {
     <>
     <Switch>
       {/* <Header/> */}
-      <Route exact path='/' component={Home}>
-        {/* <Particles className='particles' params={particleOptions}/> */}
-      </Route>
-        <Route exact path='/login' component={Login}>
-      {/* <Particles className='particles' params={particleOptions}/> */}
-      </Route>
-      <Route exact path='/register' component={Register}>
-        {/* <Particles className='particles' params={particleOptions}/> */}
-      </Route>
+      <Route exact path='/' component={Home}/>
+        <Route exact path='/login' component={Login}/>
+ 
+      <Route exact path='/register' component={Register}/>
+      <Route exact path='/detailproduct/:id' component={DetailProd}></Route>
       
     </Switch>
      

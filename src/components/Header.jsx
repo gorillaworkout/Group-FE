@@ -9,6 +9,7 @@ import {HOME_URL} from './../helpers/apiUrl'
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff'
 import {Link,NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
+import InputBase from '@material-ui/core/InputBase';
 import {FaUserAstronaut,FaCartArrowDown} from 'react-icons/fa'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -16,7 +17,7 @@ import Badge from '@material-ui/core/Badge';
 import {LogoutFunc} from '../redux/Actions'
 import {toast} from 'react-toastify'
 import {BsPhone} from 'react-icons/bs'
-
+import './header.css'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -29,6 +30,19 @@ const useStyles = makeStyles((theme) => ({
   },
   warna:{
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+  },
+  inputRoot: {
+    color: 'white',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
   }
 }));
 const StyledBadge = withStyles(() => ({
@@ -47,7 +61,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const [anchorEl,setopen]=useState(null)
   const [anchorEl2,setopen2]=useState(null)
 
-  console.log(cart)
+  // console.log(cart)
   // console.log(cart[0].product)
 
   
@@ -90,6 +104,21 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
           <Typography variant="h6" className={classes.title}>
             PurwaStore
           </Typography>
+          <InputBase
+              
+              placeholder="Find Your Phone..."
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              
+              className="placeholder"
+              inputProps={{ 'aria-label': 'search' }}
+            >
+              <button>test</button>
+              </InputBase>
+           
+                        
           {
             role==='admin'?
             <>
