@@ -69,6 +69,10 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const logoutbtn = () => {  
     console.log('logout')
     localStorage.removeItem('id')
+    localStorage.removeItem('Products')
+    localStorage.removeItem('brandterlaris')
+    localStorage.removeItem('newproduct')
+
     window.location.assign(`${HOME_URL}`)
 
     // LogoutFunc()
@@ -92,12 +96,18 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   //     )
   //   })
   // }
+  const remove=()=>{
+    localStorage.removeItem('Products')
+    localStorage.removeItem('brandterlaris')
+    localStorage.removeItem('newproduct')
+    console.log('ngapus, balik ke home')
+  }
   return (
     <div className={classes.root} >
       <AppBar className={classes.warna} position='static' style={{ background: '#2E3B55' }}>
         <Toolbar>
-            <NavLink to='/'  style={{textDecoration:'none',color:'white'}}>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <NavLink to='/'  style={{textDecoration:'none',color:'white'}} >
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={remove}>
                     <BsPhone/>
                 </IconButton>
             </NavLink> 

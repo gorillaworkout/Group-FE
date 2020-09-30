@@ -117,13 +117,13 @@ class Home extends Component {
        if(jenis === 'newproduct'){
          console.log(' masuk ke if newPRODUCT')
          console.log(this.state.newproduct[index])
-         localStorage.setItem('newProduct',JSON.stringify(this.state.newproduct[(index-1)]))
+         localStorage.setItem('Products',JSON.stringify(this.state.newproduct[(index-1)]))
          this.props.toDetail(jenis,index)
 
        }else if  ( jenis === 'brandterlaris'){
          console.log('masuk ke if BRANDTERLARIS')
          console.log(this.state.brandterlaris[index])
-         localStorage.setItem('brandTerlaris',JSON.stringify(this.state.brandterlaris[(index-1)]))
+         localStorage.setItem('Products',JSON.stringify(this.state.brandterlaris[(index-1)]))
          this.props.toDetail(jenis,index)
        }else {
          console.log(' masuk ke elsePRODUCT')

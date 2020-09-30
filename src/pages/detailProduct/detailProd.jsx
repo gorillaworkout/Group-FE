@@ -21,11 +21,12 @@ class DetailProduct extends Component {
         .then((res)=>{
             this.setState({product:res.data})
             var populerProduct = JSON.parse(localStorage.getItem(`Products`))
-            var brandterlaris = JSON.parse(localStorage.getItem(`brandterlaris`))
-            var newproduct = JSON.parse(localStorage.getItem(`newproduct`))
+            // var brandterlaris = JSON.parse(localStorage.getItem(`brandTerlaris`))
+            // var newproduct = JSON.parse(localStorage.getItem(`newproduct`))
             this.setState({dataParse:populerProduct})
-            this.setState({dataParse:brandterlaris})
-            this.setState({dataParse:newproduct})
+            console.log(this.state.dataParse)
+            // this.setState({dataParse:brandterlaris})
+            // this.setState({dataParse:newproduct})
      
         }).catch((err)=>{
             console.log(err)
@@ -62,29 +63,45 @@ class DetailProduct extends Component {
         })
       }
 
-      renderDataParse=()=>{
-          return this.state.dataParse.map((val,index)=>{
-              return (
-                  <>
-                  <div className="detailProd-big">
+    //   renderDataParse=()=>{
+    //       return this.state.dataParse.map((val,index)=>{
+    //           return (
+    //               <>
+                 
+    //               </>
+    //           )
+    //       })
+    //   }
+
+
+      
+
+    render() { 
+        console.log(this.state.JSON)
+        console.log(this.state.dataParse)
+        
+        return ( 
+            <div>
+                <Header/>
+                <div className="detailProd-big">
                     <div className="detailProd-left">
                             <div className="img-dp-left">
-                                <img src={backgroundHP} alt="error" width="538px" height="450px"/>
+                                <img src={this.state.dataParse.gambar} alt="error" width="538px" height="450px"/>
                             </div>
                     </div>
                     <div className="detailProd-right">
                             <div className="inf-dp-right">
                                 <div className="namaHP">
-                                    <p>[Standar] Samsung Galaxy J7</p>
+                                    <p>{this.state.dataParse.namaHp}</p>
                                 </div>
                                 <div className="harga">
-                                    <p>RP.1.0000.000</p>
+                                <p>RP.{this.state.dataParse.harga}</p>
                                 </div>
                                 <div className="sisa-unit">
                                     <div style={{backgroundColor:'red'}}>
-                                        <p> Sisa 1 Unit</p>
+                                        <p> Sisa {this.state.dataParse.unit} Unit</p>
                                     </div>
-                                    <p><FaEye/> 1 Viewer</p>
+                                    <p><FaEye/> {this.state.dataParse.viewer} Viewer</p>
 
                                 </div>
                                 <div className="gradeType">
@@ -118,7 +135,7 @@ class DetailProduct extends Component {
                                     <p>Storage</p>
                                     <div className="box-ins-stor">
                                         <div className="memory">
-                                            <p>32 GB</p>
+                                            <p>{32} GB</p>
                                         </div>
                                         <div className="memory1">
                                             <p>64</p>
@@ -154,21 +171,6 @@ class DetailProduct extends Component {
 
                     </div>          
                 </div>
-                  </>
-              )
-          })
-      }
-
-
-      
-
-    render() { 
-        console.log(this.state.JSON)
-        
-        return ( 
-            <div>
-                <Header/>
-                    
                         <div className="btn-1">
                             <div className="btn-kiri">
                                 
