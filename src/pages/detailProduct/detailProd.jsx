@@ -11,8 +11,8 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux';
 class DetailProduct extends Component {
     state = { 
-        product:[],
-        JSON:[],
+        product:{},
+        dataParse:{},
         productThunk:[]
      }
      
@@ -20,24 +20,42 @@ class DetailProduct extends Component {
         Axios.get(`${API_URL}/products/`)
         .then((res)=>{
             this.setState({product:res.data})
+            var newProduct = JSON.parse(localStorage.getItem(`Products`))
+            var newProduct = JSON.parse(localStorage.getItem(`brandterlaris`))
+            this.setState({JSON:newProduct})
+     
         }).catch((err)=>{
             console.log(err)
         })
-
-        if(this.props.dataJSON===null){
-           console.log('LOADING')
-
-        }else {
-            console.log('masuk ke if')
-            console.log(this.props.dataJSON.jenis)
-            var parseJson = JSON.parse(localStorage.getItem(`${this.props.dataJSON.jenis}`))
-            var test = window.localStorage.getItem('id')
-            console.log(this.test)
-            console.log(this.parseJson)
-            this.setState({productThunk:parseJson})
-        }
         console.log('testing')
+
+        // if(this.props.dataJSON){
+        //     console.log('ngambil data dari reducer')
+        //     var newProduct = JSON.parse(localStorage.getItem(`Products`))
+        //     this.setState({JSON:newProduct})
+        // }else {
+            
+        // }
        
+    }
+
+    componentDidUpdate(){
+        // if (Object.keys(this.props.dataJSON).length === 0) {
+        //     console.log('masuk ke if')
+        //     // console.log(Object.keys(test).length)
+
+        // }else {
+        // console.log('gamaasuk')
+        // // console.log(Object.keys(this.).length)
+        //     var newProduct = JSON.parse(localStorage.getItem(`${this.props.dataJSON.jenis}`))
+        //     this.setState({JSON:newProduct})
+        // }
+        // if (Object.keys(this.state.dataParse).length === 0) {
+        //     var newProduct = JSON.parse(localStorage.getItem(`${this.props.dataJSON.jenis}`))
+        //     this.setState({dataParse:newProduct})
+        // }
+
+
     }
 
 
@@ -59,12 +77,9 @@ class DetailProduct extends Component {
         })
       }
     
+
     render() { 
-        console.log(this.props.dataJSON.index)
-        console.log(this.props.dataJSON.jenis)
-        console.log(this.state.productThunk)
-        console.log(this.test)
-        console.log(this.parseJson)
+        console.log(this.state.JSON)
         
         return ( 
             <div>

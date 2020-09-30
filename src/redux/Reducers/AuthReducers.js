@@ -8,7 +8,7 @@ const INITIAL_STATE = {
     error: '',
     cart:[],
     dataProduct:[],
-    dataJSON:[]
+    dataJSON:{}
     
 }
 
