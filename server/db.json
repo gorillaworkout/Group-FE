@@ -8,6 +8,14 @@
   ],
   "users": [
     {
+      "namaLengkap": "Yohana Panjaitan",
+      "username": "hana",
+      "password": "1234",
+      "email": "hannah4669@gmail.com",
+      "role": "user",
+      "id": 1
+    },
+    {
       "namaLengkap": "Admin",
       "username": "admin",
       "password": "1234",

@@ -50,7 +50,11 @@ class Login extends Component {
         var username = username.current.value
         var password = password.current.value
         var repassword = repassword.current.value
-        console.log(username, password, repassword)
+        if (username && password && repassword){ // kalau data tidak kosong
+            console.log(username, password, repassword)
+        }else{
+            alert('gaboleh kosong datanya')
+        }
         
         // Axios.get((`${API_URL}/users?username=${username}&password=${password}`))
         // .then((res)=>{
