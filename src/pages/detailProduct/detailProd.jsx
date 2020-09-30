@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux';
 class DetailProduct extends Component {
     state = { 
-        product:{},
+        product:[],
         dataParse:{},
         productThunk:[]
      }
