@@ -63,19 +63,6 @@ class DetailProduct extends Component {
         })
       }
 
-    //   renderDataParse=()=>{
-    //       return this.state.dataParse.map((val,index)=>{
-    //           return (
-    //               <>
-                 
-    //               </>
-    //           )
-    //       })
-    //   }
-
-
-      
-
     render() { 
         console.log(this.state.JSON)
         console.log(this.state.dataParse)
@@ -265,7 +252,7 @@ class DetailProduct extends Component {
                                         
                                 </div>
                                 <div className="spek-ins2"> 
-                                    <p>Android Os, 8.0 (oreo)</p>
+                                    <p>{this.state.dataParse.os}</p>
                                 </div>
 
                             </div>
