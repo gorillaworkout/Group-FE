@@ -20,9 +20,12 @@ class DetailProduct extends Component {
         Axios.get(`${API_URL}/products/`)
         .then((res)=>{
             this.setState({product:res.data})
-            var newProduct = JSON.parse(localStorage.getItem(`Products`))
-            var newProduct = JSON.parse(localStorage.getItem(`brandterlaris`))
-            this.setState({JSON:newProduct})
+            var populerProduct = JSON.parse(localStorage.getItem(`Products`))
+            var brandterlaris = JSON.parse(localStorage.getItem(`brandterlaris`))
+            var newproduct = JSON.parse(localStorage.getItem(`newproduct`))
+            this.setState({dataParse:populerProduct})
+            this.setState({dataParse:brandterlaris})
+            this.setState({dataParse:newproduct})
      
         }).catch((err)=>{
             console.log(err)
@@ -39,30 +42,12 @@ class DetailProduct extends Component {
        
     }
 
-    componentDidUpdate(){
-        // if (Object.keys(this.props.dataJSON).length === 0) {
-        //     console.log('masuk ke if')
-        //     // console.log(Object.keys(test).length)
-
-        // }else {
-        // console.log('gamaasuk')
-        // // console.log(Object.keys(this.).length)
-        //     var newProduct = JSON.parse(localStorage.getItem(`${this.props.dataJSON.jenis}`))
-        //     this.setState({JSON:newProduct})
-        // }
-        // if (Object.keys(this.state.dataParse).length === 0) {
-        //     var newProduct = JSON.parse(localStorage.getItem(`${this.props.dataJSON.jenis}`))
-        //     this.setState({dataParse:newProduct})
-        // }
-
-
-    }
 
 
     renderTable=()=>{
         return this.state.product.map((val,index)=>{
           return (
-           <div key ={val.id}className=" ins-populer">
+            <div key ={val.id}className=" ins-populer">
              <Link to={'/detailproduct/'+val.id}>
              <img src={val.gambar} alt="error" width="100%" height="200px"/>
              <div className="pop-word">
@@ -72,19 +57,16 @@ class DetailProduct extends Component {
                  <button className="btn-pop">LIHAT</button>
              </div>
              </Link>
-         </div>
+            </div>
           )
         })
       }
-    
 
-    render() { 
-        console.log(this.state.JSON)
-        
-        return ( 
-            <div>
-                <Header/>
-                <div className="detailProd-big">
+      renderDataParse=()=>{
+          return this.state.dataParse.map((val,index)=>{
+              return (
+                  <>
+                  <div className="detailProd-big">
                     <div className="detailProd-left">
                             <div className="img-dp-left">
                                 <img src={backgroundHP} alt="error" width="538px" height="450px"/>
@@ -172,6 +154,21 @@ class DetailProduct extends Component {
 
                     </div>          
                 </div>
+                  </>
+              )
+          })
+      }
+
+
+      
+
+    render() { 
+        console.log(this.state.JSON)
+        
+        return ( 
+            <div>
+                <Header/>
+                    
                         <div className="btn-1">
                             <div className="btn-kiri">
                                 
