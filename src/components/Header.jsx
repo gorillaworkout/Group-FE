@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import {fade} from '@material-ui/core/styles';
-import {HOME_URL} from './../helpers/apiUrl'
+import {HOME_URL, API_URL} from './../helpers/apiUrl'
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff'
 import {Link,NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -23,6 +23,7 @@ import {LogoutFunc} from '../redux/Actions'
 import {toast} from 'react-toastify'
 import {BsPhone} from 'react-icons/bs'
 import './header.css'
+import Axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -133,10 +134,44 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   //   })
   // }
 
+  const renderSearchData=(arr)=>{
+    return arr.map((val)=>{
+      return(
+        <div className='d-flex'>
+          <div className='m-2'>
+            {val.namaHp}
+          </div>
+          <div className='m-2'>
+            {val.harga}
+          </div>
+        </div>
+      )
+    })
+  }
+
+  const filterSearch=(input)=>{
+    Axios.get(`${API_URL}/Products`)
+    .then((res)=>{
+      var filterdata = res.data.filter((val)=>{
+        return val.namaHp.toLowerCase().includes(input.toLowerCase())
+        // var cekNamaHp = true
+        // var cekMerk = true
+        // if (input){
+        //   cekNamaHp = val.namaHp.toLowerCase().includes(input.toLowerCase())
+        // }
+        // return cekNamaHp
+      })
+      setProducts(filterdata)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+
   const onChangeSearch=(e)=>{
     if(e.target.value){
       setopen3(true)
       setSearchContent(e.target.value)
+      filterSearch(e.target.value)
     }else{
       setopen3(false)
     }
@@ -178,8 +213,16 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
               isOpen
               ?
               <Box p={2}
-              style={{position:'absolute', top:70, right:60, zIndex:10, background:'black'}}>
-                <Typography>{searchContent}</Typography>
+              style={{
+                width:520,
+                position:'absolute',
+                top:70,
+                right:175,
+                zIndex:10,
+                color: 'white',
+                borderRadius: 5,
+                background:'#2E3B55'}}>
+                <Typography>{renderSearchData(products)}</Typography>
               </Box>
               :
               null
