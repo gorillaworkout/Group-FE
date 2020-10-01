@@ -9,11 +9,21 @@ import {FaEye} from 'react-icons/fa'
 import newBrandHP from '../../assets/newbrand.jpg'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import classnames from 'classnames';
+
 class DetailProduct extends Component {
     state = { 
         product:[],
         dataParse:{},
-        productThunk:[]
+        productThunk:[],
+        activeTab:1
+     }
+
+     toggle=(tab)=>{
+         if(this.state.activeTab !== tab) {
+             this.setState({activeTab:tab})
+         }
      }
      
     componentDidMount(){
@@ -155,7 +165,6 @@ class DetailProduct extends Component {
                                 </div>
                               
                             </div>
-
                     </div>          
                 </div>
                         <div className="btn-1">
@@ -167,119 +176,182 @@ class DetailProduct extends Component {
                                     <p>BELI SEKARANG</p>
                                 </div> 
                             </div>
-                        </div>  
-
-                <div className="description">
-                    <div className="desc-kiri">
-                        <p className="align-self-center mb-2">Description</p>
-                        <p style={{fontSize:'10px', marginLeft:'50px', marginRight:'50px'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni qui blanditiis quibusdam ipsam voluptatibus nesciunt numquam, ea nisi delectus enim deleniti mollitia itaque, optio commodi dolore iusto iste? Porro, quo!</p>
-                        
-                        <div className="desc-kiri-bawah">
-                                <h1>PURWA STORE</h1>
-                        </div>
-                    </div>
-                    
-                    <div className="desc-kanan">
-                        <p style={{borderBottom:'1px solid gray', width:'40%', fontWeight:'800'}}>Spesifikasi</p>
-                        <div className="spek">
-                            <div className="spek-ins">
-                                <p>ScreenSize </p>
-                                
-                            </div>
-                            <div className="spek-ins2"> 
-                                <p>5.5"</p>
-                            </div>
-                        </div>
-                        <div className="spek">
-                        <div className="spek-ins">
-                                <p>Screen Resolution </p>
-                                
-                            </div>
-                            <div className="spek-ins2"> 
-                                <p>720 X 1280</p>
-                            </div>
-
-                        </div>
-                        <div className="spek">
-                        <div className="spek-ins">
-                                <p>Back Camera </p>
-                                
-                            </div>
-                            <div className="spek-ins2"> 
-                                <p>8 Mp</p>
-                            </div>
-
-                        </div>
-                        <div className="spek">
-                        <div className="spek-ins">
-                                <p>Front Camera </p>
-                                
-                            </div>
-                            <div className="spek-ins2"> 
-                                <p>5 Mp</p>
-                            </div>
-
-                        </div>
-                        <div className="spek">
-                            <div className="spek-ins">
-                                    <p>Battery Capacity </p>
-                                    
-                            </div>
-                            <div className="spek-ins2"> 
-                                <p>2630 Mah</p>
-                            </div>
-
                         </div>
 
-
-                    </div>
-                    <div className="desc-kanan-1">
-                            <p style={{borderBottom:'1px solid gray', width:'40%',color:'gray',fontSize:'30px',marginTop:'-25px' , marginLeft:'30px',fontWeight:'800'}}>Spesifikasi</p>
-                        <div className="desc-kanan-ins">
-                        <div className="spek">
-                                <div className="spek-ins">
-                                        <p>Sim</p>
+                        <div>
+                            <Nav tabs>
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: this.state.activeTab === '1' })}
+                                        onClick={() => { this.toggle('1'); }}>
+                                        Description
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: this.state.activeTab === '2' })}
+                                        onClick={() => { this.toggle('2'); }}>
+                                        Specification
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: this.state.activeTab === '2' })}
+                                        onClick={() => { this.toggle('3'); }}>
+                                        Q & A
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                            <TabContent activeTab={this.state.activeTab}>
+                                <TabPane  tabId="1" className="tab-row-1">
+                                    <Row>
+                                    <div className="desc-kiri">
+                                        <p className="desc-word">Description</p>
+                                         <p className="desc-isi">{this.state.dataParse.description}</p>
                                         
-                                </div>
-                                <div className="spek-ins2"> 
-                                    <p>Dual</p>
-                                </div>
+                                        {/* <div className="desc-kiri-bawah">
+                                                <h1>PURWA STORE</h1>
+                                        </div> */}
+                                    </div>
+                                      
+                                    </Row>
+                                </TabPane>
+                                <TabPane tabId="2" className="tab-row-2">
+                                <Row>
+                                    <Col sm="6">
+                                        {/* <Card body> */}
+                                        <div className="desc-kanan">
+                                            <p className="spek-word ">Spesifikasi</p>
+                                            <div className="spek">
+                                                <div className="spek-ins">
+                                                    <p>ScreenSize </p>
+                                                    
+                                                </div>
+                                                <div className="spek-ins2"> 
+                                                    <p>5.5"</p>
+                                                </div>
+                                            </div>
+                                            <div className="spek">
+                                            <div className="spek-ins">
+                                                    <p>Screen Resolution </p>
+                                                    
+                                                </div>
+                                                <div className="spek-ins2"> 
+                                                    <p>720 X 1280</p>
+                                                </div>
 
-                            </div>
-                            <div className="spek">
-                                <div className="spek-ins">
-                                    <p>OS (Operating System) </p>
-                                        
-                                </div>
-                                <div className="spek-ins2"> 
-                                    <p>{this.state.dataParse.os}</p>
-                                </div>
+                                            </div>
+                                            <div className="spek">
+                                            <div className="spek-ins">
+                                                    <p>Back Camera </p>
+                                                    
+                                                </div>
+                                                <div className="spek-ins2"> 
+                                                    <p>8 Mp</p>
+                                                </div>
 
-                            </div>
-                            <div className="spek">
-                                <div className="spek-ins">
-                                    <p>Storage </p>
-                                        
-                                </div>
-                                <div className="spek-ins2"> 
-                                    <p>64GB</p>
-                                </div>
+                                            </div>
+                                            <div className="spek">
+                                            <div className="spek-ins">
+                                                    <p>Front Camera </p>
+                                                    
+                                                </div>
+                                                <div className="spek-ins2"> 
+                                                    <p>5 Mp</p>
+                                                </div>
 
-                            </div>
-                            <div className="spek">
-                                <div className="spek-ins">
-                                    <p>Warna </p>
-                                        
-                                </div>
-                                <div className="spek-ins2"> 
-                                    <p>Gold</p>
-                                </div>
+                                            </div>
+                                            <div className="spek">
+                                                <div className="spek-ins">
+                                                        <p>Battery Capacity </p>
+                                                        
+                                                </div>
+                                                <div className="spek-ins2"> 
+                                                    <p>2630 Mah</p>
+                                                </div>
 
+                                            </div>
+                                        </div>
+                                        {/* </Card> */}
+                                    </Col>
+                                    <Col sm="6">
+                                        {/* <Card body> */}
+                                        <div className="desc-kanan-1">
+                                                <p className="spek-word-1">Spesifikasi</p>
+                                            <div className="desc-kanan-ins">
+                                            <div className="spek">
+                                                    <div className="spek-ins">
+                                                            <p>Sim</p>
+                                                            
+                                                    </div>
+                                                    <div className="spek-ins2"> 
+                                                        <p>Dual</p>
+                                                    </div>
+
+                                                </div>
+                                                <div className="spek">
+                                                    <div className="spek-ins">
+                                                        <p>OS (Operating System) </p>
+                                                            
+                                                    </div>
+                                                    <div className="spek-ins2"> 
+                                                        <p>{this.state.dataParse.os}</p>
+                                                    </div>
+
+                                                </div>
+                                                <div className="spek">
+                                                    <div className="spek-ins">
+                                                        <p>Storage </p>
+                                                            
+                                                    </div>
+                                                    <div className="spek-ins2"> 
+                                                        <p>64GB</p>
+                                                    </div>
+
+                                                </div>
+                                                <div className="spek">
+                                                    <div className="spek-ins">
+                                                        <p>Warna </p>
+                                                            
+                                                    </div>
+                                                    <div className="spek-ins2"> 
+                                                        <p>Gold</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* </Card> */}
+                                    </Col>
+                                </Row>
+                                </TabPane>
+                                <TabPane  tabId="3" className="tab-row-1">
+                                    <Row>
+                                    <div className="desc-kiri">
+                                        <div className="overflow-auto">
+                                            <div className="scroll-div"> 
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                      
+                                    </Row>
+                                </TabPane>
+                            </TabContent>
                             </div>
-                        </div>
-                    </div>
-                    
-                </div>     
+
+
+
+
+                
 
 
                 <div className=" populer">
