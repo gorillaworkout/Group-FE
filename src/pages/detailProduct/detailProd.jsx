@@ -20,9 +20,13 @@ class DetailProduct extends Component {
         Axios.get(`${API_URL}/products/`)
         .then((res)=>{
             this.setState({product:res.data})
-            var newProduct = JSON.parse(localStorage.getItem(`Products`))
-            var newProduct = JSON.parse(localStorage.getItem(`brandterlaris`))
-            this.setState({JSON:newProduct})
+            var populerProduct = JSON.parse(localStorage.getItem(`Products`))
+            // var brandterlaris = JSON.parse(localStorage.getItem(`brandTerlaris`))
+            // var newproduct = JSON.parse(localStorage.getItem(`newproduct`))
+            this.setState({dataParse:populerProduct})
+            console.log(this.state.dataParse)
+            // this.setState({dataParse:brandterlaris})
+            // this.setState({dataParse:newproduct})
      
         }).catch((err)=>{
             console.log(err)
@@ -39,30 +43,12 @@ class DetailProduct extends Component {
        
     }
 
-    componentDidUpdate(){
-        // if (Object.keys(this.props.dataJSON).length === 0) {
-        //     console.log('masuk ke if')
-        //     // console.log(Object.keys(test).length)
-
-        // }else {
-        // console.log('gamaasuk')
-        // // console.log(Object.keys(this.).length)
-        //     var newProduct = JSON.parse(localStorage.getItem(`${this.props.dataJSON.jenis}`))
-        //     this.setState({JSON:newProduct})
-        // }
-        // if (Object.keys(this.state.dataParse).length === 0) {
-        //     var newProduct = JSON.parse(localStorage.getItem(`${this.props.dataJSON.jenis}`))
-        //     this.setState({dataParse:newProduct})
-        // }
-
-
-    }
 
 
     renderTable=()=>{
         return this.state.product.map((val,index)=>{
           return (
-           <div key ={val.id}className=" ins-populer">
+            <div key ={val.id}className=" ins-populer">
              <Link to={'/detailproduct/'+val.id}>
              <img src={val.gambar} alt="error" width="100%" height="200px"/>
              <div className="pop-word">
@@ -72,14 +58,14 @@ class DetailProduct extends Component {
                  <button className="btn-pop">LIHAT</button>
              </div>
              </Link>
-         </div>
+            </div>
           )
         })
-    }
-    
+      }
 
     render() { 
         console.log(this.state.JSON)
+        console.log(this.state.dataParse)
         
         return ( 
             <div>
@@ -87,22 +73,22 @@ class DetailProduct extends Component {
                 <div className="detailProd-big">
                     <div className="detailProd-left">
                             <div className="img-dp-left">
-                                <img src={backgroundHP} alt="error" width="538px" height="450px"/>
+                                <img src={this.state.dataParse.gambar} alt="error" width="538px" height="450px"/>
                             </div>
                     </div>
                     <div className="detailProd-right">
                             <div className="inf-dp-right">
                                 <div className="namaHP">
-                                    <p>[Standar] Samsung Galaxy J7</p>
+                                    <p>{this.state.dataParse.namaHp}</p>
                                 </div>
                                 <div className="harga">
-                                    <p>RP.1.0000.000</p>
+                                <p>RP.{this.state.dataParse.harga}</p>
                                 </div>
                                 <div className="sisa-unit">
                                     <div style={{backgroundColor:'red'}}>
-                                        <p> Sisa 1 Unit</p>
+                                        <p> Sisa {this.state.dataParse.unit} Unit</p>
                                     </div>
-                                    <p><FaEye/> 1 Viewer</p>
+                                    <p><FaEye/> {this.state.dataParse.viewer} Viewer</p>
 
                                 </div>
                                 <div className="gradeType">
@@ -136,7 +122,7 @@ class DetailProduct extends Component {
                                     <p>Storage</p>
                                     <div className="box-ins-stor">
                                         <div className="memory">
-                                            <p>32 GB</p>
+                                            <p>{32} GB</p>
                                         </div>
                                         <div className="memory1">
                                             <p>64</p>
@@ -266,7 +252,7 @@ class DetailProduct extends Component {
                                         
                                 </div>
                                 <div className="spek-ins2"> 
-                                    <p>Android Os, 8.0 (oreo)</p>
+                                    <p>{this.state.dataParse.os}</p>
                                 </div>
 
                             </div>
