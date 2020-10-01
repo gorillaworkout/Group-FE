@@ -11,6 +11,7 @@ import { Alert } from 'reactstrap';
 import {connect} from 'react-redux';
 import {Redirect, Link} from 'react-router-dom'
 import {LoginFunc, LoginThunk} from './../../redux/Actions/'
+import {toast} from 'react-toastify'
 
 const Styles={
     root:{
@@ -52,23 +53,65 @@ class Login extends Component {
         var repassword = repassword.current.value
         if (username && password && repassword){ // kalau data tidak kosong
             console.log(username, password, repassword)
+            Axios.get((`${API_URL}/users?username=${username}`))
+            .then((res)=>{
+                console.log(res.data.length)
+                if(res.data.length === 0){
+                    if(password !== repassword){
+                        toast.error('Password tidak sesuai!', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    }else{
+                        Axios.post(`${API_URL}/users`, {
+                            username,
+                            password,
+                            role: "user"
+                        }).then((res2)=>{
+                            toast('Register berhasil!', {
+                                position: "top-center",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                });
+                        }).catch((err)=>{
+                            console.log(err)
+                        })
+                    }
+                }else{
+                    toast.error('Username sudah ada', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
+            }).catch((err)=>{
+                console.log(err)
+            })
         }else{
-            alert('gaboleh kosong datanya')
+            toast.error('Data masih kosong', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
         
-        // Axios.get((`${API_URL}/users?username=${username}&password=${password}`))
-        // .then((res)=>{
-        //     console.log(res.data)
-        //     if(res.data.length){
-        //         alert('sukses login')
-        //         localStorage.setItem('id', res.data[0].id)
-        //         this.props.LoginFunc(res.data)
-        //     }else{
-        //         alert('username/password salah')
-        //     }
-        // }).catch((err)=>{
-        //     console.log(err)
-        // })
 
     }
 
