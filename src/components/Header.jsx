@@ -4,7 +4,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
+import Popover from '@material-ui/core/Popover';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import {fade} from '@material-ui/core/styles';
 import {HOME_URL} from './../helpers/apiUrl'
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff'
 import {Link,NavLink} from 'react-router-dom'
@@ -14,6 +18,7 @@ import {FaUserAstronaut,FaCartArrowDown} from 'react-icons/fa'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Badge from '@material-ui/core/Badge';
+import SearchIcon from '@material-ui/icons/Search';
 import {LogoutFunc} from '../redux/Actions'
 import {toast} from 'react-toastify'
 import {BsPhone} from 'react-icons/bs'
@@ -28,11 +33,34 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   warna:{
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
   },
   inputRoot: {
-    color: 'white',
+    color: 'inherit',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -40,10 +68,13 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
     },
-  }
+  },
 }));
 const StyledBadge = withStyles(() => ({
   badge: {
@@ -56,10 +87,15 @@ const StyledBadge = withStyles(() => ({
     padding: '0 0px',
   },
 }))(Badge);
+
+
 function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const classes = useStyles();
   const [anchorEl,setopen]=useState(null)
   const [anchorEl2,setopen2]=useState(null)
+  const [products, setProducts] = useState([])
+  const [isOpen, setopen3] = useState(false)
+  const [searchContent, setSearchContent] = useState('')
 
   // console.log(cart)
   // console.log(cart[0].product)
@@ -96,6 +132,16 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   //     )
   //   })
   // }
+
+  const onChangeSearch=(e)=>{
+    if(e.target.value){
+      setopen3(true)
+      setSearchContent(e.target.value)
+    }else{
+      setopen3(false)
+    }
+  }
+
   const remove=()=>{
     localStorage.removeItem('Products')
     localStorage.removeItem('brandterlaris')
@@ -114,19 +160,30 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
           <Typography variant="h6" className={classes.title}>
             PurwaStore
           </Typography>
-          <InputBase
-              
-              placeholder="Find Your Phone..."
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              
-              className="placeholder"
-              inputProps={{ 'aria-label': 'search' }}
-            >
-              <button>test</button>
-              </InputBase>
+            <div className={classes.search} style={{}}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                onChange = {(e)=>onChangeSearch(e)}
+              />
+            </div>
+            {
+              isOpen
+              ?
+              <Box p={2}
+              style={{position:'absolute', top:70, right:60, zIndex:10, background:'black'}}>
+                <Typography>{searchContent}</Typography>
+              </Box>
+              :
+              null
+            }
            
                         
           {
