@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -102,9 +102,17 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const [anchorEl,setopen]=useState(null)
   const [anchorEl2,setopen2]=useState(null)
   const [products, setProducts] = useState([])
+  const [filterProd, setFilterProd] = useState([])
   const [isOpen, setopen3] = useState(false)
 
-
+  useEffect (()=>{
+    Axios.get(`${API_URL}/Products`)
+    .then((res)=>{
+      setProducts(res.data)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },[])
   // console.log(cart)
   // console.log(cart[0].product)
 
@@ -141,35 +149,33 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   //   })
   // }
 
+  const onIsiSearchClick=(id)=>{
+    var indexProd = products.findIndex((val)=> val.id == id)
+    localStorage.setItem('Products',JSON.stringify(products[indexProd]))
+    
+  }
+
   const renderSearchData=(arr)=>{
     return arr.map((val)=>{
       return(
-        
-        <div className={classes.searchField}>
-          <div className='m-2'>
-            {val.namaHp}
+        <Link to={`/detailproduct/${val.id}`}>
+          <div className={classes.searchField}
+          onClick={()=>onIsiSearchClick(val.id)}
+          style={{textDecoration:'none', color:'white'}}>
+            <div className='m-2'>
+              {val.namaHp}
+            </div>
           </div>
-        </div>
+        </Link>
       )
     })
   }
 
   const filterSearch=(input)=>{
-    Axios.get(`${API_URL}/Products`)
-    .then((res)=>{
-      var filterdata = res.data.filter((val)=>{
-        return val.namaHp.toLowerCase().includes(input.toLowerCase())
-        // var cekNamaHp = true
-        // var cekMerk = true
-        // if (input){
-        //   cekNamaHp = val.namaHp.toLowerCase().includes(input.toLowerCase())
-        // }
-        // return cekNamaHp
-      })
-      setProducts(filterdata)
-    }).catch((err)=>{
-      console.log(err)
+    var filterdata = products.filter((val)=>{
+      return val.namaHp.toLowerCase().includes(input.toLowerCase())
     })
+    setFilterProd(filterdata)
   }
 
   const onChangeSearch=(e)=>{
@@ -229,7 +235,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
               anchorEl={isOpen} // ga ngaruh :((((
               open={Boolean(isOpen)}
               onClose={()=>setopen3(null)}>
-                <Typography>{renderSearchData(products)}</Typography>
+                <Typography>{renderSearchData(filterProd)}</Typography>
               </Box>
               :
               null
