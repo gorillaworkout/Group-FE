@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import { BsCursor } from 'react-icons/bs';
+import Fade from 'react-reveal/Fade';
 
 class DetailProduct extends Component {
     state = { 
@@ -182,6 +183,7 @@ class DetailProduct extends Component {
                         <div>
                             <Nav tabs>
                                 <NavItem className="cursor-nav">
+
                                     <NavLink
                                         className={classnames({ active: this.state.activeTab === '1' })}
                                         onClick={() => { this.toggle('1'); }}>
@@ -207,8 +209,13 @@ class DetailProduct extends Component {
                                 <TabPane  tabId="1" className="tab-row-1">
                                     <Row>
                                     <div className="desc-kiri">
-                                        <p className="desc-word">Description</p>
-                                         <p className="desc-isi">{this.state.dataParse.description}</p>
+                                        <Fade top>
+                                            <p className="desc-word">Description</p>
+                                        </Fade>
+                                        <Fade bottom>
+                                            <p className="desc-isi">{this.state.dataParse.description}</p>
+
+                                        </Fade>
                                         
                                         {/* <div className="desc-kiri-bawah">
                                                 <h1>PURWA STORE</h1>
@@ -222,54 +229,74 @@ class DetailProduct extends Component {
                                     <Col sm="6">
                                         {/* <Card body> */}
                                         <div className="desc-kanan">
-                                            <p className="spek-word ">Spesifikasi</p>
+                                            <Fade>
+                                                <p className="spek-word ">Spesifikasi</p>   
+                                            </Fade>
                                             <div className="spek">
+                                            <Fade left>
                                                 <div className="spek-ins">
-                                                    <p>ScreenSize </p>
-                                                    
+                                                    <p>ScreenSize </p>           
                                                 </div>
+                                            </Fade>
+                                            <Fade right>
                                                 <div className="spek-ins2"> 
                                                     <p>5.5"</p>
                                                 </div>
+                                            </Fade>
                                             </div>
                                             <div className="spek">
-                                            <div className="spek-ins">
+                                                <Fade left>
+                                                 <div className="spek-ins">
                                                     <p>Screen Resolution </p>
                                                     
                                                 </div>
-                                                <div className="spek-ins2"> 
-                                                    <p>720 X 1280</p>
-                                                </div>
+
+                                                </Fade>
+                                                <Fade right>
+                                                    <div className="spek-ins2"> 
+                                                        <p>720 X 1280</p>
+                                                    </div>
+                                                </Fade>
 
                                             </div>
                                             <div className="spek">
-                                            <div className="spek-ins">
-                                                    <p>Back Camera </p>
-                                                    
-                                                </div>
-                                                <div className="spek-ins2"> 
-                                                    <p>8 Mp</p>
-                                                </div>
+                                                <Fade left>
+                                                    <div className="spek-ins">
+                                                        <p>Back Camera </p>
+                                                        
+                                                    </div>
+                                                </Fade>
+                                                <Fade right>
+                                                    <div className="spek-ins2"> 
+                                                        <p>8 Mp</p>
+                                                    </div>
+                                                </Fade>
 
                                             </div>
                                             <div className="spek">
-                                            <div className="spek-ins">
-                                                    <p>Front Camera </p>
-                                                    
+                                                <Fade left>
+                                                <div className="spek-ins">
+                                                    <p>Front Camera </p>        
                                                 </div>
+                                                </Fade>
+                                                <Fade right>
                                                 <div className="spek-ins2"> 
                                                     <p>5 Mp</p>
                                                 </div>
+                                                </Fade>
 
                                             </div>
                                             <div className="spek">
+                                                <Fade left>
                                                 <div className="spek-ins">
-                                                        <p>Battery Capacity </p>
-                                                        
+                                                        <p>Battery Capacity </p>                                            
                                                 </div>
-                                                <div className="spek-ins2"> 
-                                                    <p>2630 Mah</p>
-                                                </div>
+                                                </Fade>
+                                                <Fade right>
+                                                    <div className="spek-ins2"> 
+                                                        <p>2630 Mah</p>
+                                                    </div>
+                                                </Fade>
 
                                             </div>
                                         </div>
@@ -278,46 +305,60 @@ class DetailProduct extends Component {
                                     <Col sm="6">
                                         {/* <Card body> */}
                                         <div className="desc-kanan-1">
+                                            <Fade>
                                                 <p className="spek-word-1">Spesifikasi</p>
+                                            </Fade>
                                             <div className="desc-kanan-ins">
                                             <div className="spek">
+                                                <Fade left>
                                                     <div className="spek-ins">
-                                                            <p>Sim</p>
-                                                            
+                                                            <p>Sim</p>                                
                                                     </div>
+                                                </Fade>
+                                                <Fade right >
                                                     <div className="spek-ins2"> 
                                                         <p>Dual</p>
                                                     </div>
+                                                </Fade>
 
                                                 </div>
                                                 <div className="spek">
+                                                    <Fade left>
                                                     <div className="spek-ins">
-                                                        <p>OS (Operating System) </p>
-                                                            
+                                                        <p>OS (Operating System) </p>                                                         
                                                     </div>
-                                                    <div className="spek-ins2"> 
-                                                        <p>{this.state.dataParse.os}</p>
-                                                    </div>
+                                                    </Fade>
+                                                    <Fade right>
+                                                        <div className="spek-ins2"> 
+                                                            <p>{this.state.dataParse.os}</p>
+                                                        </div>
+                                                    </Fade>
 
                                                 </div>
                                                 <div className="spek">
-                                                    <div className="spek-ins">
-                                                        <p>Storage </p>
-                                                            
-                                                    </div>
-                                                    <div className="spek-ins2"> 
-                                                        <p>64GB</p>
-                                                    </div>
+                                                    <Fade left>
+                                                        <div className="spek-ins">
+                                                            <p>Storage </p>                                                              
+                                                        </div>
+                                                    </Fade>
+                                                    <Fade right>
+                                                        <div className="spek-ins2"> 
+                                                            <p>64GB</p>
+                                                        </div>
+                                                    </Fade>
 
                                                 </div>
                                                 <div className="spek">
-                                                    <div className="spek-ins">
-                                                        <p>Warna </p>
-                                                            
-                                                    </div>
-                                                    <div className="spek-ins2"> 
-                                                        <p>Gold</p>
-                                                    </div>
+                                                    <Fade left>
+                                                        <div className="spek-ins">
+                                                            <p>Warna </p>                                                             
+                                                        </div>
+                                                    </Fade>
+                                                    <Fade right>
+                                                        <div className="spek-ins2"> 
+                                                            <p>Gold</p>
+                                                        </div>
+                                                    </Fade>
 
                                                 </div>
                                             </div>
