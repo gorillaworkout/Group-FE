@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState,useCallback} from 'react';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -24,6 +24,7 @@ import {toast} from 'react-toastify'
 import {BsPhone} from 'react-icons/bs'
 import './header.css'
 import Axios from 'axios';
+import debounce from "lodash.debounce";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -172,14 +173,57 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
     })
   }
 
-  const onChangeSearch=(e)=>{
-    if(e.target.value){
-      setopen3(true)
-      filterSearch(e.target.value)
-    }else{
-      setopen3(false)
-    }
+  // const onChangeSearch=(e)=>{
+  //   if(e.target.value){
+  //     setopen3(true)
+  //     filterSearch(e.target.value)
+  //   }else{
+  //     setopen3(false)
+  //   }
+  // }
+
+
+
+
+  /*
+  testing bayu
+  */
+  const sendQuery=(query)=>{
+    console.log(`querying for ${query}`)
+    
   }
+  
+    const [userQuery,setUserQuery] = useState('')
+    const updateQuery=()=>{
+      filterSearch(userQuery)
+      sendQuery(userQuery)
+      // setopen3(true)
+    }
+    const delayedQuery=useCallback(debounce(updateQuery,1000),[userQuery])
+
+    const onChangeSearch=(e)=>{
+      if(e.target.value){
+        setUserQuery(e.target.value)
+        setopen3(true)
+        
+      }else {
+
+        setopen3(false)
+
+      }
+      
+      // setProducts(e.target.value)
+    }
+
+    useEffect(()=>{
+      delayedQuery()
+      return delayedQuery.cancel
+    },[userQuery,delayedQuery])
+  
+
+
+  /*
+  */
 
   const remove=()=>{
     localStorage.removeItem('Products')
@@ -211,6 +255,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                 }}
                 inputProps={{ 'aria-label': 'search' }}
                 onChange = {(e)=>onChangeSearch(e)}
+                // value={userQuery}
               />
             </div>
             {
