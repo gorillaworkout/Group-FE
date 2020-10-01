@@ -11,6 +11,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
+import { BsCursor } from 'react-icons/bs';
 
 class DetailProduct extends Component {
     state = { 
@@ -59,15 +60,15 @@ class DetailProduct extends Component {
         return this.state.product.map((val,index)=>{
           return (
             <div key ={val.id}className=" ins-populer">
-             <Link to={'/detailproduct/'+val.id}>
              <img src={val.gambar} alt="error" width="100%" height="200px"/>
              <div className="pop-word">
                  <p>{val.namaHp}</p>
                  <p style={{fontSize:'15px'}}>Harga:</p>
                  <p>RP.{val.harga}</p>
+             <Link to={'/detailproduct/'+val.id}>
                  <button className="btn-pop">LIHAT</button>
-             </div>
              </Link>
+             </div>
             </div>
           )
         })
@@ -180,21 +181,21 @@ class DetailProduct extends Component {
 
                         <div>
                             <Nav tabs>
-                                <NavItem>
+                                <NavItem className="cursor-nav">
                                     <NavLink
                                         className={classnames({ active: this.state.activeTab === '1' })}
                                         onClick={() => { this.toggle('1'); }}>
                                         Description
                                     </NavLink>
                                 </NavItem>
-                                <NavItem>
+                                <NavItem className="cursor-nav">
                                     <NavLink
                                         className={classnames({ active: this.state.activeTab === '2' })}
                                         onClick={() => { this.toggle('2'); }}>
                                         Specification
                                     </NavLink>
                                 </NavItem>
-                                <NavItem>
+                                <NavItem className="cursor-nav">
                                     <NavLink
                                         className={classnames({ active: this.state.activeTab === '2' })}
                                         onClick={() => { this.toggle('3'); }}>
