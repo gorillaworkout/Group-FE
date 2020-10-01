@@ -34,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  searchField: {
+    backgroundColor: '#2E3B55',
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -96,7 +103,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const [anchorEl2,setopen2]=useState(null)
   const [products, setProducts] = useState([])
   const [isOpen, setopen3] = useState(false)
-  const [searchContent, setSearchContent] = useState('')
+
 
   // console.log(cart)
   // console.log(cart[0].product)
@@ -137,7 +144,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const renderSearchData=(arr)=>{
     return arr.map((val)=>{
       return(
-        <div className='d-flex'>
+        <div className={classes.searchField} >
           <div className='m-2'>
             {val.namaHp}
           </div>
@@ -167,7 +174,6 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const onChangeSearch=(e)=>{
     if(e.target.value){
       setopen3(true)
-      setSearchContent(e.target.value)
       filterSearch(e.target.value)
     }else{
       setopen3(false)
@@ -218,7 +224,10 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                 zIndex:10,
                 color: 'white',
                 borderRadius: 5,
-                background:'#2E3B55'}}>
+                background:'#2E3B55'}}
+                anchorEl={isOpen} // ga ngaruh :((((
+                open={Boolean(isOpen)}
+                onClose={()=>setopen3(null)}>
                 <Typography>{renderSearchData(products)}</Typography>
               </Box>
               :
