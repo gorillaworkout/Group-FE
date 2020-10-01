@@ -190,7 +190,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   */
   const sendQuery=(query)=>{
     console.log(`querying for ${query}`)
-    
+    // setProducts(query)
   }
   
     const [userQuery,setUserQuery] = useState('')
