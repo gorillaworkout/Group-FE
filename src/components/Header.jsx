@@ -144,7 +144,8 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const renderSearchData=(arr)=>{
     return arr.map((val)=>{
       return(
-        <div className={classes.searchField} >
+        
+        <div className={classes.searchField}>
           <div className='m-2'>
             {val.namaHp}
           </div>
@@ -225,9 +226,9 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                 color: 'white',
                 borderRadius: 5,
                 background:'#2E3B55'}}
-                anchorEl={isOpen} // ga ngaruh :((((
-                open={Boolean(isOpen)}
-                onClose={()=>setopen3(null)}>
+              anchorEl={isOpen} // ga ngaruh :((((
+              open={Boolean(isOpen)}
+              onClose={()=>setopen3(null)}>
                 <Typography>{renderSearchData(products)}</Typography>
               </Box>
               :
