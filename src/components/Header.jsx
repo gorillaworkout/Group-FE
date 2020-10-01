@@ -141,9 +141,6 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
           <div className='m-2'>
             {val.namaHp}
           </div>
-          <div className='m-2'>
-            {val.harga}
-          </div>
         </div>
       )
     })
@@ -214,7 +211,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
               ?
               <Box p={2}
               style={{
-                width:520,
+                width:320,
                 position:'absolute',
                 top:70,
                 right:175,
