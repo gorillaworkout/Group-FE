@@ -259,6 +259,8 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                 }}
                 inputProps={{ 'aria-label': 'search' }}
                 onChange = {(e)=>onChangeSearch(e)}
+                onFocus = {()=>setopen3(true)}
+                onBlur ={()=>setopen3(false)}
                 // value={userQuery}
               />
             </div>
