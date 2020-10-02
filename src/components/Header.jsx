@@ -194,12 +194,23 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   /*
   testing bayu
   */
+ const [userQuery,setUserQuery] = useState('')
+ const onChangeSearch=(e)=>{
+  if(e.target.value){
+    setUserQuery(e.target.value)
+    setopen3(true)  
+  }else {
+    setopen3(false)
+  }
+
+}
   const sendQuery=(query)=>{
     console.log(`querying for ${query}`)
     // setProducts(query)
+    
   }
   
-    const [userQuery,setUserQuery] = useState('')
+    
     const updateQuery=()=>{
       filterSearch(userQuery)
       sendQuery(userQuery)
@@ -207,26 +218,13 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
     }
     const delayedQuery=useCallback(debounce(updateQuery,1000),[userQuery])
 
-    const onChangeSearch=(e)=>{
-      if(e.target.value){
-        setUserQuery(e.target.value)
-        setopen3(true)
-        
-      }else {
 
-        setopen3(false)
-
-      }
-      
-      // setProducts(e.target.value)
-    }
 
     useEffect(()=>{
       delayedQuery()
       return delayedQuery.cancel
     },[userQuery,delayedQuery])
   
-
 
   /*
   */
