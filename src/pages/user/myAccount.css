@@ -18,7 +18,7 @@
 
 
 .box-kiri{
-    /* background-color:blue; */
+    background-color:#dfe6e9;
     width:80%;
     height:600px;
     border:2px solid gray;
@@ -177,6 +177,10 @@
     height:535px;
     margin-left:15px;
     border:2px solid gray;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .div-biodata{
