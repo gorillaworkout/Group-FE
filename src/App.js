@@ -9,6 +9,7 @@ import Loading from './components/Loading'
 import {LoginFunc} from './redux/Actions'
 import Register from './pages/register/register'
 import DetailProd from './pages/detailProduct/detailProd'
+import MyAccount from './pages/user/MyAccount'
 import Particles from 'react-particles-js'
 import {connect} from 'react-redux'
 import Axios from 'axios';
@@ -61,7 +62,8 @@ function App(props) {
         <Route exact path='/login' component={Login}/>
  
       <Route exact path='/register' component={Register}/>
-      <Route exact path='/detailproduct/:id' component={DetailProd}></Route>
+      <Route exact path='/detailproduct/:id' component={DetailProd}/>
+      <Route exact path='/myaccount' component={MyAccount}/>
       
     </Switch>
      
