@@ -176,6 +176,9 @@ class MyAccount extends Component {
                                 <TabPane  tabId="1" className="tab-row-1 tabpanel">
                                     <Row className="tabpanel">
                                     <div className="biodata">
+                                        <Zoom>
+
+                                        
                                             <div className="div-biodata">
                                                 <div className="biodata-kiri">
                                                     <div className="img-biodata">
@@ -231,171 +234,137 @@ class MyAccount extends Component {
                                                     </div>
                                                 </div>
                                             </div>
+                                    </Zoom>  
                                     </div>
-                                      
                                     </Row>
                                 </TabPane>
-                                <TabPane tabId="2" className="tab-row-2">
-                                <Row>
-                                    <Col sm="6">
-                                        {/* <Card body> */}
-                                        <div className="desc-kanan">
-                                            <Fade>
-                                                <p className="spek-word ">Spesifikasi</p>   
-                                            </Fade>
-                                            <div className="spek">
-                                            <Fade left>
-                                                <div className="spek-ins">
-                                                    <p>ScreenSize </p>           
-                                                </div>
-                                            </Fade>
-                                            <Fade right>
-                                                <div className="spek-ins2"> 
-                                                    <p>5.5"</p>
-                                                </div>
-                                            </Fade>
-                                            </div>
-                                            <div className="spek">
-                                                <Fade left>
-                                                 <div className="spek-ins">
-                                                    <p>Screen Resolution </p>
-                                                    
-                                                </div>
-
-                                                </Fade>
-                                                <Fade right>
-                                                    <div className="spek-ins2"> 
-                                                        <p>720 X 1280</p>
+                                <TabPane tabId="2" className="tab-row-2 tabpanel">
+                                <Row >     
+                                    <div className="biodata">
+                                        <Zoom>
+                                            <div className="div-biodata">
+                                                <div className="biodata-kiri">
+                                                    <div className="img-biodata">
+                                                        <img src={bgKecil} alt="error" width="280px" height="250px"/>
+                                                        <div className="btn-pilih"> 
+                                                            <p>Change Photo</p>
+                                                        </div>
                                                     </div>
-                                                </Fade>
+                                                    <div className="password-change">
+                                                        <div className="btn-pass">
+                                                            <FaKey className="ikon-1"/>
+                                                            <p className="pass-1">Change Your Password</p>
+                                                        </div>
 
-                                            </div>
-                                            <div className="spek">
-                                                <Fade left>
-                                                    <div className="spek-ins">
-                                                        <p>Back Camera </p>
+                                                    </div>
+                                                    <div className="pin-purwa">
+                                                        <div className="btn-pin">
+                                                        <FaLock className="ikon-1"/>
+                                                        <p className="pass-1">Pin Purwa Store</p>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div className="biodata-kanan">
+                                                    <div className="bio-kiri">
                                                         
-                                                    </div>
-                                                </Fade>
-                                                <Fade right>
-                                                    <div className="spek-ins2"> 
-                                                        <p>8 Mp</p>
-                                                    </div>
-                                                </Fade>
-
-                                            </div>
-                                            <div className="spek">
-                                                <Fade left>
-                                                <div className="spek-ins">
-                                                    <p>Front Camera </p>        
-                                                </div>
-                                                </Fade>
-                                                <Fade right>
-                                                <div className="spek-ins2"> 
-                                                    <p>5 Mp</p>
-                                                </div>
-                                                </Fade>
-
-                                            </div>
-                                            <div className="spek">
-                                                <Fade left>
-                                                <div className="spek-ins">
-                                                        <p>Battery Capacity </p>                                            
-                                                </div>
-                                                </Fade>
-                                                <Fade right>
-                                                    <div className="spek-ins2"> 
-                                                        <p>2630 Mah</p>
-                                                    </div>
-                                                </Fade>
-
-                                            </div>
-                                        </div>
-                                        {/* </Card> */}
-                                    </Col>
-                                    <Col sm="6">
-                                        {/* <Card body> */}
-                                        <div className="desc-kanan-1">
-                                            <Fade>
-                                                <p className="spek-word-1">Spesifikasi</p>
-                                            </Fade>
-                                            <div className="desc-kanan-ins">
-                                            <div className="spek">
-                                                <Fade left>
-                                                    <div className="spek-ins">
-                                                            <p>Sim</p>                                
-                                                    </div>
-                                                </Fade>
-                                                <Fade right >
-                                                    <div className="spek-ins2"> 
-                                                        <p>Dual</p>
-                                                    </div>
-                                                </Fade>
-
-                                                </div>
-                                                <div className="spek">
-                                                    <Fade left>
-                                                    <div className="spek-ins">
-                                                        <p>OS (Operating System) </p>                                                         
-                                                    </div>
-                                                    </Fade>
-                                                    <Fade right>
-                                                        <div className="spek-ins2"> 
-                                                            <p>OS</p>
+                                                        <p>Ubah Biodata Diri</p>
+                                                        <p>Nama</p>
+                                                        <p>Tanggal Lahir</p>
+                                                        <p>Jenis Kelamin</p>
+                                                        <p>Ubah Kontak</p>
+                                                        <div className="d-flex">
+                                                            <p>Email</p> &nbsp;
+                                                            <p className="ubah"> ubah</p>
                                                         </div>
-                                                    </Fade>
+                                                        <div className="d-flex">
+                                                            <p>Nomor Hp</p>  &nbsp;
+                                                            <p className="ubah">ubah</p>
+                                                        </div>
 
-                                                </div>
-                                                <div className="spek">
-                                                    <Fade left>
-                                                        <div className="spek-ins">
-                                                            <p>Storage </p>                                                              
-                                                        </div>
-                                                    </Fade>
-                                                    <Fade right>
-                                                        <div className="spek-ins2"> 
-                                                            <p>64GB</p>
-                                                        </div>
-                                                    </Fade>
 
-                                                </div>
-                                                <div className="spek">
-                                                    <Fade left>
-                                                        <div className="spek-ins">
-                                                            <p>Warna </p>                                                             
-                                                        </div>
-                                                    </Fade>
-                                                    <Fade right>
-                                                        <div className="spek-ins2"> 
-                                                            <p>Gold</p>
-                                                        </div>
-                                                    </Fade>
+                                                    </div>
+                                                    <div className="bio-kanan">
+                                                      
+                                                        <p>Bayu Darmawan</p>
+                                                        <p>2 Agustus 1996</p>
+                                                        <p>Laki-Laki</p>
+                                                        <p>Ubah Kontak</p>
+                                                        <p>darmawanbayu1@gmail.com</p>
+                                                        <p>087785192296</p>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        {/* </Card> */}
-                                    </Col>
+                                    </Zoom>  
+                                    </div>
+                                        
+                                
+                                    
                                 </Row>
                                 </TabPane>
-                                <TabPane  tabId="3" className="tab-row-1">
+                                <TabPane  tabId="3" className="tab-row-1 tabpanel">
                                     <Row>
-                                    <div className="desc-kiri">
-                                        <div className="overflow-auto">
-                                            <div className="scroll-div"> 
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam, praesentium perferendis minima cumque ipsum suscipit. Tempore cupiditate, neque, temporibus quo deserunt aperiam commodi nam magnam odit repudiandae in. Eveniet.
+                                    <div className="biodata">
+                                        <Zoom>
+                                            <div className="div-biodata">
+                                                <div className="biodata-kiri">
+                                                    <div className="img-biodata">
+                                                        <img src={bgKecil} alt="error" width="280px" height="250px"/>
+                                                        <div className="btn-pilih"> 
+                                                            <p>Change Photo</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="password-change">
+                                                        <div className="btn-pass">
+                                                            <FaKey className="ikon-1"/>
+                                                            <p className="pass-1">Change Your Password</p>
+                                                        </div>
 
+                                                    </div>
+                                                    <div className="pin-purwa">
+                                                        <div className="btn-pin">
+                                                        <FaLock className="ikon-1"/>
+                                                        <p className="pass-1">Pin Purwa Store</p>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div className="biodata-kanan">
+                                                    <div className="bio-kiri">
+                                                        
+                                                        <p>Ubah Biodata Diri</p>
+                                                        <p>Nama</p>
+                                                        <p>Tanggal Lahir</p>
+                                                        <p>Jenis Kelamin</p>
+                                                        <p>Ubah Kontak</p>
+                                                        <div className="d-flex">
+                                                            <p>Email</p> &nbsp;
+                                                            <p className="ubah"> ubah</p>
+                                                        </div>
+                                                        <div className="d-flex">
+                                                            <p>Nomor Hp</p>  &nbsp;
+                                                            <p className="ubah">ubah</p>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div className="bio-kanan">
+                                                      
+                                                        <p>Bayu Darmawan</p>
+                                                        <p>2 Agustus 1996</p>
+                                                        <p>Laki-Laki</p>
+                                                        <p>Ubah Kontak</p>
+                                                        <p>darmawanbayu1@gmail.com</p>
+                                                        <p>087785192296</p>
+
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                    </Zoom>  
                                     </div>
-                                      
                                     </Row>
                                 </TabPane>
                             </TabContent>
