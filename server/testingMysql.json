@@ -1,0 +1,161 @@
+
+{
+    "Users":[
+        {
+            "id":1,
+            "username":"bayu",
+            "namaLengkap":"Bayu Darmawan",
+            "email":"darmawanbayu1@gmail.com",
+            "password":"kebeleteek",
+            "isverified":"0",
+            "roleid":"0",
+            "phone":null,
+            "alamat":null,
+            "Lastlogin":null
+        }
+    ],
+    "Products":[
+        {
+            "id": 1,
+            "merk": "oppo",
+            "namaHp": "OPPO A37 ",
+            "harga": 930000,
+            "unit": 2,
+            "viewer": 0,
+            "gambar": "https://hmp.me/dc10",
+            "description": "DIJUAL Oppo A37 Produk bekas pakai dengan kondisi fisik 3 sampai 6 titik lecet/penyok/cat terkelupas di body. Contoh seperti di gambar.",
+            "warna": "Gold",
+            "storage": "16",
+            "screenSize": "5.0",
+            "screenResolution": "720x1280",
+            "backCamera": "8Mp",
+            "frontCamera": "5Mp",
+            "batteryCapacity": "2630Mah",
+            "sim": "Dual",
+            "os": "Android Os, V5.1(Lollipop)"
+          },
+          {
+            "id": 2,
+            "merk": "Samsung",
+            "namaHp": "Samsung Galaxy S9",
+            "harga": 3440000,
+            "unit": 2,
+            "viewer": 0,
+            "gambar": "https://hmp.me/dc11",
+            "description": "DIJUAL Samsung Galaxy S9 plusProduk bekas pakai dengan kondisi fisik lebih",
+            "warna": "Midnight Black",
+            "storage": "64",
+            "screenSize": "6.2",
+            "screenResolution": "1440X2960",
+            "backCamera": "8Mp",
+            "frontCamera": "12Mp",
+            "batteryCapacity": "3500Mah",
+            "sim": "Dual",
+            "os": "Android Os, 8.0(Oreo)"
+          },
+          {
+            "id": 3,
+            "merk": "Apple",
+            "namaHp": "Iphone 6 64gb",
+            "harga": 190000,
+            "unit": 5,
+            "viewer": 0,
+            "gambar": "https://hmp.me/dc12",
+            "description": "DIJUAL Iphone 6 64gb plusProduk bekas pakai dengan kondisi fisik lebih",
+            "warna": "Space Gray",
+            "storage": "64",
+            "screenSize": "4.7",
+            "screenResolution": "750X1334",
+            "backCamera": "8Mp",
+            "frontCamera": "1.2Mp",
+            "batteryCapacity": "1800Mah",
+            "sim": "single",
+            "os": "Ios 8"
+          },
+          {
+            "id": 4,
+            "merk": "Apple",
+            "namaHp": " Iphone XS 64gb",
+            "harga": 850000,
+            "unit": 5,
+            "viewer": 0,
+            "gambar": "https://hmp.me/dc13",
+            "description": "DIJUAL Iphone XS 64gb plusProduk bekas pakai dengan kondisi fisik lebih",
+            "warna": "Silver",
+            "storage": "64",
+            "screenSize": "5.8",
+            "screenResolution": "1125X2436",
+            "backCamera": "8Mp",
+            "frontCamera": "12Mp",
+            "batteryCapacity": "2658Mah",
+            "sim": "single",
+            "os": "Ios 12"
+          },
+          {
+            "id": 5,
+            "merk": "Apple",
+            "namaHp": " Iphone XR 128gb",
+            "harga": 190000,
+            "unit": 2,
+            "viewer": 0,
+            "gambar": "https://hmp.me/dc14",
+            "description": "DIJUAL Iphone XR 128GB plusProduk bekas pakai dengan kondisi fisik lebih",
+            "warna": "Red",
+            "storage": "128",
+            "screenSize": "6.1",
+            "screenResolution": "828X1792",
+            "backCamera": "7Mp",
+            "frontCamera": "12Mp",
+            "batteryCapacity": "2942",
+            "sim": "single",
+            "os": "Ios 12"
+          }
+    ],
+    "brandTerlaris":[
+        {
+            "id":1,
+            "productId":2
+        },
+        {
+            "id":2,
+            "productId":3
+        }
+    ],
+    "newProduct":[
+        {
+            "id":1,
+            "productId":4
+        },
+        {
+            "id":2,
+            "productId":1
+        }
+    ],
+    "Transactions":[
+        {
+            "status":"Completed",
+            "userId":1,
+            "tanggalPembayaran":1600431435676,
+            "metode":"upload",
+            "buktiPembayaran":"https://hmp.me/dcko",
+            "id":12
+        },
+        {
+            "status": "WaitingAdmin",
+            "userId": 4,
+            "tanggalPembayaran": 1600683198765,
+            "metode": "upload",
+            "buktipembayaran": "https://hmp.me/dcux",
+            "id": 43
+          }
+    ],
+    "TransactionDetails":[
+        {
+            "transactionId":12,
+            "productId":6,
+            "price":500000,
+            "qty":1,
+            "id":19
+        }
+    ]
+}
