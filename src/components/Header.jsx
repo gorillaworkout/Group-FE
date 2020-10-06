@@ -204,16 +204,15 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   }
 
 }
-  const sendQuery=(query)=>{
-    console.log(`querying for ${query}`)
-    // setProducts(query)
+  // const sendQuery=(query)=>{
+  //   console.log(`querying for ${query}`)
+  //   // setProducts(query)
     
-  }
+  // }
   
-    
     const updateQuery=()=>{
       filterSearch(userQuery)
-      sendQuery(userQuery)
+      // sendQuery(userQuery)
       // setopen3(true)
     }
     const delayedQuery=useCallback(debounce(updateQuery,1000),[userQuery])
@@ -221,9 +220,9 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
 
 
     useEffect(()=>{
-      delayedQuery()
-      return delayedQuery.cancel
-    },[userQuery,delayedQuery])
+      delayedQuery() // didmount 
+      // return delayedQuery.cancel // willmount
+    },[userQuery])
   
 
   /*
