@@ -153,7 +153,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const onIsiSearchClick=(id)=>{
     var indexProd = products.findIndex((val)=> val.id == id)
     localStorage.setItem('Products',JSON.stringify(products[indexProd]))
-    
+    console.log(products[indexProd])
   }
 
   const renderSearchData=(arr)=>{
@@ -258,8 +258,8 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                 }}
                 inputProps={{ 'aria-label': 'search' }}
                 onChange = {(e)=>onChangeSearch(e)}
-                onFocus = {()=>setopen3(true)}
-                onBlur ={()=>setopen3(false)}
+                // onFocus = {()=>setopen3(true)}
+                // onBlur ={()=>setopen3(false)}
                 // value={userQuery}
               />
             </div>
