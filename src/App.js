@@ -5,6 +5,7 @@ import Header from './components/Header'
 import {Switch,Route} from 'react-router-dom'
 import Home from './pages/home/home'
 import Login from './pages/login/login'
+import Admin from './pages/admin/admin'
 import Loading from './components/Loading'
 import {LoginFunc} from './redux/Actions'
 import Register from './pages/register/register'
@@ -59,8 +60,8 @@ function App(props) {
     <Switch>
       {/* <Header/> */}
       <Route exact path='/' component={Home}/>
-        <Route exact path='/login' component={Login}/>
- 
+      <Route exact path='/login' component={Login}/>
+      <Route exact path='/admin' component={Admin}/>
       <Route exact path='/register' component={Register}/>
       <Route exact path='/detailproduct/:id' component={DetailProd}/>
       <Route exact path='/myaccount' component={MyAccount}/>
