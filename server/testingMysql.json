@@ -225,7 +225,7 @@
             "os": "Android 9 (Pie)"
           },
           {
-            "id": 11,
+            "id": 12,
             "merk": "Oppo",
             "namaHp": "Oppo F5 32gb",
             "harga": 1310000,
@@ -244,7 +244,7 @@
             "os": "Android 7.1.1 (Nougat)"
           },
           {
-            "id": 12,
+            "id": 13,
             "merk": "Vivo",
             "namaHp": "Vivo V15 Pro 128gb",
             "harga": 2660000,
@@ -263,7 +263,7 @@
             "os": "Android 9.0 (Pie)"
           },
           {
-            "id": 13,
+            "id": 14,
             "merk": "Vivo",
             "namaHp": " Vivo V17 Pro 128gb",
             "harga": 3490000,
@@ -282,7 +282,7 @@
             "os": "Android 9.0 (Pie)"
           },
           {
-            "id": 14,
+            "id": 15,
             "merk": "Vivo",
             "namaHp": "Vivo Y91 32gb",
             "harga": 1220000,
@@ -301,7 +301,7 @@
             "os": "Android 8.1 (Oreo)"
           },
           {
-            "id": 15,
+            "id": 16,
             "merk": "Xiaomi",
             "namaHp": "Xiaomi Redmi 5A 16gb",
             "harga": 670000,
