@@ -24,9 +24,9 @@ const Admin = () => {
 
 
     return ( 
-        <div>
+        <div className='admin-body'>
             {/* <Header/> */}
-            <div class="navbar-kiri position-fixed">
+            <div class="admin-navbar-kiri position-fixed">
                 <h5 class="mx-3 mb-2 mt-4">Welcome Admin!</h5>
                 <div class="menu mt-3">
                     <div class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Products</div>
@@ -41,11 +41,11 @@ const Admin = () => {
                     <li><i class="fas fa-plus mr-2"></i>Add new</li>
                 </ul>
             </div>
-            <div class="d-flex flex-column">
+            <div className="d-flex flex-column">
                 {/* <Header/> */}
                 <div>
-                    <Navbar className='position-absolute' color="light" light expand="sm" style={{width:'100%'}}>
-                        <NavbarBrand href="/">reactstrap</NavbarBrand>
+                    <Navbar className='position-absolute' color="white" light expand="sm" style={{width:'100%'}}>
+                        <NavbarBrand href="/">Home</NavbarBrand>
                         <NavbarToggler onClick={toggle} />
                         <Collapse isOpen={isOpen} navbar>
                         <Nav className="mr-auto" navbar>
@@ -79,6 +79,12 @@ const Admin = () => {
                 </div>
                 <div>
                     holaaa
+                </div>
+                <div>
+                    babaa
+                </div>
+                <div>
+                    afdafdholadsdaaa
                 </div>
             </div>
         </div>

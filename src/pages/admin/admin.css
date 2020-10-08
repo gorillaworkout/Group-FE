@@ -4,11 +4,11 @@
 }
 
 /* navbar */
-body{
+.admin-body{
     background-color: rgb(231, 231, 231) !important;
     padding-left: calc(21% + 2px);
 }
-.navbar-kiri{
+.admin-navbar-kiri{
     background-color: white;
     height: 100vh;
     top: 0;
