@@ -175,7 +175,9 @@ class DetailProduct extends Component {
                             </div>
                             <div className="btn-kanan">
                                 <div className="btn-ins">
-                                    <p>BELI SEKARANG</p>
+                                    <Link to='/cart'>
+                                        <p>BELI SEKARANG</p>
+                                    </Link>
                                 </div> 
                             </div>
                         </div>
