@@ -76,6 +76,40 @@ class DetailProduct extends Component {
         })
       }
 
+      renderGrade=()=>{
+          return this.state.product.map((val,index)=>{
+              if(val.grade =='')
+              return(
+                  
+                    <>
+                    
+                        <div className="box-ins">
+                            <p>Ekonomis</p>
+                        </div>
+                                        <div className="box-ins">
+                                        <p>Baru</p>
+                                        </div>
+                                        <div className="box-ins">
+                                        <p >Standar</p>
+                                        </div>
+                                        <div className="pilihan-type">
+                                        <p className="icns-gt"><FcCheckmark/></p>
+                                        <p className="icns-gt-1">Curian</p>
+                                        </div>
+                                        <div className="box-ins">
+                                        <p>Mulus</p>
+                                        </div>
+                                        <div className="box-ins">
+                                        <p>Lelang</p>
+                                        </div>
+                                        <div className="box-ins">
+                                        <p>Nemu</p>
+                                        </div>
+                    </>
+              )
+          })
+      }
+
     render() { 
         console.log(this.state.JSON)
         console.log(this.state.dataParse)
@@ -107,28 +141,7 @@ class DetailProduct extends Component {
                                 <div className="gradeType">
                                     <p>Grade Type</p>
                                     <div className="ins-gradeType">
-                                        <div className="box-ins">
-                                            <p>Ekonomis</p>
-                                        </div>
-                                        <div className="box-ins">
-                                        <p>Baru</p>
-                                        </div>
-                                        <div className="box-ins">
-                                        <p >Standar</p>
-                                        </div>
-                                        <div className="pilihan-type">
-                                        <p className="icns-gt"><FcCheckmark/></p>
-                                        <p className="icns-gt-1">Curian</p>
-                                        </div>
-                                        <div className="box-ins">
-                                        <p>Mulus</p>
-                                        </div>
-                                        <div className="box-ins">
-                                        <p>Lelang</p>
-                                        </div>
-                                        <div className="box-ins">
-                                        <p>Nemu</p>
-                                        </div>
+                                        {this.renderGrade()}
                                     </div>
                                 </div>
                                 <div className="storage">
@@ -176,7 +189,9 @@ class DetailProduct extends Component {
                             </div>
                             <div className="btn-kanan">
                                 <div className="btn-ins">
-                                    <p>BELI SEKARANG</p>
+                                    <Link to='/cart'>
+                                        <p>BELI SEKARANG</p>
+                                    </Link>
                                 </div> 
                             </div>
                         </div>

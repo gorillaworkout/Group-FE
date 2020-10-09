@@ -51,7 +51,8 @@
       "frontCamera": "5Mp",
       "batteryCapacity": "2630Mah",
       "sim": "Dual",
-      "os": "Android Os, V5.1(Lollipop)"
+      "os": "Android Os, V5.1(Lollipop)",
+      "grade":"Curian"
     },
     {
       "id": 2,
@@ -70,7 +71,8 @@
       "frontCamera": "12Mp",
       "batteryCapacity": "3500Mah",
       "sim": "Dual",
-      "os": "Android Os, 8.0(Oreo)"
+      "os": "Android Os, 8.0(Oreo)",
+      "grade":"Curian"
     },
     {
       "id": 3,
@@ -89,7 +91,8 @@
       "frontCamera": "1.2Mp",
       "batteryCapacity": "1800Mah",
       "sim": "single",
-      "os": "Ios 8"
+      "os": "Ios 8",
+      "grade":"Curian"
     },
     {
       "id": 4,
@@ -108,7 +111,8 @@
       "frontCamera": "12Mp",
       "batteryCapacity": "2658Mah",
       "sim": "single",
-      "os": "Ios 12"
+      "os": "Ios 12",
+      "grade":"Ekonomis"
     },
     {
       "id": 5,
@@ -127,7 +131,8 @@
       "frontCamera": "12Mp",
       "batteryCapacity": "2942",
       "sim": "single",
-      "os": "Ios 12"
+      "os": "Ios 12",
+      "grade":"Mulus"
     }
   ],
   "brandterlaris": [
@@ -148,7 +153,8 @@
       "frontCamera": "12Mp",
       "batteryCapacity": "3500Mah",
       "sim": "Dual",
-      "os": "Android Os, 8.0(Oreo)"
+      "os": "Android Os, 8.0(Oreo)",
+      "grade":"Lelang"
     },
     {
       "id": 2,
@@ -167,7 +173,8 @@
       "frontCamera": "5Mp",
       "batteryCapacity": "2630Mah",
       "sim": "Dual",
-      "os": "Android Os, V5.1(Lollipop)"
+      "os": "Android Os, V5.1(Lollipop)",
+      "grade":"Nemu"
     },
     {
       "id": 3,
@@ -186,7 +193,8 @@
       "frontCamera": "12Mp",
       "batteryCapacity": "2658Mah",
       "sim": "single",
-      "os": "Ios 12"
+      "os": "Ios 12",
+      "grade":"Nemu"
     },
     {
       "id": 4,
@@ -205,7 +213,8 @@
       "frontCamera": "1.2Mp",
       "batteryCapacity": "1800Mah",
       "sim": "single",
-      "os": "Ios 8"
+      "os": "Ios 8",
+      "grade":"Ekonomis"
     },
     {
       "id": 5,
@@ -224,7 +233,8 @@
       "frontCamera": "12Mp",
       "batteryCapacity": "2942",
       "sim": "single",
-      "os": "Ios 12"
+      "os": "Ios 12",
+      "grade":"Curian"
     }
   ],
   "newproduct": [
@@ -245,7 +255,8 @@
       "frontCamera": "12Mp",
       "batteryCapacity": "2658Mah",
       "sim": "single",
-      "os": "Ios 12"
+      "os": "Ios 12",
+      "grade":"Ekonomis"
     },
     {
       "id": 2,
@@ -264,7 +275,8 @@
       "frontCamera": "1.2Mp",
       "batteryCapacity": "1800Mah",
       "sim": "single",
-      "os": "Ios 8"
+      "os": "Ios 8",
+      "grade":"Ekonomis"
     },
     {
       "id": 3,
@@ -283,7 +295,8 @@
       "frontCamera": "12Mp",
       "batteryCapacity": "3500Mah",
       "sim": "Dual",
-      "os": "Android Os, 8.0(Oreo)"
+      "os": "Android Os, 8.0(Oreo)",
+      "grade":"Mulus"
     },
     {
       "id": 4,
@@ -302,7 +315,8 @@
       "frontCamera": "5Mp",
       "batteryCapacity": "2630Mah",
       "sim": "Dual",
-      "os": "Android Os, V5.1(Lollipop)"
+      "os": "Android Os, V5.1(Lollipop)",
+      "grade":"Curian"
     },
     {
       "id": 5,
@@ -321,7 +335,8 @@
       "frontCamera": "12Mp",
       "batteryCapacity": "2942",
       "sim": "single",
-      "os": "Ios 12"
+      "os": "Ios 12",
+      "grade":"Curian"
     }
   ],
   "carts": [],
