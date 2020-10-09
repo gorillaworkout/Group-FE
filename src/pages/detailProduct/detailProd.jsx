@@ -76,25 +76,32 @@ class DetailProduct extends Component {
       }
 
       renderGrade=()=>{
-          return this.state.product.map((val,index)=>{
-              if(val.grade =='')
-              return(
-                  
-                    <>
-                    
+          return this.state.dataParse.map((val,index)=>{
+              console.log(this.state.product)
+              console.log(val.grade)
+              if(val.grade =='Curian' || val.grade =='Mulus' || val.grade == 'Baru' || val.grade =='Ekonomis' || val.grade=='Lelang' || val.grade=='Nemu'){
+                  return(    
+                        <>
+                         <div className="pilihan-type">
+                                <p className="icns-gt"><FcCheckmark/></p>
+                                <p className="icns-gt-1">Curian</p>
+                        </div>                  
+                        </>
+                  )
+
+              }else {
+                    return (
+                       <>
                         <div className="box-ins">
-                            <p>Ekonomis</p>
-                        </div>
+                                            <p>Ekonomis</p>
+                                        </div>
                                         <div className="box-ins">
                                         <p>Baru</p>
                                         </div>
                                         <div className="box-ins">
                                         <p >Standar</p>
                                         </div>
-                                        <div className="pilihan-type">
-                                        <p className="icns-gt"><FcCheckmark/></p>
-                                        <p className="icns-gt-1">Curian</p>
-                                        </div>
+                                       
                                         <div className="box-ins">
                                         <p>Mulus</p>
                                         </div>
@@ -104,8 +111,9 @@ class DetailProduct extends Component {
                                         <div className="box-ins">
                                         <p>Nemu</p>
                                         </div>
-                    </>
-              )
+                       </>
+                    )
+              }
           })
       }
 
@@ -140,7 +148,9 @@ class DetailProduct extends Component {
                                 <div className="gradeType">
                                     <p>Grade Type</p>
                                     <div className="ins-gradeType">
-                                        {this.renderGrade()}
+                                        {/* {this.renderGrade()} */}
+                                        
+                                       
                                     </div>
                                 </div>
                                 <div className="storage">

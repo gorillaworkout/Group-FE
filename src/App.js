@@ -11,6 +11,7 @@ import {LoginFunc} from './redux/Actions'
 import Register from './pages/register/register'
 import DetailProd from './pages/detailProduct/detailProd'
 import MyAccount from './pages/user/MyAccount'
+import Payment from './pages/Payment/Payment'
 import Cart from './pages/cart/cart'
 import Particles from 'react-particles-js'
 import {connect} from 'react-redux'
@@ -67,6 +68,7 @@ function App(props) {
       <Route exact path='/detailproduct/:id' component={DetailProd}/>
       <Route exact path='/myaccount' component={MyAccount}/>
       <Route exact path='/cart' component={Cart}/>
+      <Route exact path='/payment' component={Payment}></Route>
       
     </Switch>
      

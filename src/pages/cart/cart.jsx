@@ -7,8 +7,11 @@ import {GiSelfLove} from 'react-icons/gi'
 import {BsTrash ,BsPlusSquare} from 'react-icons/bs'
 import {AiOutlineMinusSquare} from 'react-icons/ai'
 import gorillaworkout from './../../assets/gorillaworkout.png'
+import {Link} from 'react-router-dom'   
 class Cart extends Component {
-    state = {  }
+    state = { 
+
+     }
     render() { 
         return ( 
             <div> 
@@ -22,8 +25,8 @@ class Cart extends Component {
                             <div className="p-2">
                                 <p>Pilih Semua Barang</p>
                             </div>
-                            <div className="ml-auto p-2">
-                                <p style={{color:'green'}}>Hapus</p>    
+                            <div className="ml-auto p-2 hapus">
+                                <p style={{color:'green'}} className="hapus">Hapus</p>    
                             </div>
                         </div>
                         <div className="render-cart">
@@ -168,7 +171,9 @@ class Cart extends Component {
                                                 <p className="p-2">Rp.150.000</p>
                                         </div>
                                         <div className="cart-kanan-bawah-bwh">
-                                            <p>Beli(3)</p>
+                                            <Link to='/payment'> 
+                                                <p>Beli(3)</p>
+                                            </Link>
                                         </div>
 
                                 </div>

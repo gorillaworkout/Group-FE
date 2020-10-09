@@ -299,7 +299,8 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
             :
             role==='user'?
             <>
-            <Link to='/products' style={{textDecoration:'none',color:'white'}}>
+            
+            {/* <Link to='/products' style={{textDecoration:'none',color:'white'}}>
               <Button color="inherit">
                 <StyledBadge color='secondary' >
                   <span style={{fontSize:20}}>
@@ -307,7 +308,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                   </span>
                 </StyledBadge>
               </Button>
-            </Link>
+            </Link> */}
             {/* <Link to='/cart' style={{textDecoration:'none',color:'white'}}>
               <Button color="inherit">
                 <StyledBadge badgeContent={cart.length} color='secondary' >
