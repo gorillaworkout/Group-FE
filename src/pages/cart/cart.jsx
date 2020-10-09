@@ -152,9 +152,10 @@ class Cart extends Component {
                                     <div className="discount">
                                             <div className="bulat">
                                                 <p>%</p>
+                                                
                                             </div>
                                             <div className="loading">
-
+                                                <p>Makin Hemat Pakai Promo</p>
                                             </div>
                                     </div>
                                 </div>

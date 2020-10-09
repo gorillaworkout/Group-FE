@@ -178,16 +178,20 @@ cursor: pointer;
 .bulat p{
     color:white;
     margin-top:10px;
+    display:flex;
 }
 .loading{
     width:80%;
     height:30px;
-    background-color: blue;
+    /* background-color: blue; */
     margin-left:10px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+.loading p{
+    font-weight:600;
 }
 .cart-kanan-bawah{
     /* background-color: red; */
