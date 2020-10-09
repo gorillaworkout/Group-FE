@@ -31,6 +31,12 @@
       "role": "user",
       "id": 4,
       "photo": "https://hmp.me/dcta"
+    },
+    {
+      "username": "gorillajajan",
+      "password": "1234",
+      "role": "user",
+      "id": 5
     }
   ],
   "Products": [
@@ -52,7 +58,7 @@
       "batteryCapacity": "2630Mah",
       "sim": "Dual",
       "os": "Android Os, V5.1(Lollipop)",
-      "grade":"Curian"
+      "grade": "Curian"
     },
     {
       "id": 2,
@@ -72,7 +78,7 @@
       "batteryCapacity": "3500Mah",
       "sim": "Dual",
       "os": "Android Os, 8.0(Oreo)",
-      "grade":"Curian"
+      "grade": "Curian"
     },
     {
       "id": 3,
@@ -92,7 +98,7 @@
       "batteryCapacity": "1800Mah",
       "sim": "single",
       "os": "Ios 8",
-      "grade":"Curian"
+      "grade": "Curian"
     },
     {
       "id": 4,
@@ -112,7 +118,7 @@
       "batteryCapacity": "2658Mah",
       "sim": "single",
       "os": "Ios 12",
-      "grade":"Ekonomis"
+      "grade": "Ekonomis"
     },
     {
       "id": 5,
@@ -132,7 +138,7 @@
       "batteryCapacity": "2942",
       "sim": "single",
       "os": "Ios 12",
-      "grade":"Mulus"
+      "grade": "Mulus"
     }
   ],
   "brandterlaris": [
@@ -154,7 +160,7 @@
       "batteryCapacity": "3500Mah",
       "sim": "Dual",
       "os": "Android Os, 8.0(Oreo)",
-      "grade":"Lelang"
+      "grade": "Lelang"
     },
     {
       "id": 2,
@@ -174,7 +180,7 @@
       "batteryCapacity": "2630Mah",
       "sim": "Dual",
       "os": "Android Os, V5.1(Lollipop)",
-      "grade":"Nemu"
+      "grade": "Nemu"
     },
     {
       "id": 3,
@@ -194,7 +200,7 @@
       "batteryCapacity": "2658Mah",
       "sim": "single",
       "os": "Ios 12",
-      "grade":"Nemu"
+      "grade": "Nemu"
     },
     {
       "id": 4,
@@ -214,7 +220,7 @@
       "batteryCapacity": "1800Mah",
       "sim": "single",
       "os": "Ios 8",
-      "grade":"Ekonomis"
+      "grade": "Ekonomis"
     },
     {
       "id": 5,
@@ -234,7 +240,7 @@
       "batteryCapacity": "2942",
       "sim": "single",
       "os": "Ios 12",
-      "grade":"Curian"
+      "grade": "Curian"
     }
   ],
   "newproduct": [
@@ -256,7 +262,7 @@
       "batteryCapacity": "2658Mah",
       "sim": "single",
       "os": "Ios 12",
-      "grade":"Ekonomis"
+      "grade": "Ekonomis"
     },
     {
       "id": 2,
@@ -276,7 +282,7 @@
       "batteryCapacity": "1800Mah",
       "sim": "single",
       "os": "Ios 8",
-      "grade":"Ekonomis"
+      "grade": "Ekonomis"
     },
     {
       "id": 3,
@@ -296,7 +302,7 @@
       "batteryCapacity": "3500Mah",
       "sim": "Dual",
       "os": "Android Os, 8.0(Oreo)",
-      "grade":"Mulus"
+      "grade": "Mulus"
     },
     {
       "id": 4,
@@ -316,7 +322,7 @@
       "batteryCapacity": "2630Mah",
       "sim": "Dual",
       "os": "Android Os, V5.1(Lollipop)",
-      "grade":"Curian"
+      "grade": "Curian"
     },
     {
       "id": 5,
@@ -336,7 +342,7 @@
       "batteryCapacity": "2942",
       "sim": "single",
       "os": "Ios 12",
-      "grade":"Curian"
+      "grade": "Curian"
     }
   ],
   "carts": [],

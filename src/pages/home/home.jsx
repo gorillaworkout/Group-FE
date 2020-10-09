@@ -27,7 +27,9 @@ class Home extends Component {
     state = { 
       product:[],
       brandterlaris:[],
-      newproduct:[]
+      newproduct:[],
+      sqlAllProduct:[],
+      sqlMostView:[]
      }
 
      componentDidMount(){
@@ -54,10 +56,30 @@ class Home extends Component {
        }).catch((err)=>{
          console.log(err)
        })
+
+       Axios.get(`http://localhost:5001/product/prodHomeAll`)
+       .then((res)=>{
+          // console.log(res.data)
+          this.setState({sqlAllProduct:res.data})
+       }).catch((err)=>{
+         alert('alert di axios sql')
+         console.log(err)
+       })
+       
+       Axios.get(`http://localhost:5001/product/prodHomeView`)
+       .then((res)=>{
+         console.log(res.data)
+          this.setState({sqlMostView:res.data})
+       }).catch((err)=>{
+         console.log(err)
+       })
+
+
+
      }
 
      renderTable=()=>{
-       return this.state.product.map((val,index)=>{
+       return this.state.sqlMostView.map((val,index)=>{
          return (
           <div key ={val.id}className=" ins-populer">
             <img src={val.gambar} alt="error" width="100%" height="200px"/>
@@ -182,7 +204,7 @@ class Home extends Component {
 
               <div className=" populer">
                 <div className="div-1-populer">
-                      <p>Populer Product</p>
+                      <p>Most View Product</p>
                       <p style={{fontSize:'12px',marginTop:'-13px'}}>No Need Confused! Just Choost Which One You Want!</p>
                 </div>
                 <div className="d-flex">
