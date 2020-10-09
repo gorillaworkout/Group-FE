@@ -19,7 +19,9 @@ class DetailProduct extends Component {
         product:[],
         dataParse:{},
         productThunk:[],
-        activeTab:1
+        activeTab:1,
+        gradeType: ['Ekonomis', 'Baru', 'Standar','Mulus', 'Curian', 'Lelang', 'Nemu'],
+        storage: [8, 16, 32, 64, 128, 256]
      }
 
      toggle=(tab)=>{
@@ -73,49 +75,46 @@ class DetailProduct extends Component {
             </div>
           )
         })
-      }
+    }
 
-      renderGrade=()=>{
-          return this.state.dataParse.map((val,index)=>{
-              console.log(this.state.product)
-              console.log(val.grade)
-              if(val.grade =='Curian' || val.grade =='Mulus' || val.grade == 'Baru' || val.grade =='Ekonomis' || val.grade=='Lelang' || val.grade=='Nemu'){
-                  return(    
-                        <>
-                         <div className="pilihan-type">
-                                <p className="icns-gt"><FcCheckmark/></p>
-                                <p className="icns-gt-1">Curian</p>
-                        </div>                  
-                        </>
-                  )
 
-              }else {
-                    return (
-                       <>
-                        <div className="box-ins">
-                                            <p>Ekonomis</p>
-                                        </div>
-                                        <div className="box-ins">
-                                        <p>Baru</p>
-                                        </div>
-                                        <div className="box-ins">
-                                        <p >Standar</p>
-                                        </div>
-                                       
-                                        <div className="box-ins">
-                                        <p>Mulus</p>
-                                        </div>
-                                        <div className="box-ins">
-                                        <p>Lelang</p>
-                                        </div>
-                                        <div className="box-ins">
-                                        <p>Nemu</p>
-                                        </div>
-                       </>
-                    )
-              }
-          })
-      }
+    renderGrade=()=>{
+        return this.state.gradeType.map((val,index)=>{
+            console.log(val, 'val')
+            if (this.state.dataParse.grade == val){
+                return (
+                    <div className="pilihan-type">
+                        <p className="icns-gt"><FcCheckmark/></p>
+                        <p className="icns-gt-1">{val}</p>
+                    </div>
+              )
+            }
+            return (
+              <div className="box-ins">
+                  <p>{val}</p>
+              </div>
+            )
+        })
+    }
+
+    renderStorage=()=>{
+        return this.state.storage.map((val)=>{
+            console.log(val, 'val')
+            if (this.state.dataParse.storage == val){
+                return (
+                    <div className="pilihan-stor">
+                        <p className="icns"><FcCheckmark/></p>
+                        <p className="icns-1">{val}</p>
+                    </div>
+              )
+            }
+            return (
+                <div className="memory">
+                    <p>{val}</p>
+                </div>
+            )
+        })
+    }
 
     render() { 
         console.log(this.state.JSON)
@@ -156,19 +155,7 @@ class DetailProduct extends Component {
                                 <div className="storage">
                                     <p>Storage</p>
                                     <div className="box-ins-stor">
-                                        <div className="memory">
-                                            <p>{32} GB</p>
-                                        </div>
-                                        <div className="memory1">
-                                            <p>64</p>
-                                        </div>
-                                        <div className="pilihan-stor">
-                                            <p className="icns"><FcCheckmark/></p>
-                                            <p className="icns-1">128</p>
-                                        </div>
-                                        <div className="memory1">
-                                            <p>256</p>
-                                        </div>
+                                        {this.renderStorage()}
                                     </div>
 
                                 </div>

@@ -258,8 +258,11 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                 }}
                 inputProps={{ 'aria-label': 'search' }}
                 onChange = {(e)=>onChangeSearch(e)}
-                // onFocus = {()=>setopen3(true)}
-                // onBlur ={()=>setopen3(false)}
+                onFocus = {()=>setopen3(true)}
+                onBlur ={()=>setTimeout(() => {
+                  setopen3(false)
+                }, 100)}
+                
                 // value={userQuery}
               />
             </div>
@@ -276,9 +279,10 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                 color: 'white',
                 borderRadius: 5,
                 background:'#2E3B55'}}
-              anchorEl={isOpen} // ga ngaruh :((((
-              open={Boolean(isOpen)}
-              onClose={()=>setopen3(null)}>
+              // anchorEl={isOpen} // ga ngaruh :((((
+              // open={Boolean(isOpen)}
+              // onClose={()=>setopen3(null)}
+              >
                 <Typography>{renderSearchData(filterProd)}</Typography>
               </Box>
               :
@@ -289,8 +293,8 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
           {
             role==='admin'?
             <>
-            <Link to='/manageAdmin' style={{textDecoration:'none',color:'white'}}>
-              <Button color="inherit">Manage Product</Button>
+            <Link to='/admin' style={{textDecoration:'none',color:'white'}}>
+              <Button color="inherit">Manage Admin</Button>
             </Link>
              <Link to='/paymentAdmin' style={{textDecoration:'none',color:'white'}}>
              <Button color="inherit">Payment Checking</Button>
