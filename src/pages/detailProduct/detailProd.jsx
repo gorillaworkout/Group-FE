@@ -19,7 +19,8 @@ class DetailProduct extends Component {
         product:[],
         dataParse:{},
         productThunk:[],
-        activeTab:1
+        activeTab:1,
+        gradeType: ['Ekonomis', '']
      }
 
      toggle=(tab)=>{
