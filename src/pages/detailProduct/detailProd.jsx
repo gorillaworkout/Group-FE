@@ -47,14 +47,11 @@ class DetailProduct extends Component {
         })
         console.log('testing')
 
-        // if(this.props.dataJSON){
-        //     console.log('ngambil data dari reducer')
-        //     var newProduct = JSON.parse(localStorage.getItem(`Products`))
-        //     this.setState({JSON:newProduct})
-        // }else {
-            
-        // }
-       
+
+    }
+
+    sendtoCart=()=>{
+        console.log(this.state.dataParse)
     }
 
 
@@ -118,8 +115,8 @@ class DetailProduct extends Component {
 
     render() { 
         console.log(this.state.JSON)
-        console.log(this.state.dataParse)
-        
+        console.log(this.state.dataParse) // nanti dipake
+        console.log(this.props.role) // nanti dipake
         return ( 
             <div>
                 <Header/>
@@ -147,7 +144,7 @@ class DetailProduct extends Component {
                                 <div className="gradeType">
                                     <p>Grade Type</p>
                                     <div className="ins-gradeType">
-                                        {/* {this.renderGrade()} */}
+                                        {this.renderGrade()}
                                         
                                        
                                     </div>
@@ -185,7 +182,7 @@ class DetailProduct extends Component {
                             </div>
                             <div className="btn-kanan">
                                 <div className="btn-ins">
-                                    <Link to='/cart'>
+                                    <Link to='/cart' onClick={this.sendtoCart}>
                                         <p>BELI SEKARANG</p>
                                     </Link>
                                 </div> 
