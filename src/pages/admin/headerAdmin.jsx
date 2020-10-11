@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import {fade} from '@material-ui/core/styles';
-import {HOME_URL, API_URL} from './../helpers/apiUrl'
+import {HOME_URL, API_URL} from './../../helpers/apiUrl'
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff'
 import {Link,NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -19,10 +19,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Badge from '@material-ui/core/Badge';
 import SearchIcon from '@material-ui/icons/Search';
-import {LogoutFunc} from '../redux/Actions'
+import {LogoutFunc} from './../../redux/Actions'
 import {toast} from 'react-toastify'
 import {BsPhone} from 'react-icons/bs'
-import './header.css'
 import Axios from 'axios';
 import debounce from "lodash.debounce";
 const useStyles = makeStyles((theme) => ({
@@ -289,127 +288,10 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
               null
             }
            
-                        
-          {
-            role==='admin'?
-            <>
-            <Link to='/admin' style={{textDecoration:'none',color:'white'}}>
-              <Button color="inherit">Manage Admin</Button>
+            <Link>
+                <Button style={{textDecoration:'none', color:'white'}} onClick={logoutbtn}>Logout</Button>
             </Link>
-           </>
-            :
-            role==='user'?
-            <>
-            
-            {/* <Link to='/products' style={{textDecoration:'none',color:'white'}}>
-              <Button color="inherit">
-                <StyledBadge color='secondary' >
-                  <span style={{fontSize:20}}>
-                    Our Product
-                  </span>
-                </StyledBadge>
-              </Button>
-            </Link> */}
-            {/* <Link to='/cart' style={{textDecoration:'none',color:'white'}}>
-              <Button color="inherit">
-                <StyledBadge badgeContent={cart.length} color='secondary' >
-                  <span style={{fontSize:20}}>
-                    <FaCartArrowDown />
-                  </span>
-                </StyledBadge>
-              </Button>
-            </Link> */}
-            </>
-            :
-            null
-          }
-          {
-            isLogin?
-            <>
-              <Button color="inherit" onClick={(e)=>setopen2(e.currentTarget)}>
-              <StyledBadge badgeContent={2} color='secondary' >
-                  <span style={{fontSize:20}}>
-                    <FaCartArrowDown />
-                  </span>
-                </StyledBadge>
-                {/* <FaCartArrowDown/> */}
-                
-                </Button>
-              <Menu
-                anchorEl={anchorEl2}
-                open={Boolean(anchorEl2)}
-                onClose={()=>setopen2(null)}> 
-  
-                <Link to='/cart'>
-                  <MenuItem>Lihat Cart</MenuItem>
-                  {/* <MenuItem >
-                  {
-                    cart.length?
-                     <div className="d-flex">
-                       
-                      <img src={cart[0].product.gambar}  width="50px" height="50px"></img>
-                       <div>
-                         <p>{cart[0].product.namatrip}</p>
-                         <p>{cart[0].qty}</p>
-                         <p>Go to Cart</p>
-                       </div>
-                    </div>
-                    :
-                    <MenuItem>Lihat Cart</MenuItem>
-
-                  }
-                 {renderCart()}
-                  </MenuItem> */}
-                  
-                </Link>
-              
-              </Menu>
-
-              {/* LOGOUT */}
-
-
-
-              <Button color="inherit" onClick={(e)=>setopen(e.currentTarget)}><FaUserAstronaut/>&nbsp;{username}</Button>
-              <Menu
-                // id="simple-menu"
-                anchorEl={anchorEl}
-                // keepMounted
-                open={Boolean(anchorEl)}
-                onClose={()=>setopen(null)}
-                // onClose={handleClose}
-              > 
-                {/* <Link to='/history'> */}
-                  {
-                    role === 'admin'?
-                    <Link to='/manageUser'>
-                      <MenuItem >Manage Data User</MenuItem>
-                    </Link>
-                    :
-                    <Link to='/history'>
-                      <MenuItem >History</MenuItem>
-                    </Link>
-                  }
-                {/* </Link> */}
-
-
-                <Link to='/myAccount'>
-                  <MenuItem >My account</MenuItem>
-                </Link>
-                <Link to='/'>
-                <MenuItem onClick={logoutbtn}>Logout</MenuItem>
-                </Link>
-              </Menu>
-            </>
-            :
-            <>
-            <Link to='/register' style={{textDecoration:'none',color:'white'}}>
-            <Button color="inherit">Register</Button>
-            </Link>
-            <Link to='/login' style={{textDecoration:'none',color:'white'}}>
-              <Button color="inherit">Login</Button>
-            </Link>
-            </>
-          }
+          
         </Toolbar>
       </AppBar>
     </div>
