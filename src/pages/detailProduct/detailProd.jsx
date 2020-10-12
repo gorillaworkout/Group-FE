@@ -110,9 +110,11 @@ class DetailProduct extends Component {
                 console.log(err)
             })
         
+        }else {
+            alert('login dulu')
         }
-        console.log(data)
-        console.log(data.id)
+        // console.log(data)
+        // console.log(data.id)
 
     }
 
