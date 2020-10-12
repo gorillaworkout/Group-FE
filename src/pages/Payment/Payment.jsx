@@ -32,7 +32,7 @@ class Payment extends Component {
      componentDidMount(){
         var idUsers = JSON.parse(localStorage.getItem('id'))
         this.setState({idUser:idUsers})
-        
+        // Axios.get(`http://localhost:5001/cart/allQty/${this.state.idUser}`)
         Axios.get(`http://localhost:5001/cart/allQty/${idUsers}`)      
         .then((res)=>{
                 console.log(res.data)
@@ -92,43 +92,15 @@ class Payment extends Component {
          })
      }
 
-     renderHarga=()=>{
-         return this.state.sqlCart.map((val,index)=>{
-             return (
-                 <>
-                  <div className="cart-dalem-kanan">
-                        <div className="cart-kanan">
-                                <div className="cart-kanan-atas">
-                                    <div className="discount">
-                                            <div className="bulat">
-                                                <p>%</p>
-                                                
-                                            </div>
-                                            <div className="loading">
-                                                <p>Makin Hemat Pakai Promo</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div className="cart-kanan-bawah">
-                                        <div className="cart-kanan-bawah-ats">
-                                                <p>Ringkasan Belanja</p>
-                                        </div>
-                                        <div className="cart-kanan-bawah-tng d-flex">
-                                                <p className="mr-auto">Total Harga(3 Product)</p>
-                                                <p className="p-2">{priceFormatter(this.renderTotalHarga())}</p>
-                                        </div>
-                                        
-                                        <div className="cart-kanan-bawah-bwh" onClick={this.onCheckOutClick}>
-                                            
-                                                <p>Beli(3)</p>                                                                                       
-                                        </div>
-                                </div>
-                        </div>
-                    </div>      
-                 </>
-             )
-         })
-     }
+    //  renderHarga=()=>{
+    //      return this.state.sqlCart.map((val,index)=>{
+    //          return (
+    //              <>
+                  
+    //              </>
+    //          )
+    //      })
+    //  }
 
      onCheckOutClick=()=>{
          this.setState({isOpen:true})
@@ -235,88 +207,126 @@ class Payment extends Component {
             return <Redirect to='/'></Redirect>
         }
         if(this.props.role==='user'){
-
-            return ( 
-                <div> 
-                <Header/>
-                <Modal isOpen={this.state.isOpen} toggle={()=>this.setState({isOpen:false})}>
-                        <ModalHeader toggle={()=>this.setState({isOpen:false})}>Pembayaran</ModalHeader>
-                        <ModalBody>
-                            <select onChange={(e)=>this.setState({pilihan:e.target.value})} className='form-control' defaultValue={0} >
-                                <option value="0" hidden>Select payment</option>
-                                <option value="1">input bukti transfer</option>
-                                <option value="2">Credit card</option>
-                            </select>
-                            {
-                                this.state.pilihan==2?
-                                <input className='form-control' ref={this.state.cc} placeholder='masukkan cc'/>
-                                :
-                                this.state.pilihan==1?
-                                <input className='form-control' ref={this.state.bukti}  placeholder='input bukti pembayaran'/>
-                                :
-                                null
-                            }
-                            <div>
-                              {/* Total Harga  {priceFormatter(this.renderTotalHarga())} */}
-                              Total Harga: {this.renderTotalHarga()}
-                            </div>
-                        </ModalBody>
-                        <ModalFooter>
-                            {/* <ButtonUi onClick={this.onBayarClick}> */}
-                                <button onClick={this.onBayarClick}>
-                                Bayar   
-                                </button>
-                            {/* </ButtonUi> */}
-                        </ModalFooter>
-                    </Modal>
-
-                 {/* BATAS MODALS */}
-
-                {/* BATAS MODALS */}
-                <div className="cart-luar">
-                <div className="cart-dalem-kiri">
-                <div className="semua-barang d-flex">
-                            
-                            <div className="p-2">
-                                <p>Checkout</p>
-                            </div>
-                            <div className="p-2">
-                                Alamat Pengiriman
-                            </div>
-                
-                </div>
-                <div className="address">
-                    <div className="isi-address">
-                        <div className="address-dlm-1">
-                            <p>Bayu(Rumah)</p>
-                        </div>
-                        <div className="address-dlm-2">
-                            <p>087785192296</p>
-                        </div>
-                        <div className="address-dlm-3">
-                            <p>Jalan Jalan Aja biar Gak stress</p>
-                        </div>
-                    </div>
-                    <div className="btn-address">
-                        <div className="alamat-lain">
-                            <p>Pilih Alamat Lain</p>
-                        </div>
-                        <div className="beberapa-alamat">
-                            <p>Kirim ke Beberapa Alamat</p>
-                        </div>
-                    </div>
-                </div>
-                    {/*  */}
-                        {this.renderTable()}
-                        {/*  */}
-                    </div>
-                    {/* line 2 */}
-                        {this.renderHarga()}
-                 
+            console.log(this.state.sqlCart)
+            if(this.state.sqlCart==[]){
+                return(
+                    <div>BELANJA SONO</div>
+                )
+               
+            }else {
+                return ( 
+                    <div> 
+                    <Header/>
+                    <Modal isOpen={this.state.isOpen} toggle={()=>this.setState({isOpen:false})}>
+                            <ModalHeader toggle={()=>this.setState({isOpen:false})}>Pembayaran</ModalHeader>
+                            <ModalBody>
+                                <select onChange={(e)=>this.setState({pilihan:e.target.value})} className='form-control' defaultValue={0} >
+                                    <option value="0" hidden>Select payment</option>
+                                    <option value="1">input bukti transfer</option>
+                                    <option value="2">Credit card</option>
+                                </select>
+                                {
+                                    this.state.pilihan==2?
+                                    <input className='form-control' ref={this.state.cc} placeholder='masukkan cc'/>
+                                    :
+                                    this.state.pilihan==1?
+                                    <input className='form-control' ref={this.state.bukti}  placeholder='input bukti pembayaran'/>
+                                    :
+                                    null
+                                }
+                                <div>
+                                  {/* Total Harga  {priceFormatter(this.renderTotalHarga())} */}
+                                  Total Harga: {this.renderTotalHarga()}
+                                </div>
+                            </ModalBody>
+                            <ModalFooter>
+                                {/* <ButtonUi onClick={this.onBayarClick}> */}
+                                    <button onClick={this.onBayarClick}>
+                                    Bayar   
+                                    </button>
+                                {/* </ButtonUi> */}
+                            </ModalFooter>
+                        </Modal>
     
+                     {/* BATAS MODALS */}
+    
+                    {/* BATAS MODALS */}
+                    <div className="cart-luar">
+                    <div className="cart-dalem-kiri">
+                    <div className="semua-barang d-flex">
+                                
+                                <div className="p-2">
+                                    <p>Checkout</p>
+                                </div>
+                                <div className="p-2">
+                                    Alamat Pengiriman
+                                </div>
+                    
+                    </div>
+                    <div className="address">
+                        <div className="isi-address">
+                            <div className="address-dlm-1">
+                                <p>Bayu(Rumah)</p>
+                            </div>
+                            <div className="address-dlm-2">
+                                <p>087785192296</p>
+                            </div>
+                            <div className="address-dlm-3">
+                                <p>Jalan Jalan Aja biar Gak stress</p>
+                            </div>
+                        </div>
+                        <div className="btn-address">
+                            <div className="alamat-lain">
+                                <p>Pilih Alamat Lain</p>
+                            </div>
+                            <div className="beberapa-alamat">
+                                <p>Kirim ke Beberapa Alamat</p>
+                            </div>
+                        </div>
+                    </div>
+                        {/*  */}
+                            {this.renderTable()}
+                            {/*  */}
+                        </div>
+                        {/* line 2 */}
+                        <div className="cart-dalem-kanan">
+                            <div className="cart-kanan">
+                                    <div className="cart-kanan-atas">
+                                        <div className="discount">
+                                                <div className="bulat">
+                                                    <p>%</p>
+                                                    
+                                                </div>
+                                                <div className="loading">
+                                                    <p>Makin Hemat Pakai Promo</p>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div className="cart-kanan-bawah">
+                                            <div className="cart-kanan-bawah-ats">
+                                                    <p>Ringkasan Belanja</p>
+                                            </div>
+                                            <div className="cart-kanan-bawah-tng d-flex">
+                                                    <p className="mr-auto">Total Harga(3 Product)</p>
+                                                    <p className="p-2">{priceFormatter(this.renderTotalHarga())}</p>
+                                            </div>
+                                            
+                                            <div className="cart-kanan-bawah-bwh" onClick={this.onCheckOutClick}>
+                                                
+                                                    <p>Beli(3)</p>                                                                                       
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>      
+                            {/* {this.renderHarga()} */}
+                     
+        
+                    </div>
                 </div>
-            </div>
-            );
+                );
+
+            }
+            
         }else {
             return <Redirect to='/'></Redirect>
         }

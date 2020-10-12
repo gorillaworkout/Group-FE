@@ -15,7 +15,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Link} from 'react-router-dom'
 import {toDetail} from './../../redux/Actions'
 import {connect} from 'react-redux';
-import { API_URL } from '../../helpers/apiUrl';
+import { API_URL,priceFormatter } from '../../helpers/apiUrl';
 import Axios from 'axios'
 import { SignalCellularNoSimOutlined } from '@material-ui/icons';
 
@@ -63,7 +63,7 @@ class Home extends Component {
             <div className="pop-word">
                 <p>{val.namaHp}</p>
                 <p style={{fontSize:'15px'}}>Harga:</p>
-                <p>RP.{val.harga}</p>
+                <p>{priceFormatter(val.harga)}</p>
             <Link to={'/detailproduct/'+val.id}>
                 <button className="btn-pop" onClick={()=>this.onClick(this.jenis='Products',index)}>LIHAT</button>
             </Link>
@@ -82,7 +82,7 @@ class Home extends Component {
           <div className="pop-word">
               <p>{val.namaHp}</p>
               <p style={{fontSize:'15px'}}>Harga:</p>
-              <p>RP.{val.harga}</p>
+              <p>{priceFormatter(val.harga)}</p>
           <Link to={'/detailproduct/'+val.id}>
               <button className="btn-pop" onClick={()=>this.onClick(this.jenis='brandterlaris',index)}>LIHAT</button>
           </Link>
@@ -103,7 +103,7 @@ class Home extends Component {
           <div className="pop-word">
               <p>{val.namaHp}</p>
               <p style={{fontSize:'15px'}}>Harga:</p>
-              <p>RP.{val.harga}</p>
+              <p>{priceFormatter(val.harga)}</p>
           <Link to={'/detailproduct/'+val.id}>
               <button className="btn-pop" onClick={()=>this.onClick(this.jenis='newproduct',index)}>LIHAT</button>
           </Link>

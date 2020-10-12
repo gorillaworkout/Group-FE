@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
-import { API_URL } from '../../helpers/apiUrl';
+import { API_URL,priceFormatter } from '../../helpers/apiUrl';
 import Header from '../../components/Header'
 import backgroundHP from '../../assets/hp5.jpg'
 import './detailProd.css'
@@ -148,7 +148,7 @@ class DetailProduct extends Component {
              <div className="pop-word">
                  <p>{val.namaHp}</p>
                  <p style={{fontSize:'15px'}}>Harga:</p>
-                 <p>RP.{val.harga}</p>
+                 <p>{priceFormatter(val.harga)}</p>
              <Link to={'/detailproduct/'+val.id}>
                  <button className="btn-pop">LIHAT</button>
              </Link>
@@ -216,7 +216,7 @@ class DetailProduct extends Component {
                                     <p>{this.state.dataParse.namaHp}</p>
                                 </div>
                                 <div className="harga">
-                                <p>RP.{this.state.dataParse.harga}</p>
+                                <p>{priceFormatter(this.state.dataParse.harga)}</p>
                                 </div>
                                 <div className="sisa-unit">
                                     <div style={{backgroundColor:'red'}}>
