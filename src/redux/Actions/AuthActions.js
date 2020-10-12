@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import {API_URL} from './../../helpers/apiUrl'
 import {toast} from 'react-toastify'  
-
+import {ADDCART} from './../Type'
 export const LoginFunc = (obj) => {
     return {
         type: 'LOGIN',
@@ -22,6 +22,13 @@ export const toDetail = (jenis, index)=>{
            console.log(err)
        })
 
+    }
+}
+
+export const AddcartAction=(cart)=>{
+    return {
+        type:ADDCART,
+        cart:cart
     }
 }
 

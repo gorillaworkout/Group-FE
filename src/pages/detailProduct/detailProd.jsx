@@ -13,6 +13,7 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, Ca
 import classnames from 'classnames';
 import { BsCursor } from 'react-icons/bs';
 import Fade from 'react-reveal/Fade';
+import {AddcartAction} from './../../redux/Actions'
 
 class DetailProduct extends Component {
     state = { 
@@ -21,7 +22,8 @@ class DetailProduct extends Component {
         productThunk:[],
         activeTab:1,
         gradeType: ['Ekonomis', 'Baru', 'Standar','Mulus', 'Curian', 'Lelang', 'Nemu'],
-        storage: [8, 16, 32, 64, 128, 256]
+        storage: [8, 16, 32, 64, 128, 256],
+        idUser:0
      }
 
      toggle=(tab)=>{
@@ -35,10 +37,14 @@ class DetailProduct extends Component {
         .then((res)=>{
             this.setState({product:res.data})
             var populerProduct = JSON.parse(localStorage.getItem(`Products`))
+            var idUsers = JSON.parse(localStorage.getItem('id'))
             // var brandterlaris = JSON.parse(localStorage.getItem(`brandTerlaris`))
             // var newproduct = JSON.parse(localStorage.getItem(`newproduct`))
             this.setState({dataParse:populerProduct})
+            this.setState({idUser:idUsers})
+            console.log(this.state.idUser)
             console.log(this.state.dataParse)
+
             // this.setState({dataParse:brandterlaris})
             // this.setState({dataParse:newproduct})
      
@@ -51,7 +57,67 @@ class DetailProduct extends Component {
     }
 
     sendtoCart=()=>{
-        console.log(this.state.dataParse)
+        console.log(this.state.dataParse.id)
+        console.log(this.props.role)
+        console.log(this.state.idUser)
+        if(this.props.role==='admin'){
+            alert('ADMIN GABOLEH BELI BGST')
+        }else if (this.props.role==='user'){
+            var data = {
+                id:this.state.dataParse.id
+            }
+            Axios.get(`http://localhost:5001/cart/getQtyById/${this.state.idUser}`) // ERROR GABISA PAKE 2 PARAMS. jangan lupa ganti querynya di backend masih 7
+            // Axios.get(`http://localhost:5001/cart/getQtyById/`,{     // ini masih error tanya dino bsk
+            //     params:{
+            //         id:this.state.userId,
+            //         productId:this.state.dataParse.id
+            //     }
+            // })
+            .then((res)=>{
+                console.log(res.data)
+                // nanti res.data dimasukin ke state
+                if(res.data.length){ // kalo si product udh ada maka hanya update qty tambah 1 
+                    alert('data udah ada. update qty +1')
+                }else { // product di cart masih kosong jadi push semua data ke cart
+                    alert('data kosong. post full data')
+                    
+                    Axios.get(`http://localhost:5001/product/getProductById/${this.state.dataParse.id}`)
+                    .then((res3)=>{
+                        console.log(res3.data)        
+
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
+                    console.log(this.state.idUser)
+                    console.log(this.state.dataParse.id)
+                    
+                    Axios.post(`http://localhost:5001/cart/addQty`,{
+                        userId:this.state.idUser,
+                        productId:this.state.dataParse.id,
+                        tanggalPembelian:1600683705179,
+                        qty:1
+                    })
+                    .then((res4)=>{
+                            console.log(res4.data) 
+                            Axios.get(`http://localhost:5001/cart/allQty/${this.state.idUser}`)
+                            .then((res2)=>{
+                                this.props.AddcartAction(res2.data)
+                                    console.log(res2.data)
+                            }).catch((err)=>{
+                                console.log(err)
+                            })
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
+                }
+            }).catch((err)=>{
+                console.log(err)
+            })
+        
+        }
+        console.log(data)
+        console.log(data.id)
+
     }
 
 
@@ -474,4 +540,4 @@ const Mapstatetoprops=({Auth})=>{
 }
  
 // export default DetailProduct;
-export default (connect(Mapstatetoprops,{})(DetailProduct))
+export default (connect(Mapstatetoprops,{AddcartAction})(DetailProduct))

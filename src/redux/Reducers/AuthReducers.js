@@ -33,6 +33,9 @@ export default (state = INITIAL_STATE, action)=>{
         case 'CART':
             return {...state,cart2:action.payload}
         
+        case 'ADDCART':
+            return {...state,cart:action.cart}
+        
         case 'ADDPRODUCT':
             console.log('masuk ke add product')
             return {...state,dataProduct:action.payload,dataJSON:action.json}
