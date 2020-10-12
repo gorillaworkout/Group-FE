@@ -21,9 +21,10 @@ class DetailProduct extends Component {
         dataParse:{},
         productThunk:[],
         activeTab:1,
-        gradeType: ['Ekonomis', 'Baru', 'Standar','Mulus', 'Curian', 'Lelang', 'Nemu'],
+        gradeType: ['Ekonomis', 'Baru', 'Standar','Mulus', 'Curian', 'Lelang', 'Nemu', 'Bekas'],
         storage: [8, 16, 32, 64, 128, 256],
         focusPage: createRef(),
+        warna: ['Black'],
         idUser:0
      }
 
@@ -42,15 +43,23 @@ class DetailProduct extends Component {
             var idUsers = JSON.parse(localStorage.getItem('id'))
             
             this.setState({dataParse:populerProduct})
+            //cek warna
+            if(this.state.warna[0] !== this.state.dataParse.warna){
+                this.state.warna.push(this.state.dataParse.warna)
+                
+            }
+
             this.setState({idUser:idUsers})
+            console.log(this.state.warna)
             console.log(this.state.idUser)
+            console.log('dataparse grade', this.state.dataParse.grade)
             console.log(this.state.dataParse)
 
         }).catch((err)=>{
             console.log(err)
         })
         console.log('testing')
-
+        
 
     }
 
@@ -143,7 +152,6 @@ class DetailProduct extends Component {
 
     renderGrade=()=>{
         return this.state.gradeType.map((val,index)=>{
-            console.log(val, 'val')
             if (this.state.dataParse.grade == val){
                 return (
                     <div className="pilihan-type">
@@ -162,10 +170,27 @@ class DetailProduct extends Component {
 
     renderStorage=()=>{
         return this.state.storage.map((val)=>{
-            console.log(val, 'val')
             if (this.state.dataParse.storage == val){
                 return (
                     <div className="pilihan-stor">
+                        <p className="icns"><FcCheckmark/></p>
+                        <p className="icns-1">{val}</p>
+                    </div>
+              )
+            }
+            return (
+                <div  className="memory">
+                    <p>{val}</p>
+                </div>
+            )
+        })
+    }
+
+    renderWarna=()=>{
+        return this.state.warna.map((val)=>{
+            if (this.state.dataParse.warna == val){
+                return (
+                    <div style={{width:'40%'}} className="pilihan-stor">
                         <p className="icns"><FcCheckmark/></p>
                         <p className="icns-1">{val}</p>
                     </div>
@@ -225,16 +250,7 @@ class DetailProduct extends Component {
                                 <div className="storage">
                                         <p>Warna</p>
                                     <div className="box-ins-stor">
-                                        <div className="memory">
-                                            <p>Pink</p>
-                                        </div>
-                                        <div className="pilihan-stor">
-                                            <p className="icns"><FcCheckmark/></p>
-                                            <p className="icns-1" >Black</p>
-                                        </div>
-                                        <div className="memory1">
-                                            <p>Gold</p>
-                                        </div>
+                                        {this.renderWarna()}
                                     </div>
                                    
                                 </div>
