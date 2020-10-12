@@ -75,12 +75,13 @@ const Admin = () => {
         Axios.get(`http://localhost:5001/product/prodHomeAll`)
         .then((res)=>{
         //    console.log(res.data)
-           setAllProd(res.data)
+        console.log(res.data)
+           setAllProd(res.data.dataProduct)
         }).catch((err)=>{
           alert('alert di axios sql')
           console.log(err)
         })
-    })
+    },[])
 
     const onAddDataClick=()=>{
         let obj = {
@@ -224,6 +225,15 @@ const Admin = () => {
     
     // RENDER
     const renderCard=()=>{
+        // if(!allProduct){
+        //     return (<div>
+        //         LOADING COK
+        //     </div>
+        //     )
+        // }else {
+          
+
+        // }
         return allProduct.map((val, index)=>{
             return (
                 <div key={index}>
