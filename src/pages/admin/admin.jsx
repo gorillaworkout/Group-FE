@@ -74,8 +74,9 @@ const Admin = () => {
     useEffect(()=>{
         Axios.get(`http://localhost:5001/product/prodHomeAll`)
         .then((res)=>{
-           console.log(res.data)
-           setAllProd(res.data)
+        //    console.log(res.data)
+        console.log(res.data)
+           setAllProd(res.data.dataProduct)
         }).catch((err)=>{
           alert('alert di axios sql')
           console.log(err)

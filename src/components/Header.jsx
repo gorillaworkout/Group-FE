@@ -340,7 +340,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                 open={Boolean(anchorEl2)}
                 onClose={()=>setopen2(null)}> 
   
-                <Link to='/cart'>
+                <Link to='/payment'>
                   <MenuItem>Lihat Cart</MenuItem>
                   {/* <MenuItem >
                   {

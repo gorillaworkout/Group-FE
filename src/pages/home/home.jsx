@@ -29,48 +29,25 @@ class Home extends Component {
       brandterlaris:[],
       newproduct:[],
       sqlAllProduct:[],
-      sqlMostView:[]
+      sqlMostView:[],
+      sqlApple:[],
+      sqlSamsung:[]
      }
 
      componentDidMount(){
-       Axios.get(`${API_URL}/products`)
-       .then((res)=>{
-          console.log(res.data)
-          this.setState({product:res.data})
-       }).catch((err)=>{
-         console.log(err)
-       })
-
-       Axios.get(`${API_URL}/brandterlaris`)
-       .then((res)=>{
-         console.log(res.data)
-          this.setState({brandterlaris:res.data})
-       }).catch((err)=>{
-         console.log(err)
-       })
-
-       Axios.get(`${API_URL}/newproduct`)
-       .then((res)=>{
-         console.log(res.data)
-          this.setState({newproduct:res.data})
-       }).catch((err)=>{
-         console.log(err)
-       })
 
        Axios.get(`http://localhost:5001/product/prodHomeAll`)
        .then((res)=>{
           // console.log(res.data)
-          this.setState({sqlAllProduct:res.data})
+          this.setState({
+            sqlAllProduct:res.data.dataProduct,
+            sqlApple:res.data.dataApple,
+            sqlSamsung:res.data.dataSamsung,
+          sqlMostView:res.data.dataViewer})
+          
+          // console.log(res.data)
        }).catch((err)=>{
          alert('alert di axios sql')
-         console.log(err)
-       })
-       
-       Axios.get(`http://localhost:5001/product/prodHomeView`)
-       .then((res)=>{
-         console.log(res.data)
-          this.setState({sqlMostView:res.data})
-       }).catch((err)=>{
          console.log(err)
        })
 
@@ -88,7 +65,7 @@ class Home extends Component {
                 <p style={{fontSize:'15px'}}>Harga:</p>
                 <p>RP.{val.harga}</p>
             <Link to={'/detailproduct/'+val.id}>
-                <button className="btn-pop" onClick={()=>this.onClick(this.jenis='Products',val.id)}>LIHAT</button>
+                <button className="btn-pop" onClick={()=>this.onClick(this.jenis='Products',index)}>LIHAT</button>
             </Link>
             </div>
         </div>
@@ -97,7 +74,8 @@ class Home extends Component {
      }
 
      renderBrandTerlaris=()=>{
-       return this.state.brandterlaris.map((val,index)=>{
+       return this.state.sqlApple.map((val,index)=>{
+
          return (
           <div key ={val.id}className=" ins-populer">
           <img src={val.gambar} alt="error" width="100%" height="200px"/>
@@ -106,7 +84,7 @@ class Home extends Component {
               <p style={{fontSize:'15px'}}>Harga:</p>
               <p>RP.{val.harga}</p>
           <Link to={'/detailproduct/'+val.id}>
-              <button className="btn-pop" onClick={()=>this.onClick(this.jenis='brandterlaris',val.id)}>LIHAT</button>
+              <button className="btn-pop" onClick={()=>this.onClick(this.jenis='brandterlaris',index)}>LIHAT</button>
           </Link>
           </div>
       </div>
@@ -116,7 +94,8 @@ class Home extends Component {
      }
 
      renderNewProduct=()=>{
-       return this.state.newproduct.map((val,index)=>{
+       return this.state.sqlSamsung.map((val,index)=>{
+         console.log(index + 'ke ' + ' data' + val.namaHp)
          
          return (
           <div key ={val.id}className=" ins-populer">
@@ -126,7 +105,7 @@ class Home extends Component {
               <p style={{fontSize:'15px'}}>Harga:</p>
               <p>RP.{val.harga}</p>
           <Link to={'/detailproduct/'+val.id}>
-              <button className="btn-pop" onClick={()=>this.onClick(this.jenis='newproduct',val.id)}>LIHAT</button>
+              <button className="btn-pop" onClick={()=>this.onClick(this.jenis='newproduct',index)}>LIHAT</button>
           </Link>
           </div>
       </div>
@@ -135,23 +114,23 @@ class Home extends Component {
      }
 
      onClick=(jenis,index)=>{
-       console.log(index)
-       console.log(jenis)
+       console.log(index + 'ini index')
+       console.log(jenis + ' in ijenis')
        if(jenis === 'newproduct'){
          console.log(' masuk ke if newPRODUCT')
-         console.log(this.state.newproduct[index])
-         localStorage.setItem('Products',JSON.stringify(this.state.newproduct[(index-1)]))
+         console.log(this.state.sqlSamsung[index])
+         localStorage.setItem('Products',JSON.stringify(this.state.sqlSamsung[(index)]))
          this.props.toDetail(jenis,index)
 
        }else if  ( jenis === 'brandterlaris'){
          console.log('masuk ke if BRANDTERLARIS')
-         console.log(this.state.brandterlaris[index])
-         localStorage.setItem('Products',JSON.stringify(this.state.brandterlaris[(index-1)]))
+         console.log(this.state.sqlApple[index])
+         localStorage.setItem('Products',JSON.stringify(this.state.sqlApple[(index)]))
          this.props.toDetail(jenis,index)
        }else {
          console.log(' masuk ke elsePRODUCT')
-         console.log(this.state.product[index])
-         localStorage.setItem('Products',JSON.stringify(this.state.product[(index-1)]))
+         console.log(this.state.sqlMostView[index])
+         localStorage.setItem('Products',JSON.stringify(this.state.sqlMostView[(index)]))
          this.props.toDetail(jenis,index)
 
        }
@@ -159,7 +138,7 @@ class Home extends Component {
 
     render() { 
 
-      console.log(this.state.product)
+      // console.log(this.state.sqlSamsung[2])
         return ( 
             <div>
                 <Header/>
@@ -216,7 +195,7 @@ class Home extends Component {
 
               <div className=" populer">
                 <div className="div-1-populer">
-                      <p>Brand Terlaris</p>
+                      <p>Apple</p>
                       <p style={{fontSize:'12px',marginTop:'-13px'}}>Best Brand Ever!</p>
                 </div>
                 <div className="d-flex">
@@ -255,7 +234,7 @@ class Home extends Component {
 
               <div className=" populer">
                 <div className="div-1-populer">
-                      <p>New Product</p>
+                      <p>Samsung</p>
                       <p style={{fontSize:'12px',marginTop:'-13px'}}>Best New Product Ever</p>
                 </div>
                 <div className="d-flex">

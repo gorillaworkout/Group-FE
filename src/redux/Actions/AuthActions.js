@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import {API_URL} from './../../helpers/apiUrl'
 import {toast} from 'react-toastify'  
-
+import {ADDCART} from './../Type'
 export const LoginFunc = (obj) => {
     return {
         type: 'LOGIN',
@@ -15,12 +15,20 @@ export const toDetail = (jenis, index)=>{
        dispatch({type:'LOADING'})
        Axios.get(`${API_URL}/${jenis}?id=${index}`)
        .then((res)=>{
+           console.log(res.data)
            dispatch({type:'ADDPRODUCT',payload:res.data,json:{jenis,index}})
         console.log(res.data)
        }).catch((err)=>{
            console.log(err)
        })
 
+    }
+}
+
+export const AddcartAction=(cart)=>{
+    return {
+        type:ADDCART,
+        cart:cart
     }
 }
 
