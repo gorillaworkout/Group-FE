@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Axios from 'axios'
 import { API_URL } from '../../helpers/apiUrl';
 import Header from '../../components/Header'
@@ -21,7 +21,8 @@ class DetailProduct extends Component {
         productThunk:[],
         activeTab:1,
         gradeType: ['Ekonomis', 'Baru', 'Standar','Mulus', 'Curian', 'Lelang', 'Nemu'],
-        storage: [8, 16, 32, 64, 128, 256]
+        storage: [8, 16, 32, 64, 128, 256],
+        focusPage: createRef()
      }
 
      toggle=(tab)=>{
@@ -31,6 +32,7 @@ class DetailProduct extends Component {
      }
      
     componentDidMount(){
+        window.scrollTo(0,0) //(x,y)
         Axios.get(`${API_URL}/products/`)
         .then((res)=>{
             this.setState({product:res.data})
@@ -65,7 +67,7 @@ class DetailProduct extends Component {
             <div key ={val.id}className=" ins-populer">
              <img src={val.gambar} alt="error" width="100%" height="200px"/>
              <div className="pop-word">
-                 <p>{val.namaHp}</p>
+                 <p ref={this.state.focusPage}>{val.namaHp}</p>
                  <p style={{fontSize:'15px'}}>Harga:</p>
                  <p>RP.{val.harga}</p>
              <Link to={'/detailproduct/'+val.id}>

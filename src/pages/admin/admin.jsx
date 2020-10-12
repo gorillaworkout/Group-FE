@@ -74,13 +74,13 @@ const Admin = () => {
     useEffect(()=>{
         Axios.get(`http://localhost:5001/product/prodHomeAll`)
         .then((res)=>{
-        //    console.log(res.data)
+           console.log(res.data)
            setAllProd(res.data)
         }).catch((err)=>{
           alert('alert di axios sql')
           console.log(err)
         })
-    })
+    },[])
 
     const onAddDataClick=()=>{
         let obj = {
@@ -224,39 +224,46 @@ const Admin = () => {
     
     // RENDER
     const renderCard=()=>{
-        return allProduct.map((val, index)=>{
+        if(allProduct){
+            return allProduct.map((val, index)=>{
+                return (
+                    <div key={index}>
+                        <Card className='card d-flex flex-row'>
+                            <div>
+                                <CardImg style={{width:'300px'}} src={val.gambar} alt={val.namaHp} />
+                            </div>
+                            <div>
+                                <CardBody>
+                                <CardTitle>{index+1}. {val.merk}</CardTitle>
+                                <CardSubtitle className='mb-1'>{val.namaHp}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Harga: {val.harga}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Unit: {val.unit}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Viewer: {val.viewer}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Deskripsi: {val.description}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Warna: {val.warna}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Storage: {val.storage}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Screen Size: {val.screenSize}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Screen Resolution: {val.screenResolution}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Back Camera: {val.backCamera}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Front Camera: {val.frontCamera}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Battery Capacity: {val.batteryCapacity}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>SIM: {val.sim}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>OS: {val.os}</CardSubtitle>
+                                <CardSubtitle className='mb-1'>Grade: {val.grade}</CardSubtitle>
+                                <button onClick={()=>{onEditClick(index)}} className='mr-3 btn btn-outline-primary'>Edit</button>
+                                <button onClick={()=>{onDeleteClick(val.id, index)}} className='btn btn-outline-danger'>Delete</button>
+                                </CardBody>
+                            </div>
+                        </Card>
+                    </div>
+                )
+            })
+        }else{
             return (
-                <div key={index}>
-                    <Card className='card d-flex flex-row'>
-                        <div>
-                            <CardImg style={{width:'425px'}} src={val.gambar} alt={val.namaHp} />
-                        </div>
-                        <div>
-                            <CardBody>
-                            <CardTitle>{index+1}. {val.merk}</CardTitle>
-                            <CardSubtitle className='mb-1'>{val.namaHp}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Harga: {val.harga}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Unit: {val.unit}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Viewer: {val.viewer}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Deskripsi: {val.description}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Warna: {val.warna}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Storage: {val.storage}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Screen Size: {val.screenSize}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Screen Resolution: {val.screenResolution}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Back Camera: {val.backCamera}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Front Camera: {val.frontCamera}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Battery Capacity: {val.batteryCapacity}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>SIM: {val.sim}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>OS: {val.os}</CardSubtitle>
-                            <CardSubtitle className='mb-1'>Grade: {val.grade}</CardSubtitle>
-                            <button onClick={()=>{onEditClick(index)}} className='mr-3 btn btn-outline-primary'>Edit</button>
-                            <button onClick={()=>{onDeleteClick(val.id, index)}} className='btn btn-outline-danger'>Delete</button>
-                            </CardBody>
-                        </div>
-                    </Card>
-                </div>
+                <div>Loading....</div>
             )
-        })
+            
+        }
     }
 
     const renderProducts=()=>{
@@ -338,13 +345,11 @@ const Admin = () => {
                     <div class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Transaction History</div>
                 </div>
             </div>
-            <div className="d-flex flex-column">
-                <div >
-                    <HeaderAdmin/>   
-                    
+            <div >
+                <div className="header">
+                    <HeaderAdmin/>
                 </div>
                 <div className='main-body'>
-                    
                     {renderProducts()}
                 </div>
             </div>
