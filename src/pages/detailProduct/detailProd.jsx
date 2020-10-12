@@ -14,6 +14,10 @@ import classnames from 'classnames';
 import { BsCursor } from 'react-icons/bs';
 import Fade from 'react-reveal/Fade';
 import {AddcartAction} from './../../redux/Actions'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import {toast} from 'react-toastify'  
+const MySwal = withReactContent(Swal)
 
 class DetailProduct extends Component {
     state = { 
@@ -73,9 +77,25 @@ class DetailProduct extends Component {
                 // console.log(res.data)
                 // nanti res.data dimasukin ke state
                 if(res.data.length){ // kalo si product udh ada maka hanya update qty tambah 1 
-                    alert('data udah ada. update qty +1')
+                    // alert('data udah ada. update qty +1')
+                    toast.error(`Update Quantity Berhasil, Check Cart untuk Pembayaran`, {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
                 }else { // product di cart masih kosong jadi push semua data ke cart
-                    alert('data kosong. post full data')
+                    // alert('data kosong. post full data')
+                    toast.error(`Data Berhasil Di tambahkan, Check Cart untuk Pembayaran`, {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
                     
                     Axios.get(`http://localhost:5001/product/getProductById/${this.state.dataParse.id}`)
                     .then((res3)=>{
