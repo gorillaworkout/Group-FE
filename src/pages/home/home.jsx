@@ -39,32 +39,15 @@ class Home extends Component {
        Axios.get(`http://localhost:5001/product/prodHomeAll`)
        .then((res)=>{
           // console.log(res.data)
-          this.setState({sqlAllProduct:res.data})
+          this.setState({
+            sqlAllProduct:res.data.dataProduct,
+            sqlApple:res.data.dataApple,
+            sqlSamsung:res.data.dataSamsung,
+          sqlMostView:res.data.dataViewer})
+          
+          // console.log(res.data)
        }).catch((err)=>{
          alert('alert di axios sql')
-         console.log(err)
-       })
-       
-       Axios.get(`http://localhost:5001/product/prodHomeView`)
-       .then((res)=>{
-         console.log(res.data)
-          this.setState({sqlMostView:res.data})
-       }).catch((err)=>{
-         console.log(err)
-       })
-
-       Axios.get(`http://localhost:5001/product/prodHomeApple`)
-       .then((res)=>{
-        this.setState({sqlApple:res.data})
-       }).catch((err)=>{
-         console.log(err)
-       })
-
-       Axios.get(`http://localhost:5001/product/prodHomeSamsung`)
-       .then((res)=>{
-         console.log(this.state.sqlSamsung)
-          this.setState({sqlSamsung:res.data})
-       }).catch((err)=>{
          console.log(err)
        })
 
@@ -92,6 +75,7 @@ class Home extends Component {
 
      renderBrandTerlaris=()=>{
        return this.state.sqlApple.map((val,index)=>{
+
          return (
           <div key ={val.id}className=" ins-populer">
           <img src={val.gambar} alt="error" width="100%" height="200px"/>

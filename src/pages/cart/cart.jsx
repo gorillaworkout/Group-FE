@@ -12,29 +12,38 @@ import Axios from 'axios'
 class Cart extends Component {
     state = { 
         sqlCart:[],
-        idUser:0
+        idUser:0,
+        dataParse:[]
      }
      componentDidMount(){
+        var populerProduct = JSON.parse(localStorage.getItem(`Products`))
         var idUsers = JSON.parse(localStorage.getItem('id'))
+        this.setState({dataParse:populerProduct})
         this.setState({idUser:idUsers})
         
         
-            console.log(this.state.idUs)
-            Axios.get(`http://localhost:5001/cart/allQty/${this.state.idUser}`)
-            .then((res)=>{
-                    console.log(res.data)
-                    this.setState({sqlCart:res.data})
-    
-            }).catch((err)=>{
-                console.log(err)
-            })
-         
+        if(this.state.idUser!==undefined){
+            Axios.get(`http://localhost:5001/cart/getQtyById`,{     // ini masih error tanya dino bsk
+            params:{
+                id:idUsers,
+                productId:populerProduct.id
+            }
+           }).then((res)=>{
+                   console.log(res.data)
+           }).catch((err)=>{
+               console.log(err)
+           })
+
+        }
+        // Axios.get(`http://localhost:5001/cart/getQtyById/${this.state.idUser}`) // ERROR GABISA PAKE 2 PARAMS. jangan lupa ganti querynya di backend masih 7
+
 
         }
 
 
     render() { 
         console.log(this.state.idUser)
+        console.log(this.state.dataParse.id)
         return ( 
             <div> 
                 <Header/>

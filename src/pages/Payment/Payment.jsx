@@ -8,8 +8,25 @@ import {BsTrash ,BsPlusSquare} from 'react-icons/bs'
 import {AiOutlineMinusSquare} from 'react-icons/ai'
 import gorillaworkout from './../../assets/gorillaworkout.png'
 import {Link} from 'react-router-dom' 
+import Axios from 'axios'
 class Payment extends Component {
-    state = {  }
+    state = { 
+        idUser:0
+     }
+
+     componentDidMount(){
+        var idUsers = JSON.parse(localStorage.getItem('id'))
+        this.setState({idUser:idUsers})
+        Axios.get(`http://localhost:5001/cart/allQty/${this.state.idUser}`)      
+        .then((res)=>{
+                console.log(res.data)
+                this.setState({sqlCart:res.data})
+
+        }).catch((err)=>{
+            console.log(err)
+        })
+
+     }
     render() { 
         return ( 
             <div> 

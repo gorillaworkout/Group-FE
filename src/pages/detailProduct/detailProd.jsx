@@ -38,16 +38,12 @@ class DetailProduct extends Component {
             this.setState({product:res.data})
             var populerProduct = JSON.parse(localStorage.getItem(`Products`))
             var idUsers = JSON.parse(localStorage.getItem('id'))
-            // var brandterlaris = JSON.parse(localStorage.getItem(`brandTerlaris`))
-            // var newproduct = JSON.parse(localStorage.getItem(`newproduct`))
+            
             this.setState({dataParse:populerProduct})
             this.setState({idUser:idUsers})
             console.log(this.state.idUser)
             console.log(this.state.dataParse)
 
-            // this.setState({dataParse:brandterlaris})
-            // this.setState({dataParse:newproduct})
-     
         }).catch((err)=>{
             console.log(err)
         })
@@ -66,15 +62,15 @@ class DetailProduct extends Component {
             var data = {
                 id:this.state.dataParse.id
             }
-            Axios.get(`http://localhost:5001/cart/getQtyById/${this.state.idUser}`) // ERROR GABISA PAKE 2 PARAMS. jangan lupa ganti querynya di backend masih 7
-            // Axios.get(`http://localhost:5001/cart/getQtyById/`,{     // ini masih error tanya dino bsk
-            //     params:{
-            //         id:this.state.userId,
-            //         productId:this.state.dataParse.id
-            //     }
-            // })
+            // Axios.get(`http://localhost:5001/cart/getQtyById/${this.state.idUser}`) // ERROR GABISA PAKE 2 PARAMS. jangan lupa ganti querynya di backend masih 7
+            Axios.get(`http://localhost:5001/cart/getQtyById`,{     // ini masih error tanya dino bsk
+                params:{
+                    id:this.state.idUser,
+                    productId:this.state.dataParse.id
+                }
+            })
             .then((res)=>{
-                console.log(res.data)
+                // console.log(res.data)
                 // nanti res.data dimasukin ke state
                 if(res.data.length){ // kalo si product udh ada maka hanya update qty tambah 1 
                     alert('data udah ada. update qty +1')
@@ -247,10 +243,10 @@ class DetailProduct extends Component {
                                 
                             </div>
                             <div className="btn-kanan">
-                                <div className="btn-ins">
-                                    <Link to='/cart' onClick={this.sendtoCart}>
+                                <div className="btn-ins" onClick={this.sendtoCart}>
+                                    {/* <Link to='/payment' > */}
                                         <p>BELI SEKARANG</p>
-                                    </Link>
+                                    {/* </Link> */}
                                 </div> 
                             </div>
                         </div>
