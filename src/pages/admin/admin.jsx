@@ -25,6 +25,8 @@ const Admin = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [allProduct, setAllProd] = useState([])
     const [dataUpload, setDataUpload] = useState([])
+    const [dataCompleted, setDataCompleted] = useState([])
+    const [detailTrans, setDetailTrans] = useState([])
     const [indexEdit, setIndexEdit] = useState(0)
     const [modalEdit, setModalEdit] = useState(false);
     const [modalAdd, setModalAdd] = useState(false)
@@ -79,12 +81,28 @@ const Admin = () => {
         .then((res)=>{
             setAllProd(res.data.alldataProd)
             setDataUpload(res.data.dataUpload)
+            setDataCompleted(res.data.dataCompleted)
+            setDetailTrans(res.data.detailTrans)
             console.log(res.data.dataUpload)
         }).catch((err)=>{
           alert('alert di axios sql')
           console.log(err)
         })
     },[])
+
+    // useEffect(()=>{
+    //     Axios.get(`${API_URL_SQL}/admin/getAdminData`)
+    //     .then((res)=>{
+    //         setAllProd(res.data.alldataProd)
+    //         setDataUpload(res.data.dataUpload)
+    //         setDataCompleted(res.data.dataCompleted)
+    //         setDetailTrans(res.data.detailTrans)
+    //         console.log(res.data.dataUpload)
+    //     }).catch((err)=>{
+    //       alert('alert di axios sql')
+    //       console.log(err)
+    //     })
+    // },[allProduct, dataUpload, dataCompleted, detailTrans])
 
     const onAddDataClick=()=>{
         let obj = {
@@ -239,10 +257,10 @@ const Admin = () => {
             if (result.value) {
               console.log(id, 'id')
               Axios.post(`${API_URL_SQL}/admin/accBuktiTransfer/${id}`,{
-                  status: 'accepted'
+                  status: 'completed'
               })
               .then((res)=>{
-                  setDataUpload(res.data)
+                  setDataCompleted(res.data.dataCompleted)
                   MySwal.fire(
                   'Accepted!',
                   'The transaction has been accepted.',
@@ -276,10 +294,10 @@ const Admin = () => {
             if (result.value) {
               console.log(id, 'id')
               Axios.post(`${API_URL_SQL}/admin/accBuktiTransfer/${id}`,{
-                  status: 'rejected'
+                  status: 'failed'
               })
               .then((res)=>{
-                  setDataUpload(res.data)
+                  setDataCompleted(res.data.dataCompleted)
                   MySwal.fire(
                   'Rejected!',
                   'The transaction has been rejected.',
@@ -411,6 +429,23 @@ const Admin = () => {
         )
     }
 
+    const renderIsiHistoryTrans=()=>{
+        return dataCompleted.map((val, index)=>{
+            return(
+                <TableRow key={index}>
+                    <TableCell>{index+1}</TableCell>
+                    <TableCell>{val.namaLengkap}</TableCell>
+                    <TableCell>{dateformat(parseInt(val.tanggalPembayaran))}</TableCell>
+                    <TableCell>{val.metode}</TableCell>
+                    <TableCell>{val.status}</TableCell>
+                    <TableCell>
+                        <button className='btn btn-outline-primary'>Details</button>
+                    </TableCell>
+                </TableRow>
+            )
+        })
+    }
+
     const renderHistoryTransaction=()=>{
         return(
             <div>
@@ -422,15 +457,15 @@ const Admin = () => {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>No.</TableCell>
+                                        <TableCell>Nama User</TableCell>
                                         <TableCell>Tanggal Pembayaran</TableCell>
-                                        <TableCell>Total Harga</TableCell>
-                                        <TableCell>Bukti Transfer</TableCell>
+                                        <TableCell>Metode</TableCell>
                                         <TableCell>Status</TableCell>
                                         <TableCell>Action</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    
+                                    {renderIsiHistoryTrans()}
                                 </TableBody>
                             </Table>
                         </TableContainer>
