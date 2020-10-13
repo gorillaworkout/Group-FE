@@ -16,6 +16,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {TableFooter} from '@material-ui/core'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {toast} from 'react-toastify'
@@ -27,10 +28,14 @@ const Admin = () => {
     const [dataUpload, setDataUpload] = useState([])
     const [dataCompleted, setDataCompleted] = useState([])
     const [detailTrans, setDetailTrans] = useState([])
+    const [idDetalTrans, setidDetailsTrans] = useState(0)
     const [indexEdit, setIndexEdit] = useState(0)
     const [modalEdit, setModalEdit] = useState(false);
     const [modalAdd, setModalAdd] = useState(false)
+    const [modalDetailTrans, setModalDetTrans] = useState(false)
     const [page, setPage] = useState(1)
+    const [totalHarga, setTotalHarga] = useState(0)
+    const [arrDetailRender, setArrDetailRender] = useState([])
 
     const [editForm, setEditForm] = useState({
         merk: createRef(),
@@ -74,6 +79,7 @@ const Admin = () => {
     const toggle = () => setIsOpen(!isOpen);
     const toggleEdit = () => setModalEdit(!modalEdit)
     const toggleAdd = () => setModalAdd(!modalAdd)
+    const toggelDetailTrans = () => setModalDetTrans(!modalDetailTrans)
     const MySwal = withReactContent(Swal)
 
     useEffect(()=>{
@@ -260,6 +266,8 @@ const Admin = () => {
                   status: 'completed'
               })
               .then((res)=>{
+                  console.log(res.data)
+                  setDataUpload(res.data.dataUpload)
                   setDataCompleted(res.data.dataCompleted)
                   MySwal.fire(
                   'Accepted!',
@@ -297,25 +305,44 @@ const Admin = () => {
                   status: 'failed'
               })
               .then((res)=>{
-                  setDataCompleted(res.data.dataCompleted)
-                  MySwal.fire(
-                  'Rejected!',
-                  'The transaction has been rejected.',
-                  'success')
+                    setDataUpload(res.data.dataUpload)
+                    setDataCompleted(res.data.dataCompleted)
+                    MySwal.fire(
+                    'Rejected!',
+                    'The transaction has been rejected.',
+                    'success')
               }).catch((err)=>{
                   toast.error('Error! Reject failed', {
-                      position: "top-center",
-                      autoClose: 3000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
                   });
                   console.log(err)
               })
             }
         })
+    }
+
+    const onDetailsClick=(id, index)=>{
+
+        Axios.get(`${API_URL_SQL}/admin/getDetailById/${id}`)
+        .then((res)=>{
+            setArrDetailRender(res.data)
+            setTotalHarga(dataCompleted[index].totalPrice)
+            setidDetailsTrans(id)
+            setModalDetTrans(true)
+        }).catch((err)=>{
+            console.log(err)
+        })
+        
+        // setArrDetailRender(detailArr)
+        // console.log(id)
+        // console.log(detailTrans[0].id)
+        // console.log(arrDetailRender)
     }
     
     // RENDER
@@ -429,6 +456,26 @@ const Admin = () => {
         )
     }
 
+    const renderDetailTrans=()=>{
+        return arrDetailRender.map((val,index)=>{
+            return (
+                <TableRow key={val.id}>
+                    <TableCell>{index+1}</TableCell>
+                    <TableCell>{val.namaHp}</TableCell>
+                    <TableCell>
+                        <div style={{maxWidth:'200px'}}>
+                            <img width='100%' heigth='100%' src={val.gambar} alt={val.namaHp}/>
+                        </div>
+                    </TableCell>
+                    <TableCell>{val.qty}</TableCell>
+                    <TableCell>{priceFormatter(val.price)}</TableCell>
+                    <TableCell>{priceFormatter(val.subtotal)}</TableCell>
+                </TableRow>
+            )
+            
+        })
+    }
+
     const renderIsiHistoryTrans=()=>{
         return dataCompleted.map((val, index)=>{
             return(
@@ -439,7 +486,7 @@ const Admin = () => {
                     <TableCell>{val.metode}</TableCell>
                     <TableCell>{val.status}</TableCell>
                     <TableCell>
-                        <button className='btn btn-outline-primary'>Details</button>
+                        <button onClick={()=>onDetailsClick(val.id, index)} className='btn btn-outline-primary'>Details</button>
                     </TableCell>
                 </TableRow>
             )
@@ -501,7 +548,7 @@ const Admin = () => {
                 </ModalBody>
                 <ModalFooter>
                     <Button onClick={onAddDataClick} color="primary">Add</Button>{' '}
-                    <Button color="secondary">Cancel</Button>
+                    <Button onClick={()=>setModalAdd(false)} color="secondary">Cancel</Button>
                 </ModalFooter>
             </Modal>
             {
@@ -529,8 +576,44 @@ const Admin = () => {
                     </ModalBody>
                     <ModalFooter>
                         <Button onClick={()=>onSaveEditClick(allProduct[indexEdit].id)} color="primary">Save</Button>{' '}
-                        <Button color="secondary">Cancel</Button>
+                        <Button onClick={()=>setModalEdit(false)} color="secondary">Cancel</Button>
                     </ModalFooter>
+                </Modal>
+                : null
+            }
+            {
+                detailTrans.length ?
+                <Modal size='lg' isOpen={modalDetailTrans} toggle={toggelDetailTrans}>
+                    <ModalHeader isOpen={modalDetailTrans} toggle={toggelDetailTrans}>Detail Belanja</ModalHeader>
+                    <ModalBody isOpen={modalDetailTrans} toggle={toggelDetailTrans}>
+                        <Paper >
+                            <TableContainer >
+                                <Table stickyHeader aria-label="sticky table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>No.</TableCell>
+                                            <TableCell>Nama Product</TableCell>
+                                            <TableCell>Gambar</TableCell>
+                                            <TableCell>Qty</TableCell>
+                                            <TableCell>Harga</TableCell>
+                                            <TableCell>Sub Total</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {renderDetailTrans()}
+                                    </TableBody>
+                                    <TableFooter>
+                                        <TableCell colSpan={4}></TableCell>
+                                        <TableCell style={{fontWeight:'700', color:'black', fontSize:20}}>Total Harga</TableCell>
+                                        <TableCell style={{fontWeight:'700', color:'black', fontSize:20}}>{priceFormatter(parseInt(totalHarga))}</TableCell>
+                                    </TableFooter>
+                                </Table>
+                                <TableCell>
+                                    <Button onClick={()=>setModalDetTrans(false)}>OK</Button>
+                                </TableCell>
+                            </TableContainer>
+                        </Paper>
+                    </ModalBody>
                 </Modal>
                 : null
             }
