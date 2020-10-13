@@ -3,7 +3,7 @@ import Axios from 'axios'
 import Header from './../../components/Header'
 import HeaderAdmin from './headerAdmin'
 import './admin.css'
-import {API_URL_SQL} from './../../helpers/apiUrl'
+import {API_URL_SQL, priceFormatter, dateformat} from './../../helpers/apiUrl'
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button,
@@ -24,9 +24,12 @@ const Admin = () => {
     // const []
     const [isOpen, setIsOpen] = useState(false)
     const [allProduct, setAllProd] = useState([])
+    const [dataUpload, setDataUpload] = useState([])
     const [indexEdit, setIndexEdit] = useState(0)
     const [modalEdit, setModalEdit] = useState(false);
     const [modalAdd, setModalAdd] = useState(false)
+    const [page, setPage] = useState(1)
+
     const [editForm, setEditForm] = useState({
         merk: createRef(),
         namaHp: createRef(),
@@ -72,11 +75,11 @@ const Admin = () => {
     const MySwal = withReactContent(Swal)
 
     useEffect(()=>{
-        Axios.get(`http://localhost:5001/product/prodHomeAll`)
+        Axios.get(`${API_URL_SQL}/admin/getAdminData`)
         .then((res)=>{
-        //    console.log(res.data)
-        console.log(res.data)
-           setAllProd(res.data.dataProduct)
+            setAllProd(res.data.alldataProd)
+            setDataUpload(res.data.dataUpload)
+            console.log(res.data.dataUpload)
         }).catch((err)=>{
           alert('alert di axios sql')
           console.log(err)
@@ -134,7 +137,7 @@ const Admin = () => {
 
     const onDeleteClick=(id, index)=>{
         MySwal.fire({
-          title: `Are you sure want to delete ${allProduct[index].namaHp} ?`,
+          title: `Are you sure want to delete ${dataUpload[index].namaHp} ?`,
           text: "You won't be able to revert this!",
           icon: 'warning',
           showCancelButton: true,
@@ -222,6 +225,80 @@ const Admin = () => {
             console.log(err)
         })
     }
+
+    const onAcceptBuktiClick=(id, index)=>{
+        MySwal.fire({
+            title: `Accept bukti transaksi dengan nominal ${priceFormatter(parseInt(dataUpload[index].totalPrice))} ?`,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, accept!'
+        }).then((result) => {
+            if (result.value) {
+              console.log(id, 'id')
+              Axios.post(`${API_URL_SQL}/admin/accBuktiTransfer/${id}`,{
+                  status: 'accepted'
+              })
+              .then((res)=>{
+                  setDataUpload(res.data)
+                  MySwal.fire(
+                  'Accepted!',
+                  'The transaction has been accepted.',
+                  'success')
+              }).catch((err)=>{
+                  toast.error('Error! Accept failed', {
+                      position: "top-center",
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                  });
+                  console.log(err)
+              })
+            }
+        })
+    }
+
+    const onRejectBuktiClick=(id, index)=>{
+        MySwal.fire({
+            title: `Reject bukti transaksi dengan nominal ${priceFormatter(parseInt(dataUpload[index].totalPrice))} ?`,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, reject!'
+        }).then((result) => {
+            if (result.value) {
+              console.log(id, 'id')
+              Axios.post(`${API_URL_SQL}/admin/accBuktiTransfer/${id}`,{
+                  status: 'rejected'
+              })
+              .then((res)=>{
+                  setDataUpload(res.data)
+                  MySwal.fire(
+                  'Rejected!',
+                  'The transaction has been rejected.',
+                  'success')
+              }).catch((err)=>{
+                  toast.error('Error! Reject failed', {
+                      position: "top-center",
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                  });
+                  console.log(err)
+              })
+            }
+        })
+    }
     
     // RENDER
     const renderCard=()=>{
@@ -277,6 +354,90 @@ const Admin = () => {
                 </div>
                 
             </div>
+        )
+    }
+
+    const renderIsiPaymentConfirm=()=>{
+        return dataUpload.map((val, index)=>{
+            return (
+                <TableRow key={val.id}>
+                    <TableCell>{index+1}</TableCell>
+                    <TableCell>{dateformat(parseInt(val.tanggalPembayaran))}</TableCell>
+                    <TableCell>{priceFormatter(val.totalPrice)}</TableCell>
+                    <TableCell>
+                        <div style={{maxWidth:'200px'}}>
+                            <img width='100%' heigth='100%'
+                            src={Number(parseInt(val.buktiPembayaran)) ? 'https://hmp.me/dehs' : val.buktiPembayaran}
+                            alt={val.id}/>
+                        </div>
+                    </TableCell>
+                    <TableCell>{val.status}</TableCell>
+                    <TableCell>
+                        <button onClick={()=>onAcceptBuktiClick(val.id, index)} className='mr-2 btn btn-outline-primary'>Accept</button>
+                        <button onClick={()=>onRejectBuktiClick(val.id, index)} className='mr-2 btn btn-outline-danger'>Reject</button>
+                    </TableCell>
+                </TableRow>
+            )
+        })
+    }
+
+    const renderPaymentConfirm=()=>{
+        return(
+            <div>
+            <h2 className='d-flex justify-content-center'>Payment Confirmation</h2>
+            <div className='pt-3' >
+                    <Paper >
+                        <TableContainer >
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>No.</TableCell>
+                                        <TableCell>Tanggal Pembayaran</TableCell>
+                                        <TableCell>Total Harga</TableCell>
+                                        <TableCell>Bukti Transfer</TableCell>
+                                        <TableCell>Status</TableCell>
+                                        <TableCell>Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {renderIsiPaymentConfirm()}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Paper>
+                </div>
+            
+        </div>
+        )
+    }
+
+    const renderHistoryTransaction=()=>{
+        return(
+            <div>
+            <h2 className='d-flex justify-content-center'>History Transaction</h2>
+            <div className='pt-3' >
+                    <Paper >
+                        <TableContainer >
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>No.</TableCell>
+                                        <TableCell>Tanggal Pembayaran</TableCell>
+                                        <TableCell>Total Harga</TableCell>
+                                        <TableCell>Bukti Transfer</TableCell>
+                                        <TableCell>Status</TableCell>
+                                        <TableCell>Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Paper>
+                </div>
+            
+        </div>
         )
     }
 
@@ -341,9 +502,9 @@ const Admin = () => {
             <div class="admin-navbar-kiri position-fixed">
                 <h5 class="mx-3 mb-2 mt-4">Welcome Admin!</h5>
                 <div class="menu mt-3">
-                    <div class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Products</div>
-                    <div class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Payment Confirmation</div>
-                    <div class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Transaction History</div>
+                    <div onClick={()=>setPage(1)} class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Products</div>
+                    <div onClick={()=>setPage(2)} class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Payment Confirmation</div>
+                    <div onClick={()=>setPage(3)} class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Transaction History</div>
                 </div>
             </div>
             <div >
@@ -351,7 +512,13 @@ const Admin = () => {
                     <HeaderAdmin/>
                 </div>
                 <div className='main-body'>
-                    {renderProducts()}
+                    {
+                        page == 1 ?
+                        renderProducts()
+                        : page == 2 ?
+                        renderPaymentConfirm()
+                        : renderHistoryTransaction()
+                    }
                 </div>
             </div>
         </div>
