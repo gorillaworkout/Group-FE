@@ -96,20 +96,6 @@ const Admin = () => {
         })
     },[])
 
-    // useEffect(()=>{
-    //     Axios.get(`${API_URL_SQL}/admin/getAdminData`)
-    //     .then((res)=>{
-    //         setAllProd(res.data.alldataProd)
-    //         setDataUpload(res.data.dataUpload)
-    //         setDataCompleted(res.data.dataCompleted)
-    //         setDetailTrans(res.data.detailTrans)
-    //         console.log(res.data.dataUpload)
-    //     }).catch((err)=>{
-    //       alert('alert di axios sql')
-    //       console.log(err)
-    //     })
-    // },[allProduct, dataUpload, dataCompleted, detailTrans])
-
     const onAddDataClick=()=>{
         let obj = {
             merk: addForm.merk.current.value,
@@ -328,16 +314,19 @@ const Admin = () => {
     }
 
     const onDetailsClick=(id, index)=>{
-
-        Axios.get(`${API_URL_SQL}/admin/getDetailById/${id}`)
-        .then((res)=>{
-            setArrDetailRender(res.data)
-            setTotalHarga(dataCompleted[index].totalPrice)
-            setidDetailsTrans(id)
+        if(id == idDetalTrans){
             setModalDetTrans(true)
-        }).catch((err)=>{
-            console.log(err)
-        })
+        }else{
+            Axios.get(`${API_URL_SQL}/admin/getDetailById/${id}`)
+            .then((res)=>{
+                setArrDetailRender(res.data)
+                setTotalHarga(dataCompleted[index].totalPrice)
+                setidDetailsTrans(id)
+                setModalDetTrans(true)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }
         
         // setArrDetailRender(detailArr)
         // console.log(id)
