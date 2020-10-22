@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import Axios from 'axios'
-import { API_URL,priceFormatter } from '../../helpers/apiUrl';
+import { API_URL,API_URL_SQL,priceFormatter } from '../../helpers/apiUrl';
 import Header from '../../components/Header'
 import backgroundHP from '../../assets/hp5.jpg'
 import './detailProd.css'
@@ -40,9 +40,9 @@ class DetailProduct extends Component {
      
     componentDidMount(){
         window.scrollTo(0,0) //(x,y)
-        Axios.get(`${API_URL}/products/`)
+        Axios.get(`${API_URL_SQL}/product/prodHomeAll`)
         .then((res)=>{
-            this.setState({product:res.data})
+            this.setState({product:res.data.dataProduct})
             var populerProduct = JSON.parse(localStorage.getItem(`Products`))
             var idUsers = JSON.parse(localStorage.getItem('id'))
             

@@ -65,7 +65,7 @@ class Payment extends Component {
                                     <img src={val.gambar} alt="" width="100" height="100"/>
                                     <div>
                                         <p>{val.namaHp}</p>
-                                        <p>{priceFormatter(val.harga*val.Qty)}</p>
+                                        <p>{val.Qty} x {priceFormatter(val.harga)}</p>
                                     </div>
                                 </div>
                             <div className="cart-4 d-flex">
