@@ -38,7 +38,7 @@ class Home extends Component {
 
        Axios.get(`http://localhost:5001/product/prodHomeAll`)
        .then((res)=>{
-          // console.log(res.data)
+          console.log(res.data)
           this.setState({
             sqlAllProduct:res.data.dataProduct,
             sqlApple:res.data.dataApple,
@@ -47,7 +47,7 @@ class Home extends Component {
           
           // console.log(res.data)
        }).catch((err)=>{
-         alert('alert di axios sql')
+         alert(err.response.message)
          console.log(err)
        })
 
@@ -138,7 +138,7 @@ class Home extends Component {
 
     render() { 
 
-      // console.log(this.state.sqlSamsung[2])
+      console.log(this.props.cart)
         return ( 
             <div>
                 <Header/>

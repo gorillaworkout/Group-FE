@@ -41,13 +41,16 @@ function App(props) {
     if (id){
       Axios.get(`${API_URL_SQL}/auth/keepLogin/${id}`)
       .then((res)=>{
-        props.LoginFunc(res.data) // untuk keep login
+        console.log(res.data)
+        props.LoginFunc(res.data.datalogin) // untuk keep login
+        props.AddcartAction(res.data.cart)
       }).catch((err)=>{
         console.log(err)
       }).finally(()=>{
         setLoading(false)
       })
     }else{
+      console.log('masuk else')
       setLoading(false)
     }
   },[])
