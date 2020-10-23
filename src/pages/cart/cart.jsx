@@ -125,7 +125,7 @@ class Cart extends Component {
                                         </div>
                                         <div className="cart-kanan-bawah-bwh">
                                             <Link to='/payment'> 
-                                                <p>Beli(3)</p>
+                                                <p>Beli</p>
                                             </Link>
                                         </div>
 

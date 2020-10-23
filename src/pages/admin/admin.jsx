@@ -3,7 +3,7 @@ import Axios from 'axios'
 import Header from './../../components/Header'
 import HeaderAdmin from './headerAdmin'
 import './admin.css'
-import {API_URL_SQL} from './../../helpers/apiUrl'
+import {API_URL_SQL, priceFormatter, dateformat} from './../../helpers/apiUrl'
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button,
@@ -16,6 +16,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {TableFooter} from '@material-ui/core'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {toast} from 'react-toastify'
@@ -24,9 +25,18 @@ const Admin = () => {
     // const []
     const [isOpen, setIsOpen] = useState(false)
     const [allProduct, setAllProd] = useState([])
+    const [dataUpload, setDataUpload] = useState([])
+    const [dataCompleted, setDataCompleted] = useState([])
+    const [detailTrans, setDetailTrans] = useState([])
+    const [idDetalTrans, setidDetailsTrans] = useState(0)
     const [indexEdit, setIndexEdit] = useState(0)
     const [modalEdit, setModalEdit] = useState(false);
     const [modalAdd, setModalAdd] = useState(false)
+    const [modalDetailTrans, setModalDetTrans] = useState(false)
+    const [page, setPage] = useState(1)
+    const [totalHarga, setTotalHarga] = useState(0)
+    const [arrDetailRender, setArrDetailRender] = useState([])
+
     const [editForm, setEditForm] = useState({
         merk: createRef(),
         namaHp: createRef(),
@@ -69,14 +79,17 @@ const Admin = () => {
     const toggle = () => setIsOpen(!isOpen);
     const toggleEdit = () => setModalEdit(!modalEdit)
     const toggleAdd = () => setModalAdd(!modalAdd)
+    const toggelDetailTrans = () => setModalDetTrans(!modalDetailTrans)
     const MySwal = withReactContent(Swal)
 
     useEffect(()=>{
-        Axios.get(`http://localhost:5001/product/prodHomeAll`)
+        Axios.get(`${API_URL_SQL}/admin/getAdminData`)
         .then((res)=>{
-        //    console.log(res.data)
-        console.log(res.data)
-           setAllProd(res.data.dataProduct)
+            setAllProd(res.data.alldataProd)
+            setDataUpload(res.data.dataUpload)
+            setDataCompleted(res.data.dataCompleted)
+            setDetailTrans(res.data.detailTrans)
+            console.log(res.data.dataUpload)
         }).catch((err)=>{
           alert('alert di axios sql')
           console.log(err)
@@ -134,7 +147,7 @@ const Admin = () => {
 
     const onDeleteClick=(id, index)=>{
         MySwal.fire({
-          title: `Are you sure want to delete ${allProduct[index].namaHp} ?`,
+          title: `Are you sure want to delete ${dataUpload[index].namaHp} ?`,
           text: "You won't be able to revert this!",
           icon: 'warning',
           showCancelButton: true,
@@ -222,6 +235,104 @@ const Admin = () => {
             console.log(err)
         })
     }
+
+    const onAcceptBuktiClick=(id, index)=>{
+        MySwal.fire({
+            title: `Accept bukti transaksi dengan nominal ${priceFormatter(parseInt(dataUpload[index].totalPrice))} ?`,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, accept!'
+        }).then((result) => {
+            if (result.value) {
+              console.log(id, 'id')
+              Axios.post(`${API_URL_SQL}/admin/accBuktiTransfer/${id}`,{
+                  status: 'completed'
+              })
+              .then((res)=>{
+                  console.log(res.data)
+                  setDataUpload(res.data.dataUpload)
+                  setDataCompleted(res.data.dataCompleted)
+                  MySwal.fire(
+                  'Accepted!',
+                  'The transaction has been accepted.',
+                  'success')
+              }).catch((err)=>{
+                  toast.error('Error! Accept failed', {
+                      position: "top-center",
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                  });
+                  console.log(err)
+              })
+            }
+        })
+    }
+
+    const onRejectBuktiClick=(id, index)=>{
+        MySwal.fire({
+            title: `Reject bukti transaksi dengan nominal ${priceFormatter(parseInt(dataUpload[index].totalPrice))} ?`,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, reject!'
+        }).then((result) => {
+            if (result.value) {
+              console.log(id, 'id')
+              Axios.post(`${API_URL_SQL}/admin/accBuktiTransfer/${id}`,{
+                  status: 'failed'
+              })
+              .then((res)=>{
+                    setDataUpload(res.data.dataUpload)
+                    setDataCompleted(res.data.dataCompleted)
+                    MySwal.fire(
+                    'Rejected!',
+                    'The transaction has been rejected.',
+                    'success')
+              }).catch((err)=>{
+                  toast.error('Error! Reject failed', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                  console.log(err)
+              })
+            }
+        })
+    }
+
+    const onDetailsClick=(id, index)=>{
+        if(id == idDetalTrans){
+            setModalDetTrans(true)
+        }else{
+            Axios.get(`${API_URL_SQL}/admin/getDetailById/${id}`)
+            .then((res)=>{
+                setArrDetailRender(res.data)
+                setTotalHarga(dataCompleted[index].totalPrice)
+                setidDetailsTrans(id)
+                setModalDetTrans(true)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }
+        
+        // setArrDetailRender(detailArr)
+        // console.log(id)
+        // console.log(detailTrans[0].id)
+        // console.log(arrDetailRender)
+    }
     
     // RENDER
     const renderCard=()=>{
@@ -280,6 +391,127 @@ const Admin = () => {
         )
     }
 
+    const renderIsiPaymentConfirm=()=>{
+        return dataUpload.map((val, index)=>{
+            return (
+                <TableRow key={val.id}>
+                    <TableCell>{index+1}</TableCell>
+                    <TableCell>{dateformat(parseInt(val.tanggalPembayaran))}</TableCell>
+                    <TableCell>{priceFormatter(val.totalPrice)}</TableCell>
+                    <TableCell>
+                        <div style={{maxWidth:'200px'}}>
+                            <img width='100%' heigth='100%'
+                            src={Number(parseInt(val.buktiPembayaran)) ? 'https://hmp.me/dehs' : val.buktiPembayaran}
+                            alt={val.id}/>
+                        </div>
+                    </TableCell>
+                    <TableCell>{val.status}</TableCell>
+                    <TableCell>
+                        <button onClick={()=>onAcceptBuktiClick(val.id, index)} className='mr-2 btn btn-outline-primary'>Accept</button>
+                        <button onClick={()=>onRejectBuktiClick(val.id, index)} className='mr-2 btn btn-outline-danger'>Reject</button>
+                    </TableCell>
+                </TableRow>
+            )
+        })
+    }
+
+    const renderPaymentConfirm=()=>{
+        return(
+            <div>
+            <h2 className='d-flex justify-content-center'>Payment Confirmation</h2>
+            <div className='pt-3' >
+                    <Paper >
+                        <TableContainer >
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>No.</TableCell>
+                                        <TableCell>Tanggal Pembayaran</TableCell>
+                                        <TableCell>Total Harga</TableCell>
+                                        <TableCell>Bukti Transfer</TableCell>
+                                        <TableCell>Status</TableCell>
+                                        <TableCell>Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {renderIsiPaymentConfirm()}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Paper>
+                </div>
+            
+        </div>
+        )
+    }
+
+    const renderDetailTrans=()=>{
+        return arrDetailRender.map((val,index)=>{
+            return (
+                <TableRow key={val.id}>
+                    <TableCell>{index+1}</TableCell>
+                    <TableCell>{val.namaHp}</TableCell>
+                    <TableCell>
+                        <div style={{maxWidth:'200px'}}>
+                            <img width='100%' heigth='100%' src={val.gambar} alt={val.namaHp}/>
+                        </div>
+                    </TableCell>
+                    <TableCell>{val.qty}</TableCell>
+                    <TableCell>{priceFormatter(val.price)}</TableCell>
+                    <TableCell>{priceFormatter(val.subtotal)}</TableCell>
+                </TableRow>
+            )
+            
+        })
+    }
+
+    const renderIsiHistoryTrans=()=>{
+        return dataCompleted.map((val, index)=>{
+            return(
+                <TableRow key={index}>
+                    <TableCell>{index+1}</TableCell>
+                    <TableCell>{val.namaLengkap}</TableCell>
+                    <TableCell>{dateformat(parseInt(val.tanggalPembayaran))}</TableCell>
+                    <TableCell>{val.metode}</TableCell>
+                    <TableCell>{val.status}</TableCell>
+                    <TableCell>
+                        <button onClick={()=>onDetailsClick(val.id, index)} className='btn btn-outline-primary'>Details</button>
+                    </TableCell>
+                </TableRow>
+            )
+        })
+    }
+
+    const renderHistoryTransaction=()=>{
+        return(
+            <div>
+            <h2 className='d-flex justify-content-center'>History Transaction</h2>
+            <div className='pt-3' >
+                    <Paper >
+                        <TableContainer >
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>No.</TableCell>
+                                        <TableCell>Nama User</TableCell>
+                                        <TableCell>Tanggal Pembayaran</TableCell>
+                                        <TableCell>Metode</TableCell>
+                                        <TableCell>Status</TableCell>
+                                        <TableCell>Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {renderIsiHistoryTrans()}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Paper>
+                </div>
+            
+        </div>
+        )
+    }
+
     return ( 
         <div className='admin-body'>
             <Modal isOpen={modalAdd} toggle={toggleAdd}>
@@ -305,7 +537,7 @@ const Admin = () => {
                 </ModalBody>
                 <ModalFooter>
                     <Button onClick={onAddDataClick} color="primary">Add</Button>{' '}
-                    <Button color="secondary">Cancel</Button>
+                    <Button onClick={()=>setModalAdd(false)} color="secondary">Cancel</Button>
                 </ModalFooter>
             </Modal>
             {
@@ -333,17 +565,53 @@ const Admin = () => {
                     </ModalBody>
                     <ModalFooter>
                         <Button onClick={()=>onSaveEditClick(allProduct[indexEdit].id)} color="primary">Save</Button>{' '}
-                        <Button color="secondary">Cancel</Button>
+                        <Button onClick={()=>setModalEdit(false)} color="secondary">Cancel</Button>
                     </ModalFooter>
+                </Modal>
+                : null
+            }
+            {
+                detailTrans.length ?
+                <Modal size='lg' isOpen={modalDetailTrans} toggle={toggelDetailTrans}>
+                    <ModalHeader isOpen={modalDetailTrans} toggle={toggelDetailTrans}>Detail Belanja</ModalHeader>
+                    <ModalBody isOpen={modalDetailTrans} toggle={toggelDetailTrans}>
+                        <Paper >
+                            <TableContainer >
+                                <Table stickyHeader aria-label="sticky table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>No.</TableCell>
+                                            <TableCell>Nama Product</TableCell>
+                                            <TableCell>Gambar</TableCell>
+                                            <TableCell>Qty</TableCell>
+                                            <TableCell>Harga</TableCell>
+                                            <TableCell>Sub Total</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {renderDetailTrans()}
+                                    </TableBody>
+                                    <TableFooter>
+                                        <TableCell colSpan={4}></TableCell>
+                                        <TableCell style={{fontWeight:'700', color:'black', fontSize:20}}>Total Harga</TableCell>
+                                        <TableCell style={{fontWeight:'700', color:'black', fontSize:20}}>{priceFormatter(parseInt(totalHarga))}</TableCell>
+                                    </TableFooter>
+                                </Table>
+                                <TableCell>
+                                    <Button onClick={()=>setModalDetTrans(false)}>OK</Button>
+                                </TableCell>
+                            </TableContainer>
+                        </Paper>
+                    </ModalBody>
                 </Modal>
                 : null
             }
             <div class="admin-navbar-kiri position-fixed">
                 <h5 class="mx-3 mb-2 mt-4">Welcome Admin!</h5>
                 <div class="menu mt-3">
-                    <div class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Products</div>
-                    <div class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Payment Confirmation</div>
-                    <div class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Transaction History</div>
+                    <div onClick={()=>setPage(1)} class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Products</div>
+                    <div onClick={()=>setPage(2)} class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Payment Confirmation</div>
+                    <div onClick={()=>setPage(3)} class="isimenu px-4"><i class="fas fa-plus mr-2"></i> Transaction History</div>
                 </div>
             </div>
             <div >
@@ -351,7 +619,13 @@ const Admin = () => {
                     <HeaderAdmin/>
                 </div>
                 <div className='main-body'>
-                    {renderProducts()}
+                    {
+                        page == 1 ?
+                        renderProducts()
+                        : page == 2 ?
+                        renderPaymentConfirm()
+                        : renderHistoryTransaction()
+                    }
                 </div>
             </div>
         </div>

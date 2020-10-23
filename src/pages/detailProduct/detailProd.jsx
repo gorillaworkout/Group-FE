@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import Axios from 'axios'
-import { API_URL,priceFormatter } from '../../helpers/apiUrl';
+import { API_URL,API_URL_SQL,priceFormatter } from '../../helpers/apiUrl';
 import Header from '../../components/Header'
 import backgroundHP from '../../assets/hp5.jpg'
 import './detailProd.css'
@@ -40,9 +40,9 @@ class DetailProduct extends Component {
      
     componentDidMount(){
         window.scrollTo(0,0) //(x,y)
-        Axios.get(`${API_URL}/products/`)
+        Axios.get(`${API_URL_SQL}/product/prodHomeAll`)
         .then((res)=>{
-            this.setState({product:res.data})
+            this.setState({product:res.data.dataProduct})
             var populerProduct = JSON.parse(localStorage.getItem(`Products`))
             var idUsers = JSON.parse(localStorage.getItem('id'))
             
@@ -89,14 +89,24 @@ class DetailProduct extends Component {
                 // nanti res.data dimasukin ke state
                 if(res.data.length){ // kalo si product udh ada maka hanya update qty tambah 1 
                     // alert('data udah ada. update qty +1')
-                    toast.error(`Update Quantity Berhasil, Check Cart untuk Pembayaran`, {
-                        position: "top-right",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    
+
+                    Axios.post(`${API_URL_SQL}/cart/updateQtyCart`,{
+                        iduser: this.state.idUser,
+                        idprod: this.state.dataParse.id
+                    }).then((resAddQty)=>{
+                        toast.error(`Update Quantity Berhasil, Check Cart untuk Pembayaran`, {
+                            position: "top-right",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                        this.props.AddcartAction(resAddQty.data)
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
                 }else { // product di cart masih kosong jadi push semua data ke cart
                     // alert('data kosong. post full data')
                     toast.error(`Data Berhasil Di tambahkan, Check Cart untuk Pembayaran`, {

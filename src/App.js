@@ -16,7 +16,7 @@ import Cart from './pages/cart/cart'
 import Particles from 'react-particles-js'
 import {connect} from 'react-redux'
 import Axios from 'axios';
-import { API_URL } from './helpers/apiUrl';
+import { API_URL, API_URL_SQL } from './helpers/apiUrl';
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css' 
 
@@ -39,7 +39,7 @@ function App(props) {
   useEffect (()=>{
     var id = localStorage.getItem('id')
     if (id){
-      Axios.get(`${API_URL}/users/${id}`)
+      Axios.get(`${API_URL_SQL}/auth/keepLogin/${id}`)
       .then((res)=>{
         props.LoginFunc(res.data) // untuk keep login
       }).catch((err)=>{

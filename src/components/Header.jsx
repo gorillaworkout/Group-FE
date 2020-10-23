@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import {fade} from '@material-ui/core/styles';
-import {HOME_URL, API_URL} from './../helpers/apiUrl'
+import {HOME_URL, API_URL, API_URL_SQL} from './../helpers/apiUrl'
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff'
 import {Link,NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -107,9 +107,9 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const [isOpen, setopen3] = useState(false)
 
   useEffect (()=>{
-    Axios.get(`${API_URL}/Products`)
+    Axios.get(`${API_URL_SQL}/product/prodHomeAll`)
     .then((res)=>{
-      setProducts(res.data)
+      setProducts(res.data.dataProduct)
     }).catch((err)=>{
       console.log(err)
     })
