@@ -65,7 +65,7 @@ class Payment extends Component {
                                     <img src={val.gambar} alt="" width="100" height="100"/>
                                     <div>
                                         <p>{val.namaHp}</p>
-                                        <p>{val.Qty} x {priceFormatter(val.harga)}</p>
+                                        <p>{val.Qty} x {priceFormatter(val.harga)} = {priceFormatter(val.Qty * val.harga)}</p>
                                     </div>
                                 </div>
                             <div className="cart-4 d-flex">
@@ -419,7 +419,7 @@ class Payment extends Component {
                                             </div>
                                             
                                             <div className="cart-kanan-bawah-bwh" onClick={this.onCheckOutClick}>           
-                                                    <p>Beli(3)</p>                                                                                       
+                                            <p>Beli{this.state.sqlCart.length}</p>                                                                                       
                                             </div>
                                     </div>
                             </div>

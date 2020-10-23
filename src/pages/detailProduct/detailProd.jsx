@@ -89,14 +89,24 @@ class DetailProduct extends Component {
                 // nanti res.data dimasukin ke state
                 if(res.data.length){ // kalo si product udh ada maka hanya update qty tambah 1 
                     // alert('data udah ada. update qty +1')
-                    toast.error(`Update Quantity Berhasil, Check Cart untuk Pembayaran`, {
-                        position: "top-right",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    
+
+                    Axios.post(`${API_URL_SQL}/cart/updateQtyCart`,{
+                        iduser: this.state.idUser,
+                        idprod: this.state.dataParse.id
+                    }).then((resAddQty)=>{
+                        toast.error(`Update Quantity Berhasil, Check Cart untuk Pembayaran`, {
+                            position: "top-right",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                        this.props.AddcartAction(resAddQty.data)
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
                 }else { // product di cart masih kosong jadi push semua data ke cart
                     // alert('data kosong. post full data')
                     toast.error(`Data Berhasil Di tambahkan, Check Cart untuk Pembayaran`, {
