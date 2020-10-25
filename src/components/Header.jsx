@@ -323,11 +323,12 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
             :
             null
           }
+          
           {
             isLogin?
             <>
               <Button color="inherit" onClick={(e)=>setopen2(e.currentTarget)}>
-              <StyledBadge badgeContent={cart.length} color='secondary' >
+              <StyledBadge badgeContent={cart.length ? cart.length : null} color='secondary' >
                   <span style={{fontSize:20}}>
                     <FaCartArrowDown />
                   </span>
