@@ -157,15 +157,15 @@ class Payment extends Component {
             console.log(res.data)
             if(res.data=='Success'){
                 this.setState({isOpen:false})
-                    toast.error(`Waiting Admin For Accepting Your Payment! THANKYOU`, {
-                        position: "top-right",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        draggable: true,
-                        progress: undefined,
-                                        });
-                                        this.setState({successful:true})
+                toast.error(`Waiting Admin For Accepting Your Payment! THANKYOU`, {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                this.setState({successful:true})
             }
         }).catch((err)=>{
             console.log(err)
@@ -173,10 +173,10 @@ class Payment extends Component {
 
      }
      
-     lunhAlgo=(answer)=>{
+    lunhAlgo=(answer)=>{
         
-        var input = this.state.cc.current.value
-        var x = input
+    var input = this.state.cc.current.value
+    var x = input
     var counter = 0; //  ngitung total digit
     var output1 = 0; // ngitung genap
     var output2 = 0; // ngitung ganjil
@@ -414,12 +414,12 @@ class Payment extends Component {
                                                     <p>Ringkasan Belanja</p>
                                             </div>
                                             <div className="cart-kanan-bawah-tng d-flex">
-                                                    <p className="mr-auto">Total Harga(3 Product)</p>
+                                                    <p className="mr-auto">Total Harga ({this.props.cart.length} Product)</p>
                                                     <p className="p-2">{priceFormatter(this.renderTotalHarga())}</p>
                                             </div>
                                             
                                             <div className="cart-kanan-bawah-bwh" onClick={this.onCheckOutClick}>           
-                                            <p>Beli{this.state.sqlCart.length}</p>                                                                                       
+                                            <p>Beli ({this.props.cart.length})</p>                                                                                       
                                             </div>
                                     </div>
                             </div>
