@@ -1,4 +1,5 @@
 import React, { Component,createRef } from 'react';
+import {AddcartAction} from '../../redux/Actions'
 import './Payment.css'
 import { API_URL, priceFormatter } from '../../helpers/apiUrl';
 import {connect} from 'react-redux'
@@ -155,18 +156,19 @@ class Payment extends Component {
             sqlCart:sqlcart
         }).then((res)=>{
             console.log(res.data)
-            if(res.data=='Success'){
-                this.setState({isOpen:false})
-                toast.error(`Waiting Admin For Accepting Your Payment! THANKYOU`, {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-                this.setState({successful:true})
-            }
+            this.setState({isOpen:false})
+            this.setState({successful:true})
+            this.setState({sqlCart: res.data.cart})
+            this.props.AddcartAction(res.data.cart)
+            toast.error(`Waiting Admin For Accepting Your Payment! THANKYOU`, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+            });
+            
         }).catch((err)=>{
             console.log(err)
         })
@@ -267,23 +269,23 @@ class Payment extends Component {
         }else {
             console.log('masuk pake cc')
             Axios.post(`http://localhost:5001/cart/addNewTransactionsCC`,{
-                userId:this.props.id,
+            userId:this.props.id,
             tanggalPembayaran:new Date().getTime(),
             buktiPembayaran:this.state.cc.current.value,
             sqlCart:sqlcart
             }).then((res)=>{
-                if(res.data=='Success'){
-                    this.setState({isOpen:false})
-                        toast.error(`Payment Success! THANKYOU`, {
-                            position: "top-right",
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            draggable: true,
-                            progress: undefined,
-                             });
-                    this.setState({successful:true})
-                }
+                this.setState({isOpen:false})
+                this.setState({successful:true})
+                this.setState({sqlCart: res.data.cart})
+                this.props.AddcartAction(res.data.cart)
+                toast.error(`Payment Success! THANKYOU`, {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                })
             }).catch((err)=>{
                 console.log(err)
             })
@@ -446,4 +448,4 @@ const MapstatetoProps=({Auth})=>{
 }
  
 // export default Payment;
-export default connect(MapstatetoProps,{})(Payment)
+export default connect(MapstatetoProps,{AddcartAction})(Payment)
