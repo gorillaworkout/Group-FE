@@ -28,7 +28,8 @@ class Payment extends Component {
         successful:false,
         isOpen:false,
         idUser:0,
-        setModalEdit:false
+        setModalEdit:false,
+        newAlamat:createRef()
      }
 
      componentDidMount(){
@@ -298,11 +299,29 @@ class Payment extends Component {
         this.setState({setModalEdit:true})
     }
 
-
-     toggleedit=()=>{
-        // this.setState({isOpen:true})
-        this.setState({setModalEdit:false}) 
+    onSaveAddress=()=>{
+        // var input = this.state.cc.current.value
+        var newAlamat=this.state.newAlamat.current.value
+        console.log(newAlamat)
+        Axios.post(`http://localhost:5001/cart/changeAddress`,{
+            userId:this.state.idUser,
+            alamat:newAlamat
+        })
+        .then((res)=>{
+            console.log(this.state.idUser,' ini idUser')
+            console.log(newAlamat,'ini adalah new alamat')
+            console.log(res.data)
+            this.setState({sqlCart:res.data})
+            this.setState({setModalEdit:false})
+        }).catch((err)=>{
+            console.log(err)
+        })
     }
+
+    //  toggleedit=()=>{
+    //     // this.setState({isOpen:true})
+    //     this.setState({setModalEdit:false}) 
+    // }
     render() { 
         
         if(this.state.successful){
@@ -313,21 +332,7 @@ class Payment extends Component {
             if(this.state.sqlCart.length===0){
                 return(
                     <>
-                        <Modal isOpen={this.state.modalEdit} toggle={this.toggleedit} >
-                            <ModalHeader toggle={this.toggleedit}>Edit Data </ModalHeader>
-                                <ModalBody>
-                                <p>Nama: <input type='text'placeholder='Masukkan nama' className='form-control mb-2'/>  </p>
-                            
-                                {/* <textarea className='form-control mb-2' placeholder='deskripsi' cols="30" rows="7"></textarea> */}
-                                </ModalBody>
-                                <ModalFooter>
-                                    {/* <Button color="primary" >Do Something</Button>
-                                    <Button color="secondary" onClick={this.toggleedit}>Cancel</Button> */}
-                                    <button onClick={this.toggleedit}>cancel</button>
-                                </ModalFooter>
-                        </Modal>
-
-                        {/* MODALS */}
+                     
                         <Header/>
                         <div>
                             <center>
@@ -344,6 +349,24 @@ class Payment extends Component {
                
             }else {
                 return ( 
+                    <>  
+                    <Modal isOpen={this.state.setModalEdit} toggle={()=>this.setState({setModalEdit:false})}>
+                            <ModalHeader toggle={()=>this.setState({setModalEdit:false})}>Alamat Baru</ModalHeader>
+                            <ModalBody>
+                            <input className='form-control' ref={this.state.newAlamat} placeholder='Alamat'/>
+                            </ModalBody>
+                            <ModalFooter>
+                                {/* <ButtonUi onClick={this.onBayarClick}> */}
+                                    <button onClick={this.onSaveAddress}>
+                                    Save   
+                                    </button>
+                                {/* </ButtonUi> */}
+                            </ModalFooter>
+                        </Modal>
+                        
+
+                        {/* MODALS */}
+
                     <div> 
                     <Header/>
                     <Modal isOpen={this.state.isOpen} toggle={()=>this.setState({isOpen:false})}>
@@ -395,13 +418,15 @@ class Payment extends Component {
                     <div className="address">
                         <div className="isi-address">
                             <div className="address-dlm-1">
-                                <p>Bayu(Rumah)</p>
+                                <p>{this.state.sqlCart[0].username}(Rumah)</p>
                             </div>
+
                             <div className="address-dlm-2">
-                                <p>087785192296</p>
+                                 <p>{this.state.sqlCart[0].phone}</p>
                             </div>
+                            
                             <div className="address-dlm-3">
-                                <p>Jalan Jalan Aja biar Gak stress</p>
+                                <p>{this.state.sqlCart[0].alamat}</p>
                             </div>
                         </div>
                         <div className="btn-address">
@@ -451,6 +476,7 @@ class Payment extends Component {
         
                     </div>
                 </div>
+                </>
                 );
 
             }
