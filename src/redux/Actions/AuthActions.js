@@ -39,6 +39,7 @@ export const LoginThunk = (username, password)=>{
         Axios.post(`${API_URL_SQL}/auth/login`,{
             username, password
         }).then((res)=>{
+            console.log(res.data)
             localStorage.setItem('id', res.data.datauser.id)
             dispatch({type:'LOGIN', payload:res.data.datauser, cart: res.data.cart})
         }).catch((err)=>{

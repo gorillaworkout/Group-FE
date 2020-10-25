@@ -27,7 +27,8 @@ class Payment extends Component {
         bukti:createRef(),
         successful:false,
         isOpen:false,
-        idUser:0
+        idUser:0,
+        setModalEdit:false
      }
 
      componentDidMount(){
@@ -292,10 +293,16 @@ class Payment extends Component {
 
 
 
+    onAddressChange=()=>{
+        console.log('btn jalan')
+        this.setState({setModalEdit:true})
+    }
 
 
-
-
+     toggleedit=()=>{
+        // this.setState({isOpen:true})
+        this.setState({setModalEdit:false}) 
+    }
     render() { 
         
         if(this.state.successful){
@@ -306,6 +313,21 @@ class Payment extends Component {
             if(this.state.sqlCart.length===0){
                 return(
                     <>
+                        <Modal isOpen={this.state.modalEdit} toggle={this.toggleedit} >
+                            <ModalHeader toggle={this.toggleedit}>Edit Data </ModalHeader>
+                                <ModalBody>
+                                <p>Nama: <input type='text'placeholder='Masukkan nama' className='form-control mb-2'/>  </p>
+                            
+                                {/* <textarea className='form-control mb-2' placeholder='deskripsi' cols="30" rows="7"></textarea> */}
+                                </ModalBody>
+                                <ModalFooter>
+                                    {/* <Button color="primary" >Do Something</Button>
+                                    <Button color="secondary" onClick={this.toggleedit}>Cancel</Button> */}
+                                    <button onClick={this.toggleedit}>cancel</button>
+                                </ModalFooter>
+                        </Modal>
+
+                        {/* MODALS */}
                         <Header/>
                         <div>
                             <center>
@@ -362,7 +384,7 @@ class Payment extends Component {
                     <div className="cart-dalem-kiri">
                     <div className="semua-barang d-flex">
                                 
-                                <div className="p-2">
+                                <div className="p-2" >
                                     <p>Checkout</p>
                                 </div>
                                 <div className="p-2">
@@ -383,7 +405,7 @@ class Payment extends Component {
                             </div>
                         </div>
                         <div className="btn-address">
-                            <div className="alamat-lain">
+                            <div className="alamat-lain" onClick={()=>this.onAddressChange()}> 
                                 <p>Pilih Alamat Lain</p>
                             </div>
                             <div className="beberapa-alamat">
