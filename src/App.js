@@ -7,7 +7,7 @@ import Home from './pages/home/home'
 import Login from './pages/login/login'
 import Admin from './pages/admin/admin'
 import Loading from './components/Loading'
-import {LoginFunc} from './redux/Actions'
+import {LoginFunc, AddcartAction} from './redux/Actions'
 import Register from './pages/register/register'
 import DetailProd from './pages/detailProduct/detailProd'
 import MyAccount from './pages/user/MyAccount'
@@ -41,13 +41,17 @@ function App(props) {
     if (id){
       Axios.get(`${API_URL_SQL}/auth/keepLogin/${id}`)
       .then((res)=>{
-        props.LoginFunc(res.data) // untuk keep login
+        console.log(res.data)
+        console.log(res.data.cart)
+        props.LoginFunc(res.data.datalogin) // untuk keep login
+        props.AddcartAction(res.data.cart)
       }).catch((err)=>{
         console.log(err)
       }).finally(()=>{
         setLoading(false)
       })
     }else{
+      console.log('masuk else')
       setLoading(false)
     }
   },[])
@@ -83,4 +87,4 @@ const Mapstatetoprops=({Auth})=>{
   }
 }
 
-export default connect(Mapstatetoprops,{LoginFunc}) (App);
+export default connect(Mapstatetoprops,{LoginFunc, AddcartAction}) (App);
