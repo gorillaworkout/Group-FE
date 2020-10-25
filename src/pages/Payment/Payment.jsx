@@ -29,7 +29,9 @@ class Payment extends Component {
         isOpen:false,
         idUser:0,
         setModalEdit:false,
-        newAlamat:createRef()
+        setPhoneEdit:false,
+        newAlamat:createRef(),
+        newPhone:createRef()
      }
 
      componentDidMount(){
@@ -298,6 +300,10 @@ class Payment extends Component {
         console.log('btn jalan')
         this.setState({setModalEdit:true})
     }
+    onPhoneChange=()=>{
+        console.log('btnjalan phone')
+        this.setState({setPhoneEdit:true})
+    }
 
     onSaveAddress=()=>{
         // var input = this.state.cc.current.value
@@ -311,11 +317,45 @@ class Payment extends Component {
             console.log(this.state.idUser,' ini idUser')
             console.log(newAlamat,'ini adalah new alamat')
             console.log(res.data)
+            toast.error(`Data Berhasil disimpan`, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+            });
             this.setState({sqlCart:res.data})
             this.setState({setModalEdit:false})
         }).catch((err)=>{
             console.log(err)
         })
+    }
+
+    onSavePhone=()=>{
+        var newPhone=this.state.newPhone.current.value
+        console.log(newPhone)
+
+        Axios.post(`http://localhost:5001/cart/changePhone`,{
+            userId:this.state.idUser,
+            phone:newPhone
+        })
+        .then((res)=>{
+            console.log(res.data)
+            toast.error(`Data Berhasil disimpan`, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+            });
+            this.setState({sqlCart:res.data})
+            this.setState({setPhoneEdit:false})
+        }).catch((err)=>{
+            console.log(err)
+        })
+        this.setState({setPhoneEdit:false})
     }
 
     //  toggleedit=()=>{
@@ -350,10 +390,26 @@ class Payment extends Component {
             }else {
                 return ( 
                     <>  
-                    <Modal isOpen={this.state.setModalEdit} toggle={()=>this.setState({setModalEdit:false})}>
+                    <Modal isOpen={this.state.setPhoneEdit} toggle={()=>this.setState({setPhoneEdit:false})}>
+                            <ModalHeader toggle={()=>this.setState({setPhoneEdit:false})}>Update Nomor HP</ModalHeader>
+                            <ModalBody>
+                            <input className='form-control' ref={this.state.newPhone} placeholder='Alamat'/>
+                            </ModalBody>
+                            <ModalFooter>
+                                {/* <ButtonUi onClick={this.onBayarClick}> */}
+                                    <button onClick={this.onSavePhone}>
+                                    Save   
+                                    </button>
+                                {/* </ButtonUi> */}
+                            </ModalFooter>
+                    </Modal>
+                        
+
+                        {/* MODALS */}
+                        <Modal isOpen={this.state.setModalEdit} toggle={()=>this.setState({setModalEdit:false})}>
                             <ModalHeader toggle={()=>this.setState({setModalEdit:false})}>Alamat Baru</ModalHeader>
                             <ModalBody>
-                            <input className='form-control' ref={this.state.newAlamat} placeholder='Alamat'/>
+                            <input className='form-control' ref={this.state.newPhone} placeholder='Alamat'/>
                             </ModalBody>
                             <ModalFooter>
                                 {/* <ButtonUi onClick={this.onBayarClick}> */}
@@ -362,10 +418,7 @@ class Payment extends Component {
                                     </button>
                                 {/* </ButtonUi> */}
                             </ModalFooter>
-                        </Modal>
-                        
-
-                        {/* MODALS */}
+                    </Modal>
 
                     <div> 
                     <Header/>
@@ -420,11 +473,19 @@ class Payment extends Component {
                             <div className="address-dlm-1">
                                 <p>{this.state.sqlCart[0].username}(Rumah)</p>
                             </div>
+                            {
+                                this.state.sqlCart[0].phone?
 
                             <div className="address-dlm-2">
                                  <p>{this.state.sqlCart[0].phone}</p>
                             </div>
-                            
+                            :
+                            <div onClick={()=>this.onPhoneChange()} className="div-hp">
+                              Update Nomor HP          
+                            </div>
+
+                            }
+
                             <div className="address-dlm-3">
                                 <p>{this.state.sqlCart[0].alamat}</p>
                             </div>
