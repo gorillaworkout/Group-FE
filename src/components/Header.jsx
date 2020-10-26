@@ -126,7 +126,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
     localStorage.removeItem('brandterlaris')
     localStorage.removeItem('newproduct')
 
-    window.location.assign(`${HOME_URL}`)
+    window.location.assign(`${HOME_URL}`) // deploy
 
     // LogoutFunc()
     toast('Logout Berhasil', {
