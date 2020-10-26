@@ -2,10 +2,11 @@ import Axios from 'axios'
 import {API_URL, API_URL_SQL} from './../../helpers/apiUrl'
 import {toast} from 'react-toastify'  
 import {ADDCART} from './../Type'
-export const LoginFunc = (obj) => {
+export const LoginFunc = (user, cart) => {
     return {
-        type: 'LOGIN',
-        payload: obj
+        type:'LOGIN',
+        payload:user,
+        cart:cart
     }
 }
 
@@ -22,6 +23,12 @@ export const toDetail = (jenis, index)=>{
            console.log(err)
        })
 
+    }
+}
+
+export const LogoutFunc=()=>{
+    return{
+        type:'LOGOUT'
     }
 }
 

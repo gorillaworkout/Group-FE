@@ -62,8 +62,9 @@ class Login extends Component {
                     username, email, password, namaLengkap
                 })
                 .then((res)=>{
+                    console.log(res.data)
                     localStorage.setItem('id', res.data.id)
-                    this.props.LoginFunc(res.data)
+                    this.props.LoginFunc(res.data, [])
                     toast('Register berhasil!', {
                         position: "top-center",
                         autoClose: 3000,
@@ -74,7 +75,17 @@ class Login extends Component {
                         progress: undefined,
                     });
                 }).catch((err)=>{
+                    toast.error(err.response.data.message, {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
                     console.log(err)
+                    console.log(err.response)
                 })
             }else{
                 toast.error('Password tidak sesuai!', {

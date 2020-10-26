@@ -11,7 +11,7 @@ import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import {fade} from '@material-ui/core/styles';
 import {HOME_URL, API_URL, API_URL_SQL} from './../helpers/apiUrl'
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff'
-import {Link,NavLink} from 'react-router-dom'
+import {Link,NavLink, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import InputBase from '@material-ui/core/InputBase';
 import {FaUserAstronaut,FaCartArrowDown} from 'react-icons/fa'
@@ -105,6 +105,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
   const [products, setProducts] = useState([])
   const [filterProd, setFilterProd] = useState([])
   const [isOpen, setopen3] = useState(false)
+  const [tologout, setToLogout] = useState(false)
 
   useEffect (()=>{
     Axios.get(`${API_URL_SQL}/product/prodHomeAll`)
@@ -125,10 +126,9 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
     localStorage.removeItem('Products')
     localStorage.removeItem('brandterlaris')
     localStorage.removeItem('newproduct')
-
-    window.location.assign(`${HOME_URL}`) // deploy
-
-    // LogoutFunc()
+    LogoutFunc()
+    
+    // window.location.assign(`${HOME_URL}`) // deploy
     toast('Logout Berhasil', {
       position: "top-left",
       autoClose: 2000,
@@ -137,8 +137,8 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-  });
-}
+    });
+  }
  
   // const renderCart=()=>{
   //   return cart.map((val,index)=>{
@@ -234,7 +234,9 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
     localStorage.removeItem('newproduct')
     console.log('ngapus, balik ke home')
   }
+  console.log(cart)
   return (
+    
     <div className={classes.root} >
       <AppBar className={classes.warna} position='static' style={{ background: '#2E3B55' }}>
         <Toolbar>
@@ -328,7 +330,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
             isLogin?
             <>
               <Button color="inherit" onClick={(e)=>setopen2(e.currentTarget)}>
-              <StyledBadge badgeContent={cart.length ? cart.length : null} color='secondary' >
+              <StyledBadge badgeContent={cart.length ? cart.length : 0} color='secondary' >
                   <span style={{fontSize:20}}>
                     <FaCartArrowDown />
                   </span>
@@ -397,7 +399,7 @@ function ButtonAppBar({username,isLogin,role,LogoutFunc,qtyProduct,cart}) {
                   <MenuItem >My account</MenuItem>
                 </Link>
                 <Link to='/'>
-                <MenuItem onClick={logoutbtn}>Logout</MenuItem>
+                  <MenuItem onClick={logoutbtn}>Logout</MenuItem>
                 </Link>
               </Menu>
             </>
@@ -422,6 +424,6 @@ const MapstatetoProps=({Auth})=>{
     ...Auth
   }
 }
-export default connect(MapstatetoProps)(ButtonAppBar);
+export default connect(MapstatetoProps, {LogoutFunc})(ButtonAppBar);
 // export default ButtonAppBar
 
