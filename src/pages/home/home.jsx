@@ -15,7 +15,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Link} from 'react-router-dom'
 import {toDetail} from './../../redux/Actions'
 import {connect} from 'react-redux';
-import { API_URL,priceFormatter } from '../../helpers/apiUrl';
+import { API_URL,API_URL_SQL,priceFormatter } from '../../helpers/apiUrl';
 import Axios from 'axios'
 import { SignalCellularNoSimOutlined } from '@material-ui/icons';
 
@@ -36,7 +36,7 @@ class Home extends Component {
 
      componentDidMount(){
 
-       Axios.get(`http://localhost:5001/product/prodHomeAll`)
+       Axios.get(`${API_URL_SQL}/product/prodHomeAll`)
        .then((res)=>{
           console.log(res.data)
           this.setState({
@@ -47,7 +47,7 @@ class Home extends Component {
           
           // console.log(res.data)
        }).catch((err)=>{
-         alert(err.response.message)
+         alert(err)
          console.log(err)
        })
 

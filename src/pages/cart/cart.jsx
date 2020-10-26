@@ -9,6 +9,7 @@ import {AiOutlineMinusSquare} from 'react-icons/ai'
 import gorillaworkout from './../../assets/gorillaworkout.png'
 import {Link} from 'react-router-dom'   
 import Axios from 'axios'
+import { API_URL_SQL } from '../../helpers/apiUrl';
 class Cart extends Component {
     state = { 
         sqlCart:[],
@@ -23,7 +24,7 @@ class Cart extends Component {
         
         
         if(this.state.idUser!==undefined){
-            Axios.get(`http://localhost:5001/cart/getQtyById`,{     // ini masih error tanya dino bsk
+            Axios.get(`${API_URL_SQL}/cart/getQtyById`,{     // ini masih error tanya dino bsk
             params:{
                 id:idUsers,
                 productId:populerProduct.id

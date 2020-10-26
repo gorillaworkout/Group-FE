@@ -1,7 +1,7 @@
 import React, { Component,createRef } from 'react';
 import {AddcartAction} from '../../redux/Actions'
 import './Payment.css'
-import { API_URL, priceFormatter } from '../../helpers/apiUrl';
+import { API_URL, API_URL_SQL, priceFormatter } from '../../helpers/apiUrl';
 import {connect} from 'react-redux'
 import Header from './../../components/Header'
 import {RiCheckboxCircleLine} from 'react-icons/ri'
@@ -35,7 +35,7 @@ class Payment extends Component {
         var idUsers = JSON.parse(localStorage.getItem('id'))
         this.setState({idUser:idUsers})
         // Axios.get(`http://localhost:5001/cart/allQty/${this.state.idUser}`)
-        Axios.get(`http://localhost:5001/cart/allQty/${idUsers}`)      
+        Axios.get(`${API_URL_SQL}/cart/allQty/${idUsers}`)      
         .then((res)=>{
                 console.log(res.data)
                 this.setState({sqlCart:res.data})
@@ -149,7 +149,7 @@ class Payment extends Component {
                 Qty:val.Qty
             }
         })
-        Axios.post(`http://localhost:5001/cart/addNewTransactions`,{
+        Axios.post(`${API_URL_SQL}/cart/addNewTransactions`,{
             userId:this.props.id,
             tanggalPembayaran:new Date().getTime(),
             buktiPembayaran:this.state.bukti.current.value,
@@ -268,7 +268,7 @@ class Payment extends Component {
 
         }else {
             console.log('masuk pake cc')
-            Axios.post(`http://localhost:5001/cart/addNewTransactionsCC`,{
+            Axios.post(`${API_URL_SQL}/cart/addNewTransactionsCC`,{
             userId:this.props.id,
             tanggalPembayaran:new Date().getTime(),
             buktiPembayaran:this.state.cc.current.value,

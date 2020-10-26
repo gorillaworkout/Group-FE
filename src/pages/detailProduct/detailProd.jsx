@@ -78,7 +78,7 @@ class DetailProduct extends Component {
                 id:this.state.dataParse.id
             }
             // Axios.get(`http://localhost:5001/cart/getQtyById/${this.state.idUser}`) // ERROR GABISA PAKE 2 PARAMS. jangan lupa ganti querynya di backend masih 7
-            Axios.get(`http://localhost:5001/cart/getQtyById`,{     // ini masih error tanya dino bsk
+            Axios.get(`${API_URL_SQL}/cart/getQtyById`,{     // ini masih error tanya dino bsk
                 params:{
                     id:this.state.idUser,
                     productId:this.state.dataParse.id
@@ -118,7 +118,7 @@ class DetailProduct extends Component {
                         progress: undefined,
                     });
                     
-                    Axios.get(`http://localhost:5001/product/getProductById/${this.state.dataParse.id}`)
+                    Axios.get(`${API_URL_SQL}/product/getProductById/${this.state.dataParse.id}`)
                     .then((res3)=>{
                         console.log(res3.data)        
 
@@ -128,7 +128,7 @@ class DetailProduct extends Component {
                     console.log(this.state.idUser)
                     console.log(this.state.dataParse.id)
                     
-                    Axios.post(`http://localhost:5001/cart/addQty`,{
+                    Axios.post(`${API_URL_SQL}/cart/addQty`,{
                         userId:this.state.idUser,
                         productId:this.state.dataParse.id,
                         tanggalPembelian:1600683705179,
@@ -136,7 +136,7 @@ class DetailProduct extends Component {
                     })
                     .then((res4)=>{
                             console.log(res4.data) 
-                            Axios.get(`http://localhost:5001/cart/allQty/${this.state.idUser}`)
+                            Axios.get(`${API_URL_SQL}/cart/allQty/${this.state.idUser}`)
                             .then((res2)=>{
                                 this.props.AddcartAction(res2.data)
                                     console.log(res2.data)
