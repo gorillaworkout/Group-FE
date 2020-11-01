@@ -78,14 +78,14 @@ class Payment extends Component {
                                 </div>
                                 <div className="p-2 d-flex mt-3">
                                     <GiSelfLove className="ikon-gry"/>
-                                    <BsTrash className="ikon-gry"/>
+                                    <BsTrash className="ikon-gry2" onClick={this.deleteQty}/>
                                 <div className="cart-4-pm">
                                     
-                                        <AiOutlineMinusSquare className="ikon-plus"/>
+                                        <AiOutlineMinusSquare className="ikon-plus2" onClick={this.minusQty}/>
                                         <div>
                                             <p className="zero">{val.Qty}</p>
                                         </div>
-                                        <BsPlusSquare className="ikon-plus"/>
+                                        <BsPlusSquare className="ikon-plus" onClick={this.addQty}/>
                             </div>
                         </div>
                             </div>
@@ -106,6 +106,73 @@ class Payment extends Component {
     //          )
     //      })
     //  }
+     addQty=()=>{
+        // Axios.post(`http://localhost:5001/cart/changeAddress`,{
+            Axios.post(`http://localhost:5001/cart/plusQty`,{
+                userId:this.state.idUser
+            }).then((res)=>{
+                console.log(res.data)
+                toast.error(`Qty Bertambah 1`, {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                this.setState({sqlCart:res.data})
+            }).catch((err)=>{
+                console.log(err)
+            })
+     }
+
+     minusQty=()=>{
+         Axios.post(`http://localhost:5001/cart/minusQty`,{
+             userId:this.state.idUser
+         }).then((res)=>{
+             console.log(res.data[0].Qty)
+            console.log(res.data)
+            if(res.data[0].Qty ==0 || res.data[0].Qty <0){
+                console.log('masuk ke if delete minusqty')
+                toast.error(`Cart Kosong`, {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                this.deleteQty()
+            }else {
+                console.log('masuk ke else minus qty')
+                toast.error(`Qty berkurang 1`, {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                this.setState({sqlCart:res.data})
+
+            }
+         }).catch((err)=>{
+             console.log(err)
+         })
+     }
+
+     deleteQty=()=>{
+         Axios.post(`http://localhost:5001/cart/deleteQty`,{
+             userId:this.state.idUser
+         }).then((res)=>{
+            console.log(res.data)
+            this.setState({sqlCart:res.data})
+         }).catch((err)=>{
+             console.log(err)
+         })
+     }
+
+
 
      onCheckOutClick=()=>{
          this.setState({isOpen:true})

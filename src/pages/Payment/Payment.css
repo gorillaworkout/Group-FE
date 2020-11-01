@@ -14,3 +14,18 @@
     cursor: pointer;
     margin-bottom:10px;
 }
+
+.ikon-plus2{
+    font-size:28px;
+    margin-right:10px;
+    margin-left:10px;
+    cursor: pointer;
+}
+
+.ikon-gry2{
+    font-size:25px;
+    color:gray;
+    margin-left:10px;
+    margin-right:10px;
+    cursor: pointer;
+    }
