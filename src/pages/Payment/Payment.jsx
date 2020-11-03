@@ -31,7 +31,12 @@ class Payment extends Component {
         setModalEdit:false,
         setPhoneEdit:false,
         newAlamat:createRef(),
-        newPhone:createRef()
+        newPhone:createRef(),
+        setKupon:false,
+        newKupon:createRef(),
+        sqlKupon:[],
+        discount:0,
+        totalHarga:0
      }
 
      componentDidMount(){
@@ -41,12 +46,30 @@ class Payment extends Component {
         Axios.get(`http://localhost:5001/cart/allQty/${idUsers}`)      
         .then((res)=>{
                 console.log(res.data)
+                Axios.get(`http://localhost:5001/cart/getAllKupon`)
+                .then((kupon)=>{
+                    console.log(kupon.data)
+                    this.setState({sqlKupon:kupon.data})
+                }).catch((err)=>{
+                    console.log(err)
+                })
                 this.setState({sqlCart:res.data})
 
         }).catch((err)=>{
             console.log(err)
         })
 
+     }
+
+     renderKupon(){
+         return this.state.sqlKupon.map((val,index)=>{
+             return (
+                 <>
+                    <p>{val.Kupon}</p>
+
+                 </>
+             )
+         })
      }
      renderTable(){
          return this.state.sqlCart.map((val,index)=>{
@@ -184,10 +207,22 @@ class Payment extends Component {
         var total = this.state.sqlCart.reduce((total,num)=>{
             console.log(num.harga)
             console.log(num.Qty)
+            
             return total+(num.harga*num.Qty)
         },0)
+        // this.setState({totalHarga:total})
         return total
      }
+
+    //  renderAfterDiscount=()=>{
+    //     let diskon = this.state.discount
+    //     let totalHarga= this.state.totalHarga
+    //     let finalPrice= (diskon/100)*totalHarga
+    //     console.log(finalPrice)
+    //     // return finalPrice
+    //  }
+
+    
 
 
      onBayarClick=()=>{
@@ -372,6 +407,26 @@ class Payment extends Component {
         this.setState({setPhoneEdit:true})
     }
 
+    onKupon=()=>{
+        console.log('btn kupon')
+        this.setState({setKupon:true})
+    }
+
+    onSaveKupon=()=>{
+        var newKupon = this.state.newKupon.current.value
+        console.log(newKupon)
+        Axios.post(`http://localhost:5001/cart/getKuponByKupon`,{
+            Kupon:newKupon
+        }).then((res)=>{
+                console.log(res.data)
+                console.log(res.data[0].Description, 'ini hasil persen')
+                this.setState({discount:res.data[0].Description})
+        }).catch((err)=>{
+            console.log(err)
+        })
+        this.setState({setKupon:false})
+    }
+
     onSaveAddress=()=>{
         // var input = this.state.cc.current.value
         var newAlamat=this.state.newAlamat.current.value
@@ -465,6 +520,25 @@ class Payment extends Component {
                             <ModalFooter>
                                 {/* <ButtonUi onClick={this.onBayarClick}> */}
                                     <button onClick={this.onSavePhone}>
+                                    Save   
+                                    </button>
+                                {/* </ButtonUi> */}
+                            </ModalFooter>
+                    </Modal>
+
+
+                    <Modal isOpen={this.state.setKupon} toggle={()=>this.setState({setKupon:false})}>
+                            <ModalHeader toggle={()=>this.setState({setKupon:false})}>Masukan Kupon</ModalHeader>
+                            <ModalBody>
+                                <div>
+                                    <h5 >Kupon Yang Tersedia</h5>
+                                    <p>{this.renderKupon()}</p>
+                                </div>
+                            <input className='form-control' ref={this.state.newKupon} placeholder='Kupon'/>
+                            </ModalBody>
+                            <ModalFooter>
+                                {/* <ButtonUi onClick={this.onBayarClick}> */}
+                                    <button onClick={this.onSaveKupon}>
                                     Save   
                                     </button>
                                 {/* </ButtonUi> */}
@@ -579,7 +653,7 @@ class Payment extends Component {
                                                     <p>%</p>
                                                     
                                                 </div>
-                                                <div className="loading">
+                                                <div className="loading2" onClick={()=>this.onKupon()}>
                                                     <p>Makin Hemat Pakai Promo</p>
                                                 </div>
                                         </div>
