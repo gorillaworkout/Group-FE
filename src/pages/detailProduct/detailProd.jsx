@@ -69,11 +69,12 @@ class DetailProduct extends Component {
 
     sendtoCart=()=>{
         console.log(this.state.dataParse.id)
-        console.log(this.props.role)
+        console.log(this.props.cart)
         console.log(this.state.idUser)
         if(this.props.role==='admin'){
             alert('ADMIN GABOLEH BELI BGST')
         }else if (this.props.role==='user'){
+            console.log('masuk ke user')
             var data = {
                 id:this.state.dataParse.id
             }
@@ -85,12 +86,10 @@ class DetailProduct extends Component {
                 }
             })
             .then((res)=>{
-                // console.log(res.data)
+                console.log(res.data)
                 // nanti res.data dimasukin ke state
                 if(res.data.length){ // kalo si product udh ada maka hanya update qty tambah 1 
                     // alert('data udah ada. update qty +1')
-                    
-
                     Axios.post(`${API_URL_SQL}/cart/updateQtyCart`,{
                         iduser: this.state.idUser,
                         idprod: this.state.dataParse.id
@@ -235,9 +234,9 @@ class DetailProduct extends Component {
     }
 
     render() { 
-        console.log(this.state.JSON)
+        // console.log(this.state.JSON)
         console.log(this.state.dataParse) // nanti dipake
-        console.log(this.props.role) // nanti dipake
+        // console.log(this.props.role) // nanti dipake
         return ( 
             <div>
                 <Header/>

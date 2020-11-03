@@ -1,0 +1,31 @@
+.div-hp{
+    border:1px solid black;
+    height:30px;
+    width:150px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2e3b55;
+    color:white;
+    cursor: pointer;
+    margin-bottom:10px;
+}
+
+.ikon-plus2{
+    font-size:28px;
+    margin-right:10px;
+    margin-left:10px;
+    cursor: pointer;
+}
+
+.ikon-gry2{
+    font-size:25px;
+    color:gray;
+    margin-left:10px;
+    margin-right:10px;
+    cursor: pointer;
+    }
