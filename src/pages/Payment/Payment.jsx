@@ -32,7 +32,14 @@ class Payment extends Component {
         setModalEdit:false,
         setPhoneEdit:false,
         newAlamat:createRef(),
-        newPhone:createRef()
+        newPhone:createRef(),
+        setKupon:false,
+        newKupon:createRef(),
+        sqlKupon:[],
+        discount:0,
+        totalHarga:0,
+        checkKupon:false,
+        useKupon:''
      }
 
      componentDidMount(){
@@ -42,12 +49,34 @@ class Payment extends Component {
         Axios.get(`${API_URL_SQL}/cart/allQty/${idUsers}`)      
         .then((res)=>{
                 console.log(res.data)
+                Axios.get(`http://localhost:5001/cart/getAllKupon`)
+                .then((kupon)=>{
+                    console.log(kupon.data)
+                    this.setState({sqlKupon:kupon.data})
+                }).catch((err)=>{
+                    console.log(err)
+                })
                 this.setState({sqlCart:res.data})
 
         }).catch((err)=>{
             console.log(err)
         })
 
+     }
+
+     renderKupon(){
+         return this.state.sqlKupon.map((val,index)=>{
+             return (
+                 <>
+                    <tr>
+                        <td>{index+1}</td>
+                        <td>{val.Kupon}</td>
+                        <td>Diskon : {val.Description}%</td>
+                    </tr>
+                    
+                 </>
+             )
+         })
      }
      renderTable(){
          return this.state.sqlCart.map((val,index)=>{
@@ -185,10 +214,23 @@ class Payment extends Component {
         var total = this.state.sqlCart.reduce((total,num)=>{
             console.log(num.harga)
             console.log(num.Qty)
-            return total+(num.harga*num.Qty)
+            
+            return (total+(num.harga*num.Qty))
         },0)
-        return total
+        // this.setState({totalHarga:total})
+        console.log(this.state.sqlCart[0].KuponCart)
+        return total-(total*this.state.sqlCart[0].KuponCart)
      }
+
+    //  renderAfterDiscount=()=>{
+    //     let diskon = this.state.discount
+    //     let totalHarga= this.state.totalHarga
+    //     let finalPrice= (diskon/100)*totalHarga
+    //     console.log(finalPrice)
+    //     // return finalPrice
+    //  }
+
+    
 
 
      onBayarClick=()=>{
@@ -374,6 +416,38 @@ class Payment extends Component {
         this.setState({setPhoneEdit:true})
     }
 
+    onKupon=()=>{
+        console.log('btn kupon')
+        this.setState({setKupon:true})
+    }
+
+    onSaveKupon=()=>{
+        var newKupon = this.state.newKupon.current.value
+        console.log(newKupon)
+        Axios.post(`http://localhost:5001/cart/getKuponByKupon`,{
+            Kupon:newKupon,
+            userId:this.state.idUser
+        }).then((res)=>{
+                console.log(res.data)
+                console.log(res.data[0].Description, 'ini hasil persen')
+                console.log(res.data[0].Kupon,'ini idkupon line 431')
+                this.setState({sqlCart:res.data})
+                this.setState({useKupon:res.data[0].Kupon})
+        }).catch((err)=>{
+            console.log(err)
+        })
+        this.setState({setKupon:false})
+    }
+
+    checkKupon=()=>{
+        console.log('btn check coupon')
+        this.setState({checkKupon:true})
+    }
+
+    onSaveCheckKupon=()=>{
+        this.setState({checkKupon:false})
+    }
+
     onSaveAddress=()=>{
         // var input = this.state.cc.current.value
         var newAlamat=this.state.newAlamat.current.value
@@ -431,6 +505,20 @@ class Payment extends Component {
     //     // this.setState({isOpen:true})
     //     this.setState({setModalEdit:false}) 
     // }
+
+    onDeleteClick=()=>{
+        console.log('delete button')
+        Axios.post(`http://localhost:5001/cart/deleteKupon`,{
+            userId:this.state.idUser
+        }).then((res)=>{    
+            console.log(res.data)
+            console.log('berhasil cok')
+            this.setState({sqlCart:res.data})
+            this.setState({useKupon:res.data[0].Kupon})
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
     render() { 
         
         if(this.state.successful){
@@ -468,6 +556,46 @@ class Payment extends Component {
                                 {/* <ButtonUi onClick={this.onBayarClick}> */}
                                     <button onClick={this.onSavePhone}>
                                     Save   
+                                    </button>
+                                {/* </ButtonUi> */}
+                            </ModalFooter>
+                    </Modal>
+
+
+                    <Modal isOpen={this.state.setKupon} toggle={()=>this.setState({setKupon:false})}>
+                            <ModalHeader toggle={()=>this.setState({setKupon:false})}>Masukan Kupon</ModalHeader>
+                            <ModalBody>
+        
+                            <input className='form-control' ref={this.state.newKupon} placeholder='Kupon'/>
+                            </ModalBody>
+                            <ModalFooter>
+                                {/* <ButtonUi onClick={this.onBayarClick}> */}
+                                    <button onClick={this.onSaveKupon}>
+                                    Save   
+                                    </button>
+                                {/* </ButtonUi> */}
+                            </ModalFooter>
+                    </Modal>
+
+                    <Modal isOpen={this.state.checkKupon} toggle={()=>this.setState({checkKupon:false})}>
+                            <ModalHeader toggle={()=>this.setState({checkKupon:false})}>Masukan Kupon</ModalHeader>
+                            <ModalBody>
+                               <table className="kupon">
+                                   <tr>
+                                    <th>No</th>
+                                    <th>Kode</th>
+                                    <th>Description</th>
+                                   </tr>
+
+                                        {this.renderKupon()}  
+                                   
+                               </table>
+                            {/* <input className='form-control' ref={this.state.newKupon} placeholder='Kupon'/> */}
+                            </ModalBody>
+                            <ModalFooter>
+                                {/* <ButtonUi onClick={this.onBayarClick}> */}
+                                    <button onClick={this.onSaveCheckKupon}>
+                                    Close   
                                     </button>
                                 {/* </ButtonUi> */}
                             </ModalFooter>
@@ -581,14 +709,32 @@ class Payment extends Component {
                                                     <p>%</p>
                                                     
                                                 </div>
-                                                <div className="loading">
-                                                    <p>Makin Hemat Pakai Promo</p>
+                                                <div className="loading2" onClick={()=>this.onKupon()}>
+                                                    <p>Gunakan Promo</p>
+                                                    
+                                                </div>
+                                                <div className="loading3" onClick={()=>this.checkKupon()}>
+                                                    <p>Lihat Promo</p>
                                                 </div>
                                         </div>
                                     </div>
-                                    <div className="cart-kanan-bawah">
+                                    <div className="cart-kanan-bawah2">
                                             <div className="cart-kanan-bawah-ats">
                                                     <p>Ringkasan Belanja</p>
+                                            </div>
+                                            <div>
+                                                <p>Promo Yang Di Gunakan</p>
+                                                {
+                                                    this.state.useKupon?
+                                                    <>
+                                                     <div style={{display:'flex',justifyContent:'space-between'}}>
+                                                        <p>{this.state.useKupon}</p>   
+                                                        <button style={{marginRight:'5px'}} onClick={this.onDeleteClick}>Delete</button>                             
+                                                    </div>
+                                                    </>
+                                                    :
+                                                    null
+                                                }
                                             </div>
                                             <div className="cart-kanan-bawah-tng d-flex">
                                                     <p className="mr-auto">Total Harga ({this.props.cart.length} Product)</p>
