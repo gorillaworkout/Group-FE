@@ -31,7 +31,7 @@
     }
 
     .loading2{
-        width:80%;
+        width:50%;
         height:30px;
         /* background-color: blue; */
         margin-left:10px;
@@ -40,4 +40,33 @@
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
         cursor: pointer;
+        border: 1px solid black;
+        display:flex;
+        justify-content: center;
+        
+    }
+    .loading3{
+        width:50%;
+        height:30px;
+        /* background-color: blue; */
+        margin-left:10px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        cursor: pointer;
+        border: 1px solid black;
+        display:flex;
+        justify-content: center;
+        margin-right: 5px;
+    }
+
+    .kupon{
+        border:1px solid gray;
+        width:100%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+
     }

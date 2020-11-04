@@ -36,7 +36,8 @@ class Payment extends Component {
         newKupon:createRef(),
         sqlKupon:[],
         discount:0,
-        totalHarga:0
+        totalHarga:0,
+        checkKupon:false
      }
 
      componentDidMount(){
@@ -65,8 +66,12 @@ class Payment extends Component {
          return this.state.sqlKupon.map((val,index)=>{
              return (
                  <>
-                    <p>{val.Kupon}</p>
-
+                    <tr>
+                        <td>{index+1}</td>
+                        <td>{val.Kupon}</td>
+                        <td>Diskon : {val.Description}%</td>
+                    </tr>
+                    
                  </>
              )
          })
@@ -427,6 +432,15 @@ class Payment extends Component {
         this.setState({setKupon:false})
     }
 
+    checkKupon=()=>{
+        console.log('btn check coupon')
+        this.setState({checkKupon:true})
+    }
+
+    onSaveCheckKupon=()=>{
+        this.setState({checkKupon:false})
+    }
+
     onSaveAddress=()=>{
         // var input = this.state.cc.current.value
         var newAlamat=this.state.newAlamat.current.value
@@ -530,16 +544,37 @@ class Payment extends Component {
                     <Modal isOpen={this.state.setKupon} toggle={()=>this.setState({setKupon:false})}>
                             <ModalHeader toggle={()=>this.setState({setKupon:false})}>Masukan Kupon</ModalHeader>
                             <ModalBody>
-                                <div>
-                                    <h5 >Kupon Yang Tersedia</h5>
-                                    <p>{this.renderKupon()}</p>
-                                </div>
+        
                             <input className='form-control' ref={this.state.newKupon} placeholder='Kupon'/>
                             </ModalBody>
                             <ModalFooter>
                                 {/* <ButtonUi onClick={this.onBayarClick}> */}
                                     <button onClick={this.onSaveKupon}>
                                     Save   
+                                    </button>
+                                {/* </ButtonUi> */}
+                            </ModalFooter>
+                    </Modal>
+
+                    <Modal isOpen={this.state.checkKupon} toggle={()=>this.setState({checkKupon:false})}>
+                            <ModalHeader toggle={()=>this.setState({checkKupon:false})}>Masukan Kupon</ModalHeader>
+                            <ModalBody>
+                               <table className="kupon">
+                                   <tr>
+                                    <th>No</th>
+                                    <th>Kode</th>
+                                    <th>Description</th>
+                                   </tr>
+
+                                        {this.renderKupon()}  
+                                   
+                               </table>
+                            {/* <input className='form-control' ref={this.state.newKupon} placeholder='Kupon'/> */}
+                            </ModalBody>
+                            <ModalFooter>
+                                {/* <ButtonUi onClick={this.onBayarClick}> */}
+                                    <button onClick={this.onSaveCheckKupon}>
+                                    Close   
                                     </button>
                                 {/* </ButtonUi> */}
                             </ModalFooter>
@@ -654,7 +689,10 @@ class Payment extends Component {
                                                     
                                                 </div>
                                                 <div className="loading2" onClick={()=>this.onKupon()}>
-                                                    <p>Makin Hemat Pakai Promo</p>
+                                                    <p> Pakai Promo</p>
+                                                </div>
+                                                <div className="loading3" onClick={()=>this.checkKupon()}>
+                                                    <p>Lihat Promo</p>
                                                 </div>
                                         </div>
                                     </div>
