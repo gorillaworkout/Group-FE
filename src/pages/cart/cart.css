@@ -126,7 +126,7 @@
 .cart-dalem-kanan{
     margin-top:50px;
     width:40%;
-    height:650px;
+    height:800px;
     /* background-color:pink; */
     margin-right:100px;
 }
@@ -216,7 +216,7 @@ cursor: pointer;
     /* background-color:yellow; */
     width:90%;
     border:2px solid gray;
-    height:280px;
+    height:350px;
     margin-top:20px;
     margin-left:50px;
     border-top-left-radius: 5px;

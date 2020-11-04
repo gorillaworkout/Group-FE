@@ -37,7 +37,8 @@ class Payment extends Component {
         sqlKupon:[],
         discount:0,
         totalHarga:0,
-        checkKupon:false
+        checkKupon:false,
+        useKupon:''
      }
 
      componentDidMount(){
@@ -213,10 +214,11 @@ class Payment extends Component {
             console.log(num.harga)
             console.log(num.Qty)
             
-            return total+(num.harga*num.Qty)
+            return (total+(num.harga*num.Qty))
         },0)
         // this.setState({totalHarga:total})
-        return total
+        console.log(this.state.sqlCart[0].KuponCart)
+        return total-(total*this.state.sqlCart[0].KuponCart)
      }
 
     //  renderAfterDiscount=()=>{
@@ -421,11 +423,14 @@ class Payment extends Component {
         var newKupon = this.state.newKupon.current.value
         console.log(newKupon)
         Axios.post(`http://localhost:5001/cart/getKuponByKupon`,{
-            Kupon:newKupon
+            Kupon:newKupon,
+            userId:this.state.idUser
         }).then((res)=>{
                 console.log(res.data)
                 console.log(res.data[0].Description, 'ini hasil persen')
-                this.setState({discount:res.data[0].Description})
+                console.log(res.data[0].Kupon,'ini idkupon line 431')
+                this.setState({sqlCart:res.data})
+                this.setState({useKupon:res.data[0].Kupon})
         }).catch((err)=>{
             console.log(err)
         })
@@ -498,6 +503,20 @@ class Payment extends Component {
     //     // this.setState({isOpen:true})
     //     this.setState({setModalEdit:false}) 
     // }
+
+    onDeleteClick=()=>{
+        console.log('delete button')
+        Axios.post(`http://localhost:5001/cart/deleteKupon`,{
+            userId:this.state.idUser
+        }).then((res)=>{    
+            console.log(res.data)
+            console.log('berhasil cok')
+            this.setState({sqlCart:res.data})
+            this.setState({useKupon:res.data[0].Kupon})
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
     render() { 
         
         if(this.state.successful){
@@ -689,16 +708,31 @@ class Payment extends Component {
                                                     
                                                 </div>
                                                 <div className="loading2" onClick={()=>this.onKupon()}>
-                                                    <p> Pakai Promo</p>
+                                                    <p>Gunakan Promo</p>
+                                                    
                                                 </div>
                                                 <div className="loading3" onClick={()=>this.checkKupon()}>
                                                     <p>Lihat Promo</p>
                                                 </div>
                                         </div>
                                     </div>
-                                    <div className="cart-kanan-bawah">
+                                    <div className="cart-kanan-bawah2">
                                             <div className="cart-kanan-bawah-ats">
                                                     <p>Ringkasan Belanja</p>
+                                            </div>
+                                            <div>
+                                                <p>Promo Yang Di Gunakan</p>
+                                                {
+                                                    this.state.useKupon?
+                                                    <>
+                                                     <div style={{display:'flex',justifyContent:'space-between'}}>
+                                                        <p>{this.state.useKupon}</p>   
+                                                        <button style={{marginRight:'5px'}} onClick={this.onDeleteClick}>Delete</button>                             
+                                                    </div>
+                                                    </>
+                                                    :
+                                                    null
+                                                }
                                             </div>
                                             <div className="cart-kanan-bawah-tng d-flex">
                                                     <p className="mr-auto">Total Harga ({this.props.cart.length} Product)</p>
